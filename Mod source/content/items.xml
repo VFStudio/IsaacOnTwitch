@@ -1,0 +1,14 @@
+<items gfxroot="gfx/items/" version="1">
+  <passive cache="damage" description="Hey, Kappa Kappa, hey!" gfx="Collectibles_Kappa.png" name="Kappa" />
+  <passive coins="15" description="Rare, but Kappa" gfx="Collectibles_GoldenKappa.png" name="Golden Kappa" />
+  <passive description="Not what you expect" gfx="Collectibles_NotLikeThis.png" name="Not Like This" />
+  <passive description="Join to us or hide your ass" gfx="Collectibles_KappaPride.png" name="Kappa Pride" />
+  <passive description="Beam!" gfx="Collectibles_FutureMan.png" name="Future Man" />
+  <passive cache="all" description="Curse energy" gfx="Collectibles_CurseLit.png" name="Curse Lit" />
+  <passive cache="speed" description="In source quality!" gfx="Collectibles_TropPunch.png" name="AMP Trop Punch" />
+  <passive description="YEAH!" gfx="Collectibles_Kreygasm.png" name="Kreygasm" />
+  <active maxcharges="6" description="On the attack!" gfx="Collectibles_TwitchRaid.png" name="Twitch Raid" />
+  <active maxcharges="1" description="Take a photo" gfx="Collectibles_TTours.png" name="TTours" />
+  <active maxcharges="3" description="Decline it" gfx="Collectibles_VoteNay.png" name="Vote Nay" />
+  <active maxcharges="6" description="Accept it" gfx="Collectibles_VoteYea.png" name="Vote Yea" />
+</items>
