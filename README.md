@@ -1,37 +1,37 @@
-## Welcome to GitHub Pages
+## Welome to Isaac On Twitch Mod Page
+![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/00.png)
+This mod allows your viewers to take part in the game as well as adding new items to improve your gaming experience. Enjoy!
 
-You can use the [editor on GitHub](https://github.com/VFStudio/IsaacOnTwitch/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Features:
 
-### Markdown
+- Now your viewers be vote for items, pickups and **special events**.
+![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/02.png)
+- Adding new and unique items, based on Twitch emoticons.
+![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/03.png)
+- New subscribers to join to your game as Brother Bobby!
+![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/04.png)
+- Bits will help you in your run
+![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/05.png)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
+### How to run:
+**WARNING! For correct working you need launch Isaac with --luadebug option!**
 
-# Header 1
-## Header 2
-### Header 3
+- Download [last version](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.1.zip) and unzip it in your mod folder.
+- Run TwitchToIsaac.exe (Placed in %modfolder%/IsaacOnTwitch/TwitchToIsaac). It need for create bridge between Isaac and Twitch.
+- Enter your channel name and click to "Connect".
+- Run Isaac (Don't forget, with --luadebug) and click "RUN!" in programm
+- Start new game!
 
-- Bulleted
-- List
+### More screenshots
 
-1. Numbered
-2. List
+![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/01.png)
+![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/06.png)
 
-**Bold** and _Italic_ and `Code` text
+### Changelog
 
-[Link](url) and ![Image](src)
-```
+_Nothing here yet_
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/VFStudio/IsaacOnTwitch/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### Links
+[Download v1.1](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.1.zip)
