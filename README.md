@@ -18,7 +18,6 @@ This mod allows your viewers to take part in the game as well as adds new items 
 - Bits will help you in your run
 
 
-
 ### How to run:
 **WARNING! For correct work you need launch Isaac with `--luadebug` option!**
 
