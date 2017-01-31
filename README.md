@@ -7,10 +7,13 @@ This mod allows your viewers to take part in the game as well as adds new items 
 
 ![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/02.png)
 - Now your viewers are able to vote for items, pickups and **special events**.
+
 ![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/03.png)
 - Adds new and unique items, based on Twitch emoticons.
+
 ![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/04.png)
 - New subscribers can join to your game as Brother Bobby!
+
 ![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/05.png)
 - Bits will help you in your run
 
