@@ -1,0 +1,72 @@
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\obj\Debug\TwitchToIsaac.csprojResolveAssemblyReference.cache
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\obj\Debug\MainWindow.g.cs
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\obj\Debug\App.g.cs
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\obj\Debug\TwithToIsaac_MarkupCompile.cache
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\obj\Debug\TwithToIsaac_MarkupCompile.lref
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\bin\Debug\TwithToIsaac.exe.config
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\bin\Debug\TwithToIsaac.exe
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\bin\Debug\TwithToIsaac.pdb
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\bin\Debug\MaterialDesignColors.dll
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\bin\Debug\MaterialDesignThemes.Wpf.dll
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\bin\Debug\Newtonsoft.Json.dll
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\bin\Debug\TwitchLib.dll
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\bin\Debug\WebSocket4Net.dll
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\bin\Debug\MaterialDesignThemes.Wpf.pdb
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\bin\Debug\MaterialDesignThemes.Wpf.xml
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\bin\Debug\Newtonsoft.Json.xml
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\bin\Debug\TwitchLib.xml
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\obj\Debug\App.baml
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\obj\Debug\MainWindow.baml
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\obj\Debug\TwithToIsaac.g.resources
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\obj\Debug\TwithToIsaac.Properties.Resources.resources
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\obj\Debug\TwitchToIsaac.csproj.GenerateResource.Cache
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\obj\Debug\TwithToIsaac.exe
+D:\Dev\FastSolution\TwithToIsaac\TwithToIsaac\obj\Debug\TwithToIsaac.pdb
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\bin\Debug\TwithToIsaac.exe.config
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\TwithToIsaac.exe
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\TwithToIsaac.pdb
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\bin\Debug\TwithToIsaac.exe
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\bin\Debug\TwithToIsaac.pdb
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\bin\Debug\MaterialDesignColors.dll
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\bin\Debug\MaterialDesignThemes.Wpf.dll
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\bin\Debug\Newtonsoft.Json.dll
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\bin\Debug\TwitchLib.dll
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\bin\Debug\WebSocket4Net.dll
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\bin\Debug\MaterialDesignThemes.Wpf.pdb
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\bin\Debug\MaterialDesignThemes.Wpf.xml
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\bin\Debug\Newtonsoft.Json.xml
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\bin\Debug\TwitchLib.xml
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\TwitchToIsaac.csprojResolveAssemblyReference.cache
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\MainWindow.g.cs
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\App.g.cs
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\TwithToIsaac_MarkupCompile.cache
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\TwithToIsaac_MarkupCompile.lref
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\App.baml
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\MainWindow.baml
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\TwithToIsaac.g.resources
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\TwithToIsaac.Properties.Resources.resources
+D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\TwitchToIsaac.csproj.GenerateResource.Cache
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\TwitсhToIsaac.exe.config
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitchToIsaac.csprojResolveAssemblyReference.cache
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\MainWindow.g.cs
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\App.g.cs
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitсhToIsaac_MarkupCompile.cache
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitсhToIsaac_MarkupCompile.lref
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\TwitсhToIsaac.exe
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\TwitсhToIsaac.pdb
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\MaterialDesignColors.dll
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\MaterialDesignThemes.Wpf.dll
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\Newtonsoft.Json.dll
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\TwitchLib.dll
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\WebSocket4Net.dll
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\MaterialDesignThemes.Wpf.pdb
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\MaterialDesignThemes.Wpf.xml
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\Newtonsoft.Json.xml
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\TwitchLib.xml
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\App.baml
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\MainWindow.baml
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitсhToIsaac.g.resources
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitchToIsaac.csproj.GenerateResource.Cache
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitсhToIsaac.exe
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitсhToIsaac.pdb
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitchToIsaac.Properties.Resources.resources

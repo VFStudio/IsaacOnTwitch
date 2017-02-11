@@ -7,8 +7,15 @@
   <passive cache="all" description="Curse energy" gfx="Collectibles_CurseLit.png" name="Curse Lit" />
   <passive cache="speed" description="In source quality!" gfx="Collectibles_TropPunch.png" name="AMP Trop Punch" />
   <passive description="YEAH!" gfx="Collectibles_Kreygasm.png" name="Kreygasm" />
+  
   <active maxcharges="6" description="On the attack!" gfx="Collectibles_TwitchRaid.png" name="Twitch Raid" />
   <active maxcharges="1" description="Take a photo" gfx="Collectibles_TTours.png" name="TTours" />
   <active maxcharges="3" description="Decline it" gfx="Collectibles_VoteNay.png" name="Vote Nay" />
   <active maxcharges="6" description="Accept it" gfx="Collectibles_VoteYea.png" name="Vote Yea" />
+  
+  <familiar description="Your fan" gfx="Collectibles_Subscriber.png" name="Subscriber" />
+  <familiar description="Spam not allowed!" gfx="Collectibles_NightBot.png" name="Nightbot" />
+  <familiar description="Fie, it's stinky" gfx="Collectibles_StinkyCheese.png" name="Stinky Cheese" />
+  
+  <active maxcharges="0" description="EEEEEEDMUUUUND!!!" gfx="Collectibles_Debug.png" name="DEBUG ITEM" />
 </items>

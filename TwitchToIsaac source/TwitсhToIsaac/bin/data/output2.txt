@@ -1,0 +1,1 @@
+{"stats":{"luck":1.0},"pause":false,"runcount":0}

@@ -1,0 +1,1 @@
+{"interruptHash":0.0618896484375,"interrupt":0}

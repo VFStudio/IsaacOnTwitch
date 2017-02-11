@@ -1,0 +1,1 @@
+{"etype":0,"secondtext":"","emode":2,"text":"Run TwitchToIsaac for start!","hash":0.0}

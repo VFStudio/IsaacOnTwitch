@@ -1,0 +1,185 @@
+﻿<Window x:Class="TwithToIsaac.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:TwithToIsaac"
+        mc:Ignorable="d"
+        Title="TwitchToIsaac" Height="520" Width="615"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+    <Grid>
+        <DockPanel x:Name="menu" Margin="0,35,0,0" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <Button x:Name="B_main" Content="Main" IsEnabled="False" Click="ChangeTabButton_click"/>
+            <Button x:Name="B_channel" Content="Channel" Margin="10,0,0,0" Click="ChangeTabButton_click"/>
+            <Button x:Name="B_chances" Content="Chances" Margin="10,0,0,0" Click="ChangeTabButton_click"/>
+            <Button x:Name="B_render" Content="Render" Margin="10,0,0,0" Click="ChangeTabButton_click"/>
+            <Button x:Name="B_about" Content="About" Margin="10,0,0,0" Click="ChangeTabButton_click"/>
+        </DockPanel>
+        <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Center" Margin="0" FontSize="24" VerticalAlignment="Top">Twitch To Isaac</TextBlock>
+        <!--Main Card-->
+        <materialDesign:Card x:Name="Card_Main" VerticalAlignment="Bottom" Margin="5,0,5,5" Height="381" Padding="10">
+            <DockPanel LastChildFill="False" Margin="0">
+                <StackPanel Width="200">
+                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" >Log</TextBlock>
+                    <ListView x:Name="LBMain_log" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" BorderThickness="0" Height="340" FontSize="11" Width="200" IsSynchronizedWithCurrentItem="False" >
+                        <TextBlock TextWrapping="WrapWithOverflow" Margin="0,0,0,5">Started Twitch To Isaac</TextBlock>
+                    </ListView>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Right" Width="380">
+                    <StackPanel VerticalAlignment="Top" Height="100">
+                        <TextBlock x:Name="LMain_mainstatus" Style="{DynamicResource MaterialDesignTitleTextBlock}" FontSize="16" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" >Enter channel name (go to Channel tab)</TextBlock>
+                        <Button x:Name="BMain_run" Content="Run!" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10,0,0" IsEnabled="False" Click="BMain_run_Click"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Margin="10,10,10,0">
+                        <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,0,0,10" >Status</TextBlock>
+                        <DockPanel Margin="0" HorizontalAlignment="Left">
+                            <StackPanel Width="150">
+                                <Label>Game is paused:</Label>
+                                <Label>Twitch chat:</Label>
+                                <Label>Active viewers:</Label>
+                                <Label>New subs:</Label>
+                                <Label>Number of runs:</Label>
+                            </StackPanel>
+                            <StackPanel Width="175">
+                                <Label x:Name="LMain_ispaused" FontWeight="Bold" >Unknown</Label>
+                                <Label x:Name="LMain_chatstat" FontWeight="Bold">Disconnected</Label>
+                                <Label x:Name="LMain_viewers" FontWeight="Bold">Unknown</Label>
+                                <Label x:Name="LMain_newsubs" FontWeight="Bold">0</Label>
+                                <Label x:Name="LMain_runcount" FontWeight="Bold">0</Label>
+                            </StackPanel>
+                        </DockPanel>
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+
+        </materialDesign:Card>
+
+        <!--Channel Card-->
+        <materialDesign:Card x:Name="Card_Channel" VerticalAlignment="Bottom" Margin="5,0,5,5" Height="381" Padding="10" Visibility="Hidden">
+
+            <StackPanel VerticalAlignment="Top" Margin="0,10,0,0">
+                <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,0,0,5" >Channel</TextBlock>
+                <TextBox x:Name="TChannel_name" Style="{DynamicResource MaterialDesignTextBox}" materialDesign:HintAssist.Hint="Channel name" Margin="20,0,20,10" FontSize="13"/>
+                <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,10,0,5" >Time for vote (seconds)</TextBlock>
+                <TextBox x:Name="TChannel_votetime" Style="{DynamicResource MaterialDesignTextBox}" Text="70" materialDesign:HintAssist.Hint="Vote time" Margin="0,0,0,10" FontSize="13" HorizontalAlignment="Center" Width="120"/>
+                <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,10,0,5" >Delay between votes (seconds)</TextBlock>
+                <TextBox x:Name="TChannel_delaytime" Style="{DynamicResource MaterialDesignTextBox}" Text="15" materialDesign:HintAssist.Hint="Delay time" Margin="0,0,0,10" FontSize="13" HorizontalAlignment="Center" Width="120"/>
+                <StackPanel HorizontalAlignment="Center">
+                    <CheckBox x:Name="CChannel_subs"  Content="Subs appear in game" HorizontalAlignment="Left" IsChecked="True" Margin="0,10,0,2" FontSize="16"/>
+                    <CheckBox x:Name="CChannel_bits"  Content="Bits appear in game" HorizontalAlignment="Left" IsChecked="True" Margin="0,5,0,2" FontSize="16"/>
+                </StackPanel>
+                <Button x:Name="BChannel_save" Content="Save" HorizontalAlignment="Center" Margin="0,25,0,0" Click="BChannel_save_Click"/>
+                <TextBlock FontSize="12" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,5,0,0" >The settings take effect immediately, even during game</TextBlock>
+            </StackPanel>
+
+        </materialDesign:Card>
+
+        <!--Chances Card-->
+        <materialDesign:Card x:Name="Card_Chances" VerticalAlignment="Bottom" Margin="5,0,5,5" Height="381" Padding="10" Visibility="Hidden">
+
+            <StackPanel VerticalAlignment="Top" Margin="0,10,0,0">
+                <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,0,0,5" >Vote</TextBlock>
+                <DockPanel Margin="30,0">
+                    <StackPanel>
+                        <CheckBox x:Name="CChances_events"  Content="Events" HorizontalAlignment="Left" IsChecked="True" Margin="0,0,0,2" FontSize="16" Click="CChances_events_Click"/>
+                        <CheckBox x:Name="CChances_items"  Content="Items" HorizontalAlignment="Left" IsChecked="True" Margin="0,5,0,2" FontSize="16" Click="CChances_items_Click"/>
+                        <CheckBox x:Name="CChances_trinkets"  Content="Trinkets" HorizontalAlignment="Left" IsChecked="True" Margin="0,5,0,2" FontSize="16" Click="CChances_trinkets_Click"/>
+                        <CheckBox x:Name="CChances_hearts"  Content="Hearts" HorizontalAlignment="Left" IsChecked="True" Margin="0,5,0,2" FontSize="16" Click="CChances_hearts_Click"/>
+                        <CheckBox x:Name="CChances_pickups"  Content="Pickups" HorizontalAlignment="Left" IsChecked="True" Margin="0,5,0,2" FontSize="16" Click="CChances_pickups_Click"/>
+                        <CheckBox x:Name="CChances_companions"  Content="Flies/Spiders" HorizontalAlignment="Left" IsChecked="True" Margin="0,5,0,2" FontSize="16" Click="CChances_companions_Click"/>
+                        <CheckBox x:Name="CChances_pockets"  Content="Cards and etc." HorizontalAlignment="Left" IsChecked="True" Margin="0,5,0,2" FontSize="16" Click="CChances_pockets_Click"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,0,0" Width="260" HorizontalAlignment="Left">
+                        <Slider x:Name="SChances_events" SmallChange="1" Height="24" Value="6" Minimum="1" ValueChanged="SChances_events_ValueChanged" />
+                        <Slider x:Name="SChances_items" SmallChange="1" Height="24" Margin="0,5,0,0" Value="2" Minimum="1" ValueChanged="SChances_items_ValueChanged" />
+                        <Slider x:Name="SChances_trinkets" SmallChange="1" Height="24" Margin="0,5,0,0" Value="1" Minimum="1" ValueChanged="SChances_trinkets_ValueChanged" />
+                        <Slider x:Name="SChances_hearts" SmallChange="1" Height="24" Margin="0,5,0,0" Value="3" Minimum="1" ValueChanged="SChances_hearts_ValueChanged" />
+                        <Slider x:Name="SChances_pickups" SmallChange="1" Height="24" Margin="0,5,0,0" Value="4" Minimum="1" ValueChanged="SChances_pickups_ValueChanged" />
+                        <Slider x:Name="SChances_companions" SmallChange="1" Height="24" Margin="0,5,0,0" Value="4" Minimum="1" ValueChanged="SChances_companions_ValueChanged" />
+                        <Slider x:Name="SChances_pockets" SmallChange="1" Height="24" Margin="0,5,0,0" Value="4" Minimum="1" ValueChanged="SChances_pockets_ValueChanged" />
+                    </StackPanel>
+                    <StackPanel Margin="10,0,0,0" HorizontalAlignment="Left">
+                        <Label x:Name="LChances_events" FontSize="16" Padding="0" Height="23">6</Label>
+                        <Label x:Name="LChances_items" FontSize="16" Padding="0" Height="23" VerticalContentAlignment="Center" Margin="0,5,0,0">2</Label>
+                        <Label x:Name="LChances_trinkets" FontSize="16" Padding="0" Height="23" VerticalContentAlignment="Center" Margin="0,5,0,0">1</Label>
+                        <Label x:Name="LChances_hearts" FontSize="16" Padding="0" Height="23" VerticalContentAlignment="Center" Margin="0,5,0,0">3</Label>
+                        <Label x:Name="LChances_pickups" FontSize="16" Padding="0" Height="23" VerticalContentAlignment="Center" Margin="0,5,0,0">4</Label>
+                        <Label x:Name="LChances_companions" FontSize="16" Padding="0" Height="23" VerticalContentAlignment="Center" Margin="0,5,0,0">4</Label>
+                        <Label x:Name="LChances_pockets" FontSize="16" Padding="0" Height="23" VerticalContentAlignment="Center" Margin="0,5,0,0">4</Label>
+                    </StackPanel>
+
+                </DockPanel>
+                <Button x:Name="BChances_save" Content="Save" HorizontalAlignment="Center" Margin="0,68,0,0" Click="BChances_save_Click"/>
+                <TextBlock FontSize="12" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,5,0,0" >The settings take effect immediately, even during game</TextBlock>
+            </StackPanel>
+
+        </materialDesign:Card>
+
+        <!--Render Card-->
+        <materialDesign:Card x:Name="Card_Render" VerticalAlignment="Bottom" Margin="5,0,5,5" Height="381" Padding="10" Visibility="Hidden">
+
+            <StackPanel VerticalAlignment="Top" Margin="0">
+                <Border Width="315" Height="195" BorderThickness="2" BorderBrush="White">
+                    <Grid>
+                        <Label x:Name="LRender_firstline" FontSize="6" Margin="11,172,0,0" Padding="0" Height="10" HorizontalAlignment="Left" VerticalAlignment="Top">First line first line first line</Label>
+                        <Label x:Name="LRender_secondline" FontSize="6" Padding="0" Height="10" Margin="11,184,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">Second line second line second line second line</Label>
+                    </Grid>
+                </Border>
+                
+                <DockPanel HorizontalAlignment="Center" Margin="0,15,0,0" Width="385">
+                    <Label  VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,0,12,0">First line</Label>
+                    <Label Margin="18,0,5,0">X</Label>
+                    <TextBox x:Name="TRender_firstX" Style="{DynamicResource MaterialDesignTextBox}" Text="16" FontSize="13" HorizontalAlignment="Left" Width="65" TextChanged="TRender_first_TextChanged" PreviewTextInput="NumberValidationTextBox"/>
+                    <Label Margin="25,0,5,0">Y</Label>
+                    <TextBox x:Name="TRender_firstY" Style="{DynamicResource MaterialDesignTextBox}" Text="241" FontSize="13" HorizontalAlignment="Left" Width="65" TextChanged="TRender_first_TextChanged" PreviewTextInput="NumberValidationTextBox"/>
+                    <Button x:Name="BRender_resetFirstLine" Content="Reset" HorizontalAlignment="Center" Height="24" Margin="20,0,0,0" Width="70" Click="BRender_resetFirstLine_Click"/>
+                </DockPanel>
+                <DockPanel HorizontalAlignment="Center" Margin="0,10,0,0">
+                    <Label  VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0">Second line</Label>
+                    <Label Margin="0,0,5,0">X</Label>
+                    <TextBox x:Name="TRender_secondX" Style="{DynamicResource MaterialDesignTextBox}" Text="16" FontSize="13" HorizontalAlignment="Left" Width="65" PreviewTextInput="NumberValidationTextBox" TextChanged="TRender_second_TextChanged"/>
+                    <Label Margin="25,0,5,0">Y</Label>
+                    <TextBox x:Name="TRender_secondY" Style="{DynamicResource MaterialDesignTextBox}" Text="256" FontSize="13" HorizontalAlignment="Left" Width="65" PreviewTextInput="NumberValidationTextBox" TextChanged="TRender_second_TextChanged"/>
+                    <Button x:Name="BRender_resetSecondLine" Content="Reset" HorizontalAlignment="Center" Height="24" Margin="25,0,0,0" Width="70" Click="BRender_resetSecondLine_Click"/>
+                </DockPanel>
+                
+                <Button x:Name="BRender_save" Content="Save" HorizontalAlignment="Center" Margin="0,28,0,0" Click="BRender_save_Click"/>
+                <TextBlock FontSize="12" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,5,0,0" >The settings take effect immediately, even during game</TextBlock>
+            </StackPanel>
+
+        </materialDesign:Card>
+
+        <!--About Card-->
+        <materialDesign:Card x:Name="Card_About" VerticalAlignment="Bottom" Margin="5,0,5,5" Height="381" Padding="10" Visibility="Hidden">
+
+            <StackPanel VerticalAlignment="Top" Margin="10">
+                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="18" VerticalAlignment="Top" Padding="0">Isaac On Twitch v1.2 - Bleed Purple Update</TextBlock>
+
+                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="0" FontSize="16" VerticalAlignment="Top">Mod links</TextBlock>
+                <DockPanel Margin="0,5,0,0">
+                    <Button x:Name="BLinks_modpage" HorizontalAlignment="Left" Height="26" Click="BLinks_modpage_Click">Mod page</Button>
+                    <Button x:Name="BLink_feedback" HorizontalAlignment="Left" Height="26" Margin="10,0,0,0" Click="BLink_feedback_Click">Feedback</Button>
+                </DockPanel>
+                <DockPanel Margin="0,15,0,0">
+                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="0" FontSize="16" VerticalAlignment="Top">Author:</TextBlock>
+                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="20,0,0,0" FontSize="16" VerticalAlignment="Top">Evstafiev Yury</TextBlock>
+                </DockPanel>
+                <DockPanel Margin="0,5,0,0">
+                    <Button x:Name="BLink_authorReddit" HorizontalAlignment="Left" Height="26" Click="BLink_authorReddit_Click">Reddit</Button>
+                    <Button x:Name="BLink_authorVk" HorizontalAlignment="Left" Height="26" Margin="10,0,0,0" Click="BLink_authorVk_Click">Vk</Button>
+                    <Button x:Name="BLink_authorFacebook" HorizontalAlignment="Left" Height="26" Margin="10,0,0,0" Click="BLink_authorFacebook_Click">Facebook</Button>
+                </DockPanel>
+            </StackPanel>
+
+        </materialDesign:Card>
+
+    </Grid>
+
+</Window>
