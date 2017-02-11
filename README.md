@@ -44,29 +44,48 @@ This mod allows your viewers to take part in the game as well as adds new items 
 **11.02.2017 - 1.2 Bleed Purple Update**
 
 __Mod Features:__
+
 - New heart type added: Twitch Heart.
+
 - Bits appear in your game. Literally. Also, they apply a temporary effect on the character. The more bits - the longer effect.
+
 - Subscribers now have their own familiar.
+
 - New room type added: Twitch Room. The majority of new items now appear here.
+
 - Some events last longer than one room now.
+
 - Some events have sound effects now.
+
 - Some events added.
+
 - Some old events redesigned.
+
 - Some new items added.
+
 - Pick-ups' polls are luck-dependent now.
 
 __Program Features:__
+
 - Added ability to adjust poll types.
+
 - Added ability to enable/disable subscribers and bits in-game appearance.
+
 - Added ability to customize text position on game screen.
+
 - Improved IO-operations.
 
 __Bugfixes:__
+
 - Wrong subscribers' nicknames incorrect in-game display fixed.
+
 - Poll percentages use alternative math no more.
+
 - Some events fixed.
+
 - Poll timer doesn't decrease while the game is on pause.
 
 ### Links
 [Download v1.2 Bleed Purple Update](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.2.zip)
+
 [Download v1.1](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.1.zip)
