@@ -26,7 +26,7 @@ This mod allows your viewers to take part in the game as well as adds new items 
 ### How to run:
 **WARNING! For correct work you need launch Isaac with `--luadebug` option!**
 
-- Download [last version](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.2.zip) and unzip it in your mod folder.
+- Download [last version](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.2.1.zip) and unzip it in your mod folder.
 - Run TwitchToIsaac.exe (Placed in %modfolder%/IsaacOnTwitch/TwitchToIsaac). It's required to create bridge between Isaac and Twitch.
 - Enter name of your channel and click to "Save".
 - Run Isaac (Don't forget, with `--luadebug`) and click "Run!" in program
@@ -104,6 +104,8 @@ __Bugfixes:__
 - Subscribers/followers now living 10 minutes and give you random pickup after dissapearing
 
 ### Links
+[Download v1.2.1](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.2.1.zip)
+
 [Download v1.2 Bleed Purple Update](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.2.zip)
 
 [Download v1.1](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.1.zip)
