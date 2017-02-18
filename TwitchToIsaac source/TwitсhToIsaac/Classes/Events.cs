@@ -159,11 +159,14 @@ namespace TwitсhToIsaac.Classes.Events
     {
         public string name = "";
 
-        public ActionSub(string name, double hash) : base (hash)
+        public ActionSub(string name, double hash, bool foll = false) : base (hash)
         {
             this.emode = ActionMode.Sub;
             this.name = name;
-            this.text = "New subscriber - " + name;
+            if (foll)
+                this.text = "New follower - " + name;
+            else
+                this.text = "New subscriber - " + name;
         }
     }
 
@@ -176,7 +179,7 @@ namespace TwitсhToIsaac.Classes.Events
         {
             this.emode = ActionMode.Bits;
             this.type = type;
-            this.text = "You get bits!";
+            this.text = "You've got bits!";
 
             if (count > 10)
                 count = 10;

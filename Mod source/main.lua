@@ -170,6 +170,7 @@ function Subscriber:new (entity, name)
   local obj= {}
   obj.entity = entity
   obj.name = name
+  obj.time = 10*60*30
   obj.color = nil
   
   setmetatable(obj, self)
@@ -207,7 +208,13 @@ function IOTmod.funcs:giveHeart (name)
   elseif name == "Soul" then p:AddSoulHearts(2)
   elseif name == "Golden" then p:AddGoldenHearts(1)
   elseif name == "Eternal" then p:AddEternalHearts(1)
-  elseif name == "Twitch" then twitchHearts = twitchHearts + 2
+  elseif name == "Twitch" then
+    if ( p:GetSoulHearts() % 2 == 1) then
+      p:AddSoulHearts(1)
+      twitchHearts = twitchHearts + 1;
+    else
+      twitchHearts = twitchHearts + 2;
+    end
   elseif name == "Black" then p:AddBlackHearts(2) end
 end
 
@@ -282,6 +289,7 @@ function IOTmod.funcs:giveEvent (name)
   elseif name == "NoDMG" then SpecialEvents:NoDMG()
   elseif name == "Whirlwind" then SpecialEvents:Whirlwind()
   elseif name == "DDoS" then SpecialEvents:DDoS()
+  elseif name == "Invisible" then SpecialEvents:Invisible()
   elseif name == "Discharge" then p:DischargeActiveItem() end
 end
 
@@ -347,6 +355,19 @@ function IOTmod:postUpdate()
   --Check invincible from Twitch Heart
   if (twitchHeartInv > 0) then
     twitchHeartInv = twitchHeartInv - 1
+  end
+  
+  --Remove old subscribers
+  for k, v in pairs(subs) do
+    if (subs[k].time > 0) then
+      subs[k].time = subs[k].time - 1
+    else
+      local v = math.random(1,4)*10
+      Isaac.Spawn(EntityType.ENTITY_PICKUP, v,  0, subs[k].entity.Position, Vector(0, 0), p)
+      g:SpawnParticles(subs[k].entity.Position, EffectVariant.GOLD_PARTICLE, 10, 0, subs[k].entity.Color, 0)
+      subs[k].entity:Die()
+      subs[k] = nil
+    end
   end
   
   --Set subscribers and familiars pos
@@ -873,15 +894,15 @@ function IOTmod:T_RoomChanged(room)
       if (entities[i]:IsEnemy() == true and math.random() > 0.5) then
         local rnd = math.random(0,9)
         local ref = EntityRef(p)
-        if (rnd == 0) then entities[i]:AddPoison(ref, math.random(10,100), math.random())
-        elseif (rnd == 1) then entities[i]:AddFreeze(ref, math.random(10,100))
-        elseif (rnd == 2) then entities[i]:AddSlowing(ref, math.random(10,100), math.random(), Color(1,1,1,1,0,0,0))
-        elseif (rnd == 3) then entities[i]:AddCharmed(math.random(10,100))
-        elseif (rnd == 4) then entities[i]:AddConfusion(ref, math.random(10,100), false)
-        elseif (rnd == 5) then entities[i]:AddMidasFreeze(ref, math.random(10,100))
-        elseif (rnd == 6) then entities[i]:AddFear(ref, math.random(10,100))
-        elseif (rnd == 7) then entities[i]:AddBurn(ref, math.random(10,100), math.random())
-        else entities[i]:AddShrink(ref, math.random(10,100)) end
+        if (rnd == 0) then entities[i]:AddPoison(ref, math.random(30,300), math.random())
+        elseif (rnd == 1) then entities[i]:AddFreeze(ref, math.random(30,300))
+        elseif (rnd == 2) then entities[i]:AddSlowing(ref, math.random(30,300), math.random(), Color(1,1,1,1,0,0,0))
+        elseif (rnd == 3) then entities[i]:AddCharmed(math.random(30,300))
+        elseif (rnd == 4) then entities[i]:AddConfusion(ref, math.random(30,300), false)
+        elseif (rnd == 5) then entities[i]:AddMidasFreeze(ref, math.random(30,300))
+        elseif (rnd == 6) then entities[i]:AddFear(ref, math.random(30,300))
+        elseif (rnd == 7) then entities[i]:AddBurn(ref, math.random(30,300), math.random())
+        else entities[i]:AddShrink(ref, math.random(30,300)) end
       end
     end
   end
@@ -1220,7 +1241,7 @@ function IOTmod:relaunchGame (p)
   p:EvaluateItems()
   
   twitchRoomIndex = -999
-  if (math.random() < 0.15) then twitchRoomGenOnStage = true end
+  if (math.random() < 0.20) then twitchRoomGenOnStage = true end
   
   for k, v in pairs(fams) do
       fams[k] = nil
@@ -1265,7 +1286,7 @@ function IOTmod:T_StageChanged(stage)
   PI_curseLit_activated = false
   
   twitchRoomIndex = -1
-  if (math.random() < 0.15) then twitchRoomGenOnStage = true end
+  if (math.random() < 0.20) then twitchRoomGenOnStage = true end
 end
 
 ----------------------------Others---------------------------------
@@ -1651,7 +1672,7 @@ function SpecialEvents:FlashJump()
   g:MoveToRandomRoom(false)
 end
 
-------- Blind
+------- Eyes Bleed
 function SpecialEvents:EyesBleed()
   local g = Game()
   local l = g:GetLevel()
@@ -1741,15 +1762,54 @@ end
 
 ------- DDoS
 function SpecialEvents:DDoS()
-  local g = Game()
-  local game = Game()
-   local p = Isaac.GetPlayer(0)
-  local room = game:GetRoom()
-  for i = 0, 50 do
-    local pos = room:FindFreePickupSpawnPosition(room:GetCenterPos(), 20, true)
-		Isaac.Spawn(EntityType.ENTITY_DART_FLY, 0,  0, pos, Vector(0, 0), player)
-    IOTmod:_playSound(SoundEffect.SOUND_SUMMONSOUND)
-	end
+  
+  function SE__update ()
+    if (Game():GetFrameCount() % 5 == 0) then
+      local room = Game():GetRoom()
+      local p = Isaac.GetPlayer(0)
+      local pos = room:FindFreePickupSpawnPosition(room:GetCenterPos(), 20, true)
+      Isaac.Spawn(EntityType.ENTITY_DART_FLY, 0,  0, pos, Vector(0, 0), p)
+    end
+  end
+  
+  if (nowEvent.duration < 1) then
+    nowEvent = {
+      active = true,
+      ontime = true,
+      duration = 20*30,
+      onover = nil,
+      ontrigger = SE__update,
+      trc = false
+    }
+  end
+end
+
+------- Invisible
+function SpecialEvents:Invisible()
+  
+  local p = Isaac.GetPlayer(0)
+    p.Visible = false;
+  
+  function SE__over ()
+    local p = Isaac.GetPlayer(0)
+    p.Visible = true;
+  end
+  
+  function SE__update ()
+    local p = Isaac.GetPlayer(0)
+    p.Visible = false;
+  end
+  
+  if (nowEvent.duration < 1) then
+    nowEvent = {
+      active = true,
+      ontime = true,
+      duration = 25*30,
+      onover = SE__over,
+      ontrigger = SE__update,
+      trc = false
+    }
+  end
 end
 
 ------- Good Music

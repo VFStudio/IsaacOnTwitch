@@ -85,6 +85,24 @@ __Bugfixes:__
 
 - Poll timer doesn't decrease while the game is on pause.
 
+**18.02.2017 - 1.2.1**
+
+- Percents is now calculated correctly (FINALLY!)
+
+- Now followers can appear in the game (Can be unstable)
+
+- Bits type now selected correctly (Can be unstable)
+
+- Added one new event
+
+- Fixed render of Twitch heart with the half soulheart
+
+- Fixed version number
+
+- DDoS event redesigned
+
+- Subscribers/followers now living 10 minutes and give you random pickup after dissapearing
+
 ### Links
 [Download v1.2 Bleed Purple Update](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.2.zip)
 

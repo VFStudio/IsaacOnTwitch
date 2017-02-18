@@ -10,6 +10,9 @@ using TwitchLib;
 using TwitchLib.Models.Client;
 using TwitсhToIsaac.Classes.Events;
 using TwitсhToIsaac.Classes.VotingOptions;
+using TwitchLib.Events.Services.FollowerService;
+using TwitchLib.Services;
+using TwitchLib.Models.API;
 
 namespace TwitсhToIsaac.Classes
 {
@@ -32,6 +35,7 @@ namespace TwitсhToIsaac.Classes
         static TextBlock MainStatus = null;
         static Button RunButton = null;
         static TwitchClient Twitch = new TwitchClient(new ConnectionCredentials("justinfan1", ""));
+        static FollowerService FollowerScan = null;
         static Vote Poll = null;
         static Act Event = null;
         static Act SpecialEvent = null;
@@ -78,6 +82,7 @@ namespace TwitсhToIsaac.Classes
 
             Twitch.Connect();
             lastInterruptHash = IOLink.OutputData.interruptHash;
+            
         }
 
         private static void Twitch_OnReSubscriber(object sender, TwitchLib.Events.Client.OnReSubscriberArgs e)
@@ -114,13 +119,13 @@ namespace TwitсhToIsaac.Classes
                     norm = (int)Math.Round((double)(count / 1000)); ;
                 }
 
-                if (count / 5000 > 1)
+                if (count / 5000 >= 1)
                 {
                     btype = BitsType.Blue;
                     norm = (int)Math.Round((double)(count / 5000));
                 }
 
-                if (count / 10000 > 1)
+                if (count / 10000 >= 1)
                 {
                     btype = BitsType.Red;
                     norm = (int)Math.Round((double)(count / 10000));
@@ -165,12 +170,31 @@ namespace TwitсhToIsaac.Classes
                 }
 
                 Twitch.JoinChannel(name);
+                if (FollowerScan != null)
+                    FollowerScan.StopService();
+
+                FollowerScan = new FollowerService(name, 30);
+                FollowerScan.OnNewFollowersDetected += FollowerScan_OnNewFollowersDetected;
+
+                if (ready == true)
+                    FollowerScan.StartService();
+            }
+        }
+
+        private static void FollowerScan_OnNewFollowersDetected(object sender, OnNewFollowersDetectedArgs e)
+        {
+            if (!SpecialAppear.followers)
+                return;
+
+            foreach (Follower f in e.NewFollowers)
+            {
+                Subs.Enqueue(new ActionSub(f.User.DisplayName, rnd.Next(), true));
             }
         }
 
         public static void Start ()
         {
-
+            ready = true;
             ScreenStatus.addLog("--------Session start--------");
             ScreenStatus.updateScreenStatus();
 
@@ -195,6 +219,7 @@ namespace TwitсhToIsaac.Classes
 
         public static void Stop ()
         {
+            ready = false;
             foreach (KeyValuePair<TimerType, Timer> t in Timers)
             {
                 t.Value.Stop();
@@ -498,5 +523,6 @@ namespace TwitсhToIsaac.Classes
     {
         public static bool subs = true;
         public static bool bits = true;
+        public static bool followers = false;
     }
 }

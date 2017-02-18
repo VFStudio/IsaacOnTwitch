@@ -117,11 +117,9 @@ namespace TwitсhToIsaac.Classes.VotingOptions
             votescount++;
             votes[num]++;
 
-            double op = (votescount / 100) == 0 ? 1 : votescount / 100;
-
             for (int i = 0; i < percents.Count; i++)
             {
-                percents[i] = (int)((votes[i] / op) * 100);
+                percents[i] = (int)((((double)votes[i]) / ((double)votescount))*100);
             }
         }
 
@@ -193,7 +191,7 @@ namespace TwitсhToIsaac.Classes.VotingOptions
     public class VoteHeart : VoteVariant
     {
         public VoteHeart(string name) : base(name)
-        { type = VoteType.Heart; this.msg = "You get " + displayName + " heart!"; }
+        { type = VoteType.Heart; this.msg = "You've got " + displayName + " heart!"; }
     }
 
 
@@ -204,7 +202,7 @@ namespace TwitсhToIsaac.Classes.VotingOptions
         {
             this.displayName = count + " " + (count == 1 || count == -1 ? type : type + "s");
             this.name = type;
-            this.msg = "You get " + displayName;
+            this.msg = "You've got " + displayName;
             this.happy = count > 0 ? true : false;
             this.count = count;
             this.type = VoteType.Pickup;
@@ -216,7 +214,7 @@ namespace TwitсhToIsaac.Classes.VotingOptions
         public VoteCompanion(string name, string displayName, bool happy) : base(name)
         {
             this.displayName = displayName;
-            this.msg = "You get " + displayName;
+            this.msg = "You've got " + displayName;
             this.happy = happy;
             this.type = VoteType.Companion;
         }
@@ -348,9 +346,10 @@ namespace TwitсhToIsaac.Classes.VotingOptions
             Events.Add(new VoteEvent("Spiky", "Spiky", "Ouch!", false));
             Events.Add(new VoteEvent("Award", "Award", "More awards for you", true));
             Events.Add(new VoteEvent("AngelRage", "Angel Rage", "Holy crap!", true));
-            Events.Add(new VoteEvent("DevilRage", "Devil Rage", "What a hell?", true));
+            Events.Add(new VoteEvent("DevilRage", "Devil Rage", "What the hell?", true));
             Events.Add(new VoteEvent("RainbowRain", "Rainbow Rain", "Unicorn start piss", true));
             Events.Add(new VoteEvent("CallToDark", "Call To Dark", "An ancient evil has awakened", true));
+            Events.Add(new VoteEvent("Invisible", "Invisible", "Find yourself", true));
             Events.Add(new VoteEvent("RUN", "RUN", "Run, Forest, run!", false));
             Events.Add(new VoteEvent("FlashJump", "Flash Jump", "Faster, than light", true));
             Events.Add(new VoteEvent("EyesBleed", "Eyes Bleed", "What is happening?", false));

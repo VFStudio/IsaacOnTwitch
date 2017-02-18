@@ -116,6 +116,7 @@ namespace TwithToIsaac
             VoteTime.delay = int.Parse(TChannel_delaytime.Text);
             SpecialAppear.subs = (bool)CChannel_subs.IsChecked;
             SpecialAppear.bits = (bool)CChannel_bits.IsChecked;
+            SpecialAppear.followers = (bool)CChannel_followers.IsChecked;
 
             Controller.JoinOnChannel(TChannel_name.Text);
         }
