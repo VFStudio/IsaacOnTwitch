@@ -296,6 +296,7 @@ namespace TwitсhToIsaac.Classes.VotingOptions
 
         public static List<VoteItem> RemovedItems = new List<VoteItem>();
         public static List<VoteTrinket> RemovedTrinkets = new List<VoteTrinket>();
+        public static Random rnd = new Random();
 
         public static void Load ()
         {
@@ -334,6 +335,7 @@ namespace TwitсhToIsaac.Classes.VotingOptions
             Pockets.Add(new VotePocket("Pill", "Pill", "You get Pill!", true));
             Pockets.Add(new VotePocket("Card", "Card", "You get Card!", true));
             Pockets.Add(new VotePocket("Rune", "Rune", "You get Rune!", true));
+            Pockets.Add(new VotePocket("Spacebar", "Spacebar", "Your item is activated!", true));
             Pockets.Add(new VotePocket("Charge", "Charge item", "Your item is fully charged!", true));
             Pockets.Add(new VotePocket("Discharge", "Discharge item", "Your item is fully discharged!", false));
 
@@ -354,15 +356,21 @@ namespace TwitсhToIsaac.Classes.VotingOptions
             Events.Add(new VoteEvent("FlashJump", "Flash Jump", "Faster, than light", true));
             Events.Add(new VoteEvent("EyesBleed", "Eyes Bleed", "What is happening?", false));
             Events.Add(new VoteEvent("StanleyParable", "Stanley Parable", "Good job, Stanley!", true));
-            Events.Add(new VoteEvent("Supernova", "Supernova", "DESTROY THE WORLD!", true));
-            Events.Add(new VoteEvent("DDoS", "DDoS", "50 Gb/sec attack", false, 1));
+            if (rnd.NextDouble() >= 0.75) { Events.Add(new VoteEvent("Supernova", "Supernova", "DESTROY THE WORLD!", true)); }
+            if (rnd.NextDouble() >= 0.2) { Events.Add(new VoteEvent("DDoS", "DDoS", "50 Gb/sec attack", false, 1)); }
             Events.Add(new VoteEvent("NoDMG", "Where is my DMG", "Your game will collapse, but there's nothing in it", false));
             Events.Add(new VoteEvent("Strabismus", "Strabismus", "Where are you looking?", false));
             Events.Add(new VoteEvent("Inverse", "Inverse", "Just flip the gamepad", false));
             Events.Add(new VoteEvent("Slip", "Slip", "Caution! Wet floor", false));
             Events.Add(new VoteEvent("Whirlwind", "Whirlwind", "Spiral power", true));
             Events.Add(new VoteEvent("RusHack", "Russian hackers", "I did not vote for it!", false, -1, VoteModifiers.H4CKED));
-            Events.Add(new VoteEvent("GoodMusic", "Good music", "YOUR EARS RAPED!!11!!1", false, 0));
+            if (rnd.NextDouble() >= 0.4) { Events.Add(new VoteEvent("GoodMusic", "Good music", "YOUR EARS RAPED!!11!!1", false, 0)); }
+            Events.Add(new VoteEvent("AttackOnTitan", "Attack on titan", "Your enemies have grown", false, 3));
+            Events.Add(new VoteEvent("Interstellar", "Interstellar", "Gravity can cross the dimensions", false, 4));
+            Events.Add(new VoteEvent("BladeStorm", "Blade storm", "All get stabbed!", true));
+            Events.Add(new VoteEvent("Diarrhea", "Diarrhea", "From what the soup was made?", true));
+            Events.Add(new VoteEvent("Heal", "Heal", "But we need KILL, not HEAL!", false));
+            Events.Add(new VoteEvent("Flashmob", "Flashmob", "Repeat after me!", true));
         }
 
         public static void LoadItemsAndTrinkets ()

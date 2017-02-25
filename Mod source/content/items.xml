@@ -7,15 +7,27 @@
   <passive cache="all" description="Curse energy" gfx="Collectibles_CurseLit.png" name="Curse Lit" />
   <passive cache="speed" description="In source quality!" gfx="Collectibles_TropPunch.png" name="AMP Trop Punch" />
   <passive description="YEAH!" gfx="Collectibles_Kreygasm.png" name="Kreygasm" />
+  <passive description="Jump-jump" gfx="Collectibles_BCouch.png" name="BCouch" />
+  <passive description="Control the enemy" gfx="Collectibles_BrainSlug.png" name="Brain Slug" />
   
   <active maxcharges="6" description="On the attack!" gfx="Collectibles_TwitchRaid.png" name="Twitch Raid" />
   <active maxcharges="1" description="Take a photo" gfx="Collectibles_TTours.png" name="TTours" />
   <active maxcharges="3" description="Decline it" gfx="Collectibles_VoteNay.png" name="Vote Nay" />
   <active maxcharges="6" description="Accept it" gfx="Collectibles_VoteYea.png" name="Vote Yea" />
+  <active maxcharges="6" description="Bring the apocalypse!" gfx="Collectibles_GOWSkull.png" name="GOW Skull" />
   
   <familiar description="Your fan" gfx="Collectibles_Subscriber.png" name="Subscriber" />
   <familiar description="Spam not allowed!" gfx="Collectibles_NightBot.png" name="Nightbot" />
   <familiar description="Fie, it's stinky" gfx="Collectibles_StinkyCheese.png" name="Stinky Cheese" />
+  
+  <trinket description="Just like a pro" gfx="Trinket_twitch_Neonomi.png" name="Neonomi glasses" />
+  <trinket description="We need to free him!" gfx="Trinket_twitch_Smite.png" name="Smite yoshi" />
+  <trinket description="Everyone loves it" gfx="Trinket_twitch_Hutts.png" name="Hutts hairstyle" />
+  <trinket description="Who does not risk, that sucks" gfx="Trinket_twitch_Tijoe.png" name="Tijoe head" />
+  <trinket description="Crying all time" gfx="Trinket_twitch_Junkey.png" name="Junkey bunny" />
+  <trinket description="What's up, dogs?" gfx="Trinket_twitch_Grizzly.png" name="Grizzly claw" />
+  <trinket description="Burn from the chat" gfx="Trinket_twitch_HellYeah.png" name="HellYeah Rage" />
+  <trinket description="His eyes filled madness" gfx="Trinket_twitch_Vitecp.png" name="VitecP UC" />
   
   <active maxcharges="0" description="EEEEEEDMUUUUND!!!" gfx="Collectibles_Debug.png" name="DEBUG ITEM" />
 </items>

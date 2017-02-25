@@ -1,1 +1,1 @@
-{"viewers":0,"textparam":{"firstline":{"x":16,"y":241},"secondline":{"x":16,"y":258}}}
+{"subdel":18000,"gift":null,"viewers":0,"textparam":{"firstline":{"x":16,"y":241},"secondline":{"x":16,"y":258}}}

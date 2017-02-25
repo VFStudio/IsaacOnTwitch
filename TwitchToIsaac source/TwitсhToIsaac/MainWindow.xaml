@@ -13,13 +13,14 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+        FontFamily="{DynamicResource MaterialDesignFont}" WindowStartupLocation="CenterScreen" Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid>
         <DockPanel x:Name="menu" Margin="0,35,0,0" VerticalAlignment="Top" HorizontalAlignment="Center">
             <Button x:Name="B_main" Content="Main" IsEnabled="False" Click="ChangeTabButton_click"/>
             <Button x:Name="B_channel" Content="Channel" Margin="10,0,0,0" Click="ChangeTabButton_click"/>
             <Button x:Name="B_chances" Content="Chances" Margin="10,0,0,0" Click="ChangeTabButton_click"/>
             <Button x:Name="B_render" Content="Render" Margin="10,0,0,0" Click="ChangeTabButton_click"/>
+            <Button x:Name="B_mod" Content="Mod" Margin="10,0,0,0" Click="ChangeTabButton_click"/>
             <Button x:Name="B_about" Content="About" Margin="10,0,0,0" Click="ChangeTabButton_click"/>
         </DockPanel>
         <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Center" Margin="0" FontSize="24" VerticalAlignment="Top">Twitch To Isaac</TextBlock>
@@ -98,13 +99,13 @@
                         <CheckBox x:Name="CChances_pockets"  Content="Cards and etc." HorizontalAlignment="Left" IsChecked="True" Margin="0,5,0,2" FontSize="16" Click="CChances_pockets_Click"/>
                     </StackPanel>
                     <StackPanel Margin="10,0,0,0" Width="260" HorizontalAlignment="Left">
-                        <Slider x:Name="SChances_events" SmallChange="1" Height="24" Value="6" Minimum="1" ValueChanged="SChances_events_ValueChanged" />
-                        <Slider x:Name="SChances_items" SmallChange="1" Height="24" Margin="0,5,0,0" Value="2" Minimum="1" ValueChanged="SChances_items_ValueChanged" />
-                        <Slider x:Name="SChances_trinkets" SmallChange="1" Height="24" Margin="0,5,0,0" Value="1" Minimum="1" ValueChanged="SChances_trinkets_ValueChanged" />
-                        <Slider x:Name="SChances_hearts" SmallChange="1" Height="24" Margin="0,5,0,0" Value="3" Minimum="1" ValueChanged="SChances_hearts_ValueChanged" />
-                        <Slider x:Name="SChances_pickups" SmallChange="1" Height="24" Margin="0,5,0,0" Value="4" Minimum="1" ValueChanged="SChances_pickups_ValueChanged" />
-                        <Slider x:Name="SChances_companions" SmallChange="1" Height="24" Margin="0,5,0,0" Value="4" Minimum="1" ValueChanged="SChances_companions_ValueChanged" />
-                        <Slider x:Name="SChances_pockets" SmallChange="1" Height="24" Margin="0,5,0,0" Value="4" Minimum="1" ValueChanged="SChances_pockets_ValueChanged" />
+                        <Slider x:Name="SChances_events" SmallChange="1" Height="24" Value="6" ValueChanged="SChances_events_ValueChanged" />
+                        <Slider x:Name="SChances_items" SmallChange="1" Height="24" Margin="0,5,0,0" Value="2" ValueChanged="SChances_items_ValueChanged" />
+                        <Slider x:Name="SChances_trinkets" SmallChange="1" Height="24" Margin="0,5,0,0" Value="1" ValueChanged="SChances_trinkets_ValueChanged" />
+                        <Slider x:Name="SChances_hearts" SmallChange="1" Height="24" Margin="0,5,0,0" Value="3" ValueChanged="SChances_hearts_ValueChanged" />
+                        <Slider x:Name="SChances_pickups" SmallChange="1" Height="24" Margin="0,5,0,0" Value="4" ValueChanged="SChances_pickups_ValueChanged" />
+                        <Slider x:Name="SChances_companions" SmallChange="1" Height="24" Margin="0,5,0,0" Value="4" ValueChanged="SChances_companions_ValueChanged" />
+                        <Slider x:Name="SChances_pockets" SmallChange="1" Height="24" Margin="0,5,0,0" Value="4" ValueChanged="SChances_pockets_ValueChanged" />
                     </StackPanel>
                     <StackPanel Margin="10,0,0,0" HorizontalAlignment="Left">
                         <Label x:Name="LChances_events" FontSize="16" Padding="0" Height="23">6</Label>
@@ -157,15 +158,30 @@
 
         </materialDesign:Card>
 
+        <!--Mod Card-->
+        <materialDesign:Card x:Name="Card_Mod" VerticalAlignment="Bottom" Margin="5,0,5,5" Height="381" Padding="10" Visibility="Hidden">
+
+            <StackPanel VerticalAlignment="Top" Margin="0,10,0,0">
+                <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,10,0,5" >Subs disappear time (minutes)</TextBlock>
+                <TextBox x:Name="TMod_subdeltime" Style="{DynamicResource MaterialDesignTextBox}" Text="10" FontSize="13" HorizontalAlignment="Center" Width="65" PreviewTextInput="NumberValidationTextBox"/>
+                <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,15,0,5" >Events volume</TextBlock>
+                <Slider x:Name="SMod_volume" SmallChange="1" Height="24" Value="85" Minimum="1" Margin="30,0" Maximum="100" />
+                <Button x:Name="BMod_save" Content="Save" HorizontalAlignment="Center" Margin="253,10,242,0" Width="72" Click="BMod_save_Click"/>
+                <TextBlock FontSize="12" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="138,5,104,0" Width="325" ><Run Text="The settings take effect immediately, even during game"/></TextBlock>
+            </StackPanel>
+
+        </materialDesign:Card>
+
         <!--About Card-->
         <materialDesign:Card x:Name="Card_About" VerticalAlignment="Bottom" Margin="5,0,5,5" Height="381" Padding="10" Visibility="Hidden">
 
             <StackPanel VerticalAlignment="Top" Margin="10">
-                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="18" VerticalAlignment="Top" Padding="0">Isaac On Twitch v1.2 - Bleed Purple Update</TextBlock>
+                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="18" VerticalAlignment="Top" Padding="0">Isaac On Twitch v1.3 - Hey Guys Update</TextBlock>
 
                 <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="0" FontSize="16" VerticalAlignment="Top">Mod links</TextBlock>
                 <DockPanel Margin="0,5,0,0">
-                    <Button x:Name="BLinks_modpage" HorizontalAlignment="Left" Height="26" Click="BLinks_modpage_Click">Mod page</Button>
+                    <Button x:Name="BLinks_modpage" HorizontalAlignment="Left" Height="26" Click="BLinks_modpage_Click_1">Mod page</Button>
+                    <Button x:Name="BLinks_github" HorizontalAlignment="Left" Height="26" Click="BLinks_modpage_Click" Margin="10,0,0,0">GitHub</Button>
                     <Button x:Name="BLink_feedback" HorizontalAlignment="Left" Height="26" Margin="10,0,0,0" Click="BLink_feedback_Click">Feedback</Button>
                 </DockPanel>
                 <DockPanel Margin="0,15,0,0">

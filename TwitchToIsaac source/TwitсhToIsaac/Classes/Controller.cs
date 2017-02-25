@@ -18,6 +18,8 @@ namespace TwitсhToIsaac.Classes
 {
     public static class Controller
     {
+        static private string apikey = "vtr91vw1dzji7piypq7r13itr6is2i";
+
         enum TimerType
         {
             Vote, Interrupt, Special, Wait
@@ -25,6 +27,7 @@ namespace TwitсhToIsaac.Classes
 
         static Dictionary<TimerType, Timer> Timers = new Dictionary<TimerType, Timer>();
         static Dictionary<string, int> Delays = new Dictionary<string, int>();
+        static Dictionary<string, string> Gifts = new Dictionary<string, string>();
         static Queue<ActionSub> Subs = new Queue<ActionSub>();
         static Queue<ActionBits> Bits = new Queue<ActionBits>();
         static Queue<int> Interrupts = new Queue<int>();
@@ -77,6 +80,7 @@ namespace TwitсhToIsaac.Classes
 
             VoteChances.Save();
             VotePool.Load();
+            LoadGifts();
             SoundManager.Init();
             ChatColors.Init();
 
@@ -104,13 +108,13 @@ namespace TwitсhToIsaac.Classes
             if (e.ChatMessage.Bits > 10)
             {
                 int count = e.ChatMessage.Bits;
-                int norm = count;
+                int norm = count-24;
                 BitsType btype = BitsType.Gray;
 
                 if (count / 100 >= 1)
                 {
                     btype = BitsType.Purple;
-                    norm = (int)Math.Round((double)(count / 100));
+                    norm = (int)(Math.Round((double)(count / 100)));
                 }
 
                 if (count / 1000 >= 1)
@@ -138,12 +142,10 @@ namespace TwitсhToIsaac.Classes
             if (Poll == null || Poll.stopped == true)
                 return;
 
-            string msg = e.ChatMessage.Message;
-
             if (Poll.peoples.Contains(e.ChatMessage.DisplayName))
                 return;
 
-            Poll.peoples.Add(e.ChatMessage.DisplayName);
+            string msg = e.ChatMessage.Message;
 
             if (votemodifier == VoteModifiers.H4CKED)
             {
@@ -152,11 +154,20 @@ namespace TwitсhToIsaac.Classes
             }
 
             if (msg == "1" || msg == "#1" || msg == Poll.variants[0].displayName)
+            {
                 Poll.VoteFor(0);
+                Poll.peoples.Add(e.ChatMessage.DisplayName);
+            }
             else if (msg == "2" || msg == "#2" || msg == Poll.variants[1].displayName)
+            {
                 Poll.VoteFor(1);
+                Poll.peoples.Add(e.ChatMessage.DisplayName);
+            }
             else if (msg == "3" || msg == "#3" || msg == Poll.variants[2].displayName)
+            {
                 Poll.VoteFor(2);
+                Poll.peoples.Add(e.ChatMessage.DisplayName);
+            }
         }
 
         public static void JoinOnChannel (string name)
@@ -173,12 +184,22 @@ namespace TwitсhToIsaac.Classes
                 if (FollowerScan != null)
                     FollowerScan.StopService();
 
-                FollowerScan = new FollowerService(name, 30);
+                FollowerScan = new FollowerService(name, 30, 25, apikey);
                 FollowerScan.OnNewFollowersDetected += FollowerScan_OnNewFollowersDetected;
-
-                if (ready == true)
-                    FollowerScan.StartService();
+                FollowerScan.OnServiceStarted += FollowerScan_OnServiceStarted;
+                FollowerScan.OnServiceStopped += FollowerScan_OnServiceStopped;
+                FollowerScan.StartService();
             }
+        }
+
+        private static void FollowerScan_OnServiceStopped(object sender, OnServiceStoppedArgs e)
+        {
+            ScreenStatus.addLog("Follower service stopped");
+        }
+
+        private static void FollowerScan_OnServiceStarted(object sender, OnServiceStartedArgs e)
+        {
+            ScreenStatus.addLog("Follower service started", ScreenStatus.logType.Success);
         }
 
         private static void FollowerScan_OnNewFollowersDetected(object sender, OnNewFollowersDetectedArgs e)
@@ -332,7 +353,7 @@ namespace TwitсhToIsaac.Classes
                 return;
             }
 
-            if (Subs.Count > 0 && SpecialAppear.subs)
+            if (Subs.Count > 0 && (SpecialAppear.subs || SpecialAppear.followers))
             {
                 Timers[TimerType.Vote].Stop();
                 Delays["Special"] = 3;
@@ -418,6 +439,8 @@ namespace TwitсhToIsaac.Classes
             ScreenStatus.twitchChat = true;
             channel = e.Channel;
             ScreenStatus.updateScreenStatus();
+            if (Gifts.ContainsKey(e.Channel.ToLower()))
+                IOLink.InputParam.gift = Gifts[e.Channel.ToLower()];
             MainStatus.Dispatcher.Invoke(() =>
             {
                 MainStatus.Text = "Now launch Isaac and press Run!";
@@ -433,6 +456,18 @@ namespace TwitсhToIsaac.Classes
         private static void Twitch_OnConnected(object sender, TwitchLib.Events.Client.OnConnectedArgs e)
         {
             ScreenStatus.addLog("Connected to Twitch", ScreenStatus.logType.Success);
+        }
+
+        private static void LoadGifts ()
+        {
+            Gifts.Add("neonomi", "Neonomi glasses");
+            Gifts.Add("smitetv", "Smite yoshi");
+            Gifts.Add("huttsgaming", "Hutts hairstyle");
+            Gifts.Add("tijoevideos", "Tijoe head");
+            Gifts.Add("junkey23", "Junkey bunny");
+            Gifts.Add("grizzlyguygaming", "Grizzly claw");
+            Gifts.Add("hellyeahplay", "HellYeah Rage");
+            Gifts.Add("vitecp", "VitecP UC");
         }
     }
 

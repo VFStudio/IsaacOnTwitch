@@ -1,8 +1,0 @@
-<sounds root="sfx/">
-	<sound id="1000">
-		<sample weight="1" path="bits/appear.wav" />
-	</sound>
-	<sound id="1001">
-		<sample weight="1" path="bits/collect.wav" />
-	</sound>
-</sounds>

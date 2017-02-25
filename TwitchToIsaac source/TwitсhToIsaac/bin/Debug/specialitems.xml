@@ -1,0 +1,14 @@
+<items gfxroot="gfx/items/" version="1">
+	<passive achievement="11" cache="all" description="???" gfx="Collectibles_052_DrFetus.png" id="52" name="Dr. Fetus" special="true" />
+	<passive cache="all" description="Blood laser barrage" devilprice="2" gfx="Collectibles_118_Brimstone.png" id="118" name="Brimstone" special="true" />
+	<passive achievement="62" cache="all" description="On-demand air strike" gfx="Collectibles_168_EpicFetus.png" id="168" name="Epic Fetus" special="true" />
+	<passive cache="damage firedelay tearflag" description="Mega tears" gfx="Collectibles_169_Polyphemus.png" id="169" name="Polyphemus" special="true" />
+	<passive cache="damage firedelay range shotspeed tearcolor tearflag" description="Homing shots + DMG up" gfx="Collectibles_182_SacredHeart.png" hearts="99" id="182" maxhearts="2" name="Sacred Heart" special="true" />
+	<passive bombs="5" description="It hurts so good +5 bombs" gfx="collectibles_223_pyromaniac.png" id="223" name="Pyromaniac" special="true" />
+	<familiar description="???" gfx="collectibles_238_keypiece1.png" id="238" name="Key Piece 1" />
+	<familiar description="???" gfx="collectibles_239_keypiece2.png" id="239" name="Key Piece 2" />
+	<passive achievement="156" cache="tearflag shotspeed firedelay range damage" description="God tears" gfx="collectibles_331_godhead.png" id="331" name="Godhead" special="true" />
+	<passive description="!!!" gfx="Collectibles_402_Chaos.png" id="402" name="Chaos" />
+	<active achievement="29" description="Reroll your destiny " gfx="Collectibles_105_Dice.png" id="105" maxcharges="6" name="The D6" special="true" />
+	<passive achievement="43" cache="all" description="Stab stab stab" devilprice="2" gfx="Collectibles_114_MomsKnife.png" id="114" name="Mom's Knife" special="true" />
+</items>

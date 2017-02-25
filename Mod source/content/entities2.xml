@@ -34,12 +34,21 @@
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
 	
-	<entity anm2path="mod.twitch_nightbot.anm2" boss="6" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="13" friction="1" id="3" name="Nightbot" numGridCollisionPoints="12" shadowSize="11" stageHP="0" variant="1001">
+	<entity anm2path="mod.twitch_nightbot.anm2" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="13" friction="1" id="3" name="Nightbot" numGridCollisionPoints="12" shadowSize="11" stageHP="0" variant="1001">
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
 	
-	<entity anm2path="mod.twitch_stinkyCheese.anm2" boss="6" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="13" friction="1" id="3" name="Stinky Cheese" numGridCollisionPoints="12" shadowSize="11" stageHP="0" variant="1002">
+	<entity anm2path="mod.twitch_stinkyCheese.anm2" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="13" friction="1" id="3" name="Stinky Cheese" numGridCollisionPoints="12" shadowSize="11" stageHP="0" variant="1002">
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+	
+	<!-- Effets -->
+	<entity anm2path="mod.twitch_effect_sandstorm.anm2" boss="0" champion="0" collisionDamage="5" collisionMass="3" collisionRadius="32" friction="1" id="3" name="Sandstorm swirl" numGridCollisionPoints="12" shadowSize="11" stageHP="0" variant="1100">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+	
+	<entity anm2path="mod.twitch_effect_blackhole.anm2" reroll="false" baseHP="20" boss="0" champion="0" collisionDamage="2" collisionMass="7" collisionRadius="256" friction="0" id="1000" name="Twitch Black Hole" numGridCollisionPoints="0" shadowSize="0" stageHP="0" variant="1100">
+        <gibs amount="6" blood="0" bone="0" eye="0" gut="0" large="0" worm="0" />
     </entity>
 
 </entities>

@@ -12,6 +12,8 @@ namespace TwitсhToIsaac.Classes
     {
         public int viewers { get; set; } = 0;
         public TextParam textparam { get; set; } = new TextParam();
+        public int subdel = 10 * 30 * 60;
+        public string gift = null;
 
 
         public class TextParam

@@ -1,1 +1,1 @@
-{"etype":7,"secondtext":"","eobj":"Invisible","happy":true,"emode":3,"text":"You get Twitch heart! (1s)","hash":0.040760911088791166}
+{"etype":0,"secondtext":"","emode":2,"text":"Run TwitchToIsaac for start!","hash":0.0}

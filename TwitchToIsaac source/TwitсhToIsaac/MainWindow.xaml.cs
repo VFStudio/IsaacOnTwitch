@@ -21,6 +21,7 @@ using TwitсhToIsaac.Classes;
 using TwitсhToIsaac.Classes.VotingOptions;
 using System.Text.RegularExpressions;
 using static TwitсhToIsaac.Classes.ScreenStatus;
+using TwitchToIsaac;
 
 namespace TwithToIsaac
 {
@@ -41,12 +42,14 @@ namespace TwithToIsaac
             UITabs.Add(Card_Channel);
             UITabs.Add(Card_Chances);
             UITabs.Add(Card_Render);
+            UITabs.Add(Card_Mod);
             UITabs.Add(Card_About);
 
             UIMenuButtons.Add(B_main);
             UIMenuButtons.Add(B_channel);
             UIMenuButtons.Add(B_chances);
             UIMenuButtons.Add(B_render);
+            UIMenuButtons.Add(B_mod);
             UIMenuButtons.Add(B_about);
 
             ScreenStatus.Lpaused = LMain_ispaused;
@@ -71,6 +74,13 @@ namespace TwithToIsaac
                 B_render.IsEnabled = false;
                 B_about.IsEnabled = false;
             }
+
+            string s = UpdateChecker.checkUpd();
+
+            if (s != null)
+                MessageBox.Show("New version available - " + s + "! Go to tab 'About' and download it!", "New version");
+
+            
         }
 
         private void ChangeTabButton_click(object sender, RoutedEventArgs e)
@@ -103,6 +113,11 @@ namespace TwithToIsaac
                     B_render.IsEnabled = false;
                     break;
 
+                case "B_mod":
+                    Card_Mod.Visibility = Visibility.Visible;
+                    B_mod.IsEnabled = false;
+                    break;
+
                 case "B_about":
                         Card_About.Visibility = Visibility.Visible;
                         B_about.IsEnabled = false;
@@ -117,6 +132,13 @@ namespace TwithToIsaac
             SpecialAppear.subs = (bool)CChannel_subs.IsChecked;
             SpecialAppear.bits = (bool)CChannel_bits.IsChecked;
             SpecialAppear.followers = (bool)CChannel_followers.IsChecked;
+
+            SettingsLoader.s.timeforvote = TChannel_votetime.Text;
+            SettingsLoader.s.delayvote = TChannel_delaytime.Text;
+            SettingsLoader.s.subsap = CChannel_subs.IsChecked;
+            SettingsLoader.s.followsap = CChannel_followers.IsChecked;
+            SettingsLoader.s.bitsap = CChannel_bits.IsChecked;
+
 
             Controller.JoinOnChannel(TChannel_name.Text);
         }
@@ -277,6 +299,14 @@ namespace TwithToIsaac
 
         private void BChances_save_Click(object sender, RoutedEventArgs e)
         {
+            SettingsLoader.s.chEvents = (bool)CChances_events.IsChecked ? SChances_events.Value : 0;
+            SettingsLoader.s.chItems = (bool)CChances_items.IsChecked ? SChances_items.Value : 0;
+            SettingsLoader.s.chTrinkets = (bool)CChances_trinkets.IsChecked ? SChances_trinkets.Value : 0;
+            SettingsLoader.s.chHearts = (bool)CChances_hearts.IsChecked ? SChances_hearts.Value : 0;
+            SettingsLoader.s.chPickups = (bool)CChances_pickups.IsChecked ? SChances_pickups.Value : 0;
+            SettingsLoader.s.chComps = (bool)CChances_companions.IsChecked ? SChances_companions.Value : 0;
+            SettingsLoader.s.chPockets = (bool)CChances_pockets.IsChecked ? SChances_pockets.Value : 0;
+
             VoteChances.Save();
         }
 
@@ -316,6 +346,11 @@ namespace TwithToIsaac
 
         private void BRender_save_Click(object sender, RoutedEventArgs e)
         {
+            SettingsLoader.s.firstline.x = TRender_firstX.Text;
+            SettingsLoader.s.firstline.y = TRender_firstY.Text;
+            SettingsLoader.s.secondline.x = TRender_secondX.Text;
+            SettingsLoader.s.secondline.y = TRender_secondY.Text;
+
             RenderSettings.FirstLine.x = TRender_firstX.Text != "" ? int.Parse(TRender_firstX.Text) : 0;
             RenderSettings.FirstLine.y = TRender_firstY.Text != "" ? int.Parse(TRender_firstY.Text) : 0;
 
@@ -329,6 +364,15 @@ namespace TwithToIsaac
             IOLink.acceptInputParam();
         }
 
+        private void BMod_save_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsLoader.s.subdel = TMod_subdeltime.Text;
+            SettingsLoader.s.volume = SMod_volume.Value;
+
+            IOLink.InputParam.subdel = int.Parse(TMod_subdeltime.Text) * 60 * 30;
+            SoundManager.SetVolume(SMod_volume.Value / 100);
+        }
+
         private void BMain_run_Click(object sender, RoutedEventArgs e)
         {
             Controller.Start();
@@ -338,6 +382,8 @@ namespace TwithToIsaac
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            SettingsLoader.Save();
+
             Controller.Stop();
             System.Threading.Thread.Sleep(1200);
             IOLink.Stop();
@@ -366,6 +412,49 @@ namespace TwithToIsaac
         private void BLink_authorFacebook_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.facebook.com/profile.php?id=100006251041621");
+        }
+
+        private void BLinks_modpage_Click_1(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://moddingofisaac.com/mod/2941/isaac-on-twitch");
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            SettingsLoader.Load();
+
+            TChannel_votetime.Text = SettingsLoader.s.timeforvote;
+            TChannel_delaytime.Text = SettingsLoader.s.delayvote;
+            CChannel_subs.IsChecked = SettingsLoader.s.subsap;
+            CChannel_followers.IsChecked = SettingsLoader.s.followsap;
+            CChannel_bits.IsChecked = SettingsLoader.s.bitsap;
+
+            CChances_events.IsChecked = SettingsLoader.s.chEvents >= 1 ? new Nullable<bool>(true) : false;
+            SChances_events.Value = SettingsLoader.s.chEvents;
+            CChances_items.IsChecked = SettingsLoader.s.chItems >= 1 ? new Nullable<bool>(true) : new Nullable<bool>(false);
+            SChances_items.Value = SettingsLoader.s.chItems;
+            CChances_trinkets.IsChecked = SettingsLoader.s.chTrinkets >= 1 ? true : false;
+            SChances_trinkets.Value = SettingsLoader.s.chTrinkets;
+            CChances_hearts.IsChecked = SettingsLoader.s.chHearts >= 1 ? true : false;
+            SChances_hearts.Value = SettingsLoader.s.chHearts;
+            CChances_pickups.IsChecked = SettingsLoader.s.chPickups >= 1 ? true : false;
+            SChances_pickups.Value = SettingsLoader.s.chPickups;
+            CChances_companions.IsChecked = SettingsLoader.s.chComps >= 1 ? true : false;
+            SChances_companions.Value = SettingsLoader.s.chComps;
+            CChances_pockets.IsChecked = SettingsLoader.s.chPockets >= 1 ? true : false;
+            SChances_pockets.Value = SettingsLoader.s.chPockets;
+
+            TRender_firstX.Text = SettingsLoader.s.firstline.x;
+            TRender_firstY.Text = SettingsLoader.s.firstline.y;
+            TRender_secondX.Text = SettingsLoader.s.secondline.x;
+            TRender_secondY.Text = SettingsLoader.s.secondline.y;
+
+            TMod_subdeltime.Text = SettingsLoader.s.subdel;
+            SMod_volume.Value = SettingsLoader.s.volume;
+
+            BChances_save_Click(null, null);
+            BRender_save_Click(null, null);
+            BMod_save_Click(null, null);
         }
     }
 }

@@ -41,69 +41,39 @@ This mod allows your viewers to take part in the game as well as adds new items 
 
 ### Changelog
 
-**11.02.2017 - 1.2 Bleed Purple Update**
+**25.02.2017 - 1.3 Hey Guys Update**
 
-__Mod Features:__
+- Fixed bugs with followers
 
-- New heart type added: Twitch Heart.
+- All votes now calculated correctly
 
-- Bits appear in your game. Literally. Also, they apply a temporary effect on the character. The more bits - the longer effect.
+- Some events added
 
-- Subscribers now have their own familiar.
+- Some events rebalanced and redesigned
 
-- New room type added: Twitch Room. The majority of new items now appear here.
+- Some items added
 
-- Some events last longer than one room now.
+- Some trinkets added
 
-- Some events have sound effects now.
+- Now you can change disappear time for subscribers
 
-- Some events added.
+- Now you can change volume for event sounds
 
-- Some old events redesigned.
+- Bits effects redesigned
 
-- Some new items added.
+- New challenge: Twitch Power. Use your subs and followers!
 
-- Pick-ups' polls are luck-dependent now.
+- Now settings are saved after exit
 
-__Program Features:__
+- Some streamers now receive a personal trinket at the start
 
-- Added ability to adjust poll types.
+- Now special items does not appear in polls
 
-- Added ability to enable/disable subscribers and bits in-game appearance.
-
-- Added ability to customize text position on game screen.
-
-- Improved IO-operations.
-
-__Bugfixes:__
-
-- Wrong subscribers' nicknames incorrect in-game display fixed.
-
-- Poll percentages use alternative math no more.
-
-- Some events fixed.
-
-- Poll timer doesn't decrease while the game is on pause.
-
-**18.02.2017 - 1.2.1**
-
-- Percents is now calculated correctly (FINALLY!)
-
-- Now followers can appear in the game (Can be unstable)
-
-- Bits type now selected correctly (Can be unstable)
-
-- Added one new event
-
-- Fixed render of Twitch heart with the half soulheart
-
-- Fixed version number
-
-- DDoS event redesigned
-
-- Subscribers/followers now living 10 minutes and give you random pickup after dissapearing
+- Now you will be notified about updates
 
 ### Links
+[Download v1.3 Hey Guys Update](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.3.zip)
+
 [Download v1.2.1](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.2.1.zip)
 
 [Download v1.2 Bleed Purple Update](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.2.zip)
