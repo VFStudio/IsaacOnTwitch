@@ -133,6 +133,7 @@ namespace TwithToIsaac
             SpecialAppear.bits = (bool)CChannel_bits.IsChecked;
             SpecialAppear.followers = (bool)CChannel_followers.IsChecked;
 
+            SettingsLoader.s.channel = TChannel_name.Text;
             SettingsLoader.s.timeforvote = TChannel_votetime.Text;
             SettingsLoader.s.delayvote = TChannel_delaytime.Text;
             SettingsLoader.s.subsap = CChannel_subs.IsChecked;
@@ -423,15 +424,16 @@ namespace TwithToIsaac
         {
             SettingsLoader.Load();
 
+            TChannel_name.Text = SettingsLoader.s.channel;
             TChannel_votetime.Text = SettingsLoader.s.timeforvote;
             TChannel_delaytime.Text = SettingsLoader.s.delayvote;
             CChannel_subs.IsChecked = SettingsLoader.s.subsap;
             CChannel_followers.IsChecked = SettingsLoader.s.followsap;
             CChannel_bits.IsChecked = SettingsLoader.s.bitsap;
 
-            CChances_events.IsChecked = SettingsLoader.s.chEvents >= 1 ? new Nullable<bool>(true) : false;
+            CChances_events.IsChecked = SettingsLoader.s.chEvents >= 1 ? true : false;
             SChances_events.Value = SettingsLoader.s.chEvents;
-            CChances_items.IsChecked = SettingsLoader.s.chItems >= 1 ? new Nullable<bool>(true) : new Nullable<bool>(false);
+            CChances_items.IsChecked = SettingsLoader.s.chItems >= 1 ? true : false;
             SChances_items.Value = SettingsLoader.s.chItems;
             CChances_trinkets.IsChecked = SettingsLoader.s.chTrinkets >= 1 ? true : false;
             SChances_trinkets.Value = SettingsLoader.s.chTrinkets;

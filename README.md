@@ -41,6 +41,16 @@ This mod allows your viewers to take part in the game as well as adds new items 
 
 ### Changelog
 
+**26.02.2017 - 1.3.1**
+
+- All library updated
+
+- Followers and subscribers now is not duplicated
+
+- Elemnts no longer displayed when the screen with the boss appear
+
+- Twitch heart is now displayed correctly. For this purpose, the HUD offset value should be 0
+
 **25.02.2017 - 1.3 Hey Guys Update**
 
 - Fixed bugs with followers
@@ -72,6 +82,8 @@ This mod allows your viewers to take part in the game as well as adds new items 
 - Now you will be notified about updates
 
 ### Links
+[Download v1.3.1](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.3.1.zip)
+
 [Download v1.3 Hey Guys Update](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.3.zip)
 
 [Download v1.2.1](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.2.1.zip)

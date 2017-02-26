@@ -1,1 +1,1 @@
-{"stats":{"luck":0.0},"runcount":0,"pause":true}
+{"pause":true,"runcount":0,"stats":{"luck":0.0}}

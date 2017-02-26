@@ -63,6 +63,8 @@ local bitsTime = {
 }
 
 -- UI Sprites
+local allowrender = true
+
 local UISpriteStorage = {}
 local SpriteEventActive = Sprite()
 local SpriteGrayBitsActive = Sprite()
@@ -241,7 +243,7 @@ IOTmod.funcs = {}
 function IOTmod.funcs:giveItem (name)
   local p = Isaac.GetPlayer(0);
   local item = Isaac.GetItemIdByName(name)
-  p:QueueItem(item, 0, true);
+  p:AddCollectible(item, 0, true);
 end
 
 function IOTmod.funcs:giveTrinket (name)
@@ -507,7 +509,6 @@ function IOTmod:postUpdate()
         t:SetColor(Color(0.149, 0.416, 0.804, 1, 7, 20, 40), 0, 0, false, false)
         t.TearFlags = setbit(t.TearFlags, bit(18))
         t.TearFlags = setbit(t.TearFlags, bit(33))
-        t.TearFlags = setbit(t.TearFlags, bit(38))
       end
     end
   end
@@ -614,15 +615,14 @@ function IOTmod:postUpdate()
   --If player hold Tijoe head
   if (p:HasTrinket(TI_tijoe) and math.random(0, 1000) > 996) and (p:GetFireDirection() ~= Direction.NO_DIRECTION) then
     local t = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, p.Position, Vector(p:GetShootingInput().X*15, p:GetShootingInput().Y*15), p):ToTear()
-    t.CollisionDamage = p.Damage * 50
+    t.CollisionDamage = p.Damage * 30
     t:ChangeVariant(TearVariant.MULTIDIMENSIONAL)
     t.TearFlags = setbit(t.TearFlags, bit(1))
     t.TearFlags = setbit(t.TearFlags, bit(2))
     t.TearFlags = setbit(t.TearFlags, bit(3))
-    t.TearFlags = setbit(t.TearFlags, bit(40))
     t:SetColor(Rainbow[1], 0, 0, false, false)
     t.Scale = 5
-    if (math.random(1,3) == 2) then
+    if (math.random(1,10) <= 4) then
       p:TakeDamage (0.5, DamageFlag.DAMAGE_FIRE, EntityRef(p), 30)
     end
   end
@@ -732,7 +732,7 @@ function IOTmod:postUpdate()
         e:Die()
         
         bitsTime.blue.enable = true
-        bitsTime.blue.frames = bitsTime.blue.frames + (30 * 150)
+        bitsTime.blue.frames = bitsTime.blue.frames + (30 * 75)
       end
       
       --Bits E
@@ -742,7 +742,7 @@ function IOTmod:postUpdate()
         e:Die()
         
         bitsTime.red.enable = true
-        bitsTime.red.frames = bitsTime.red.frames + (30 * 210)
+        bitsTime.red.frames = bitsTime.red.frames + (30 * 90)
       end
       
     end
@@ -899,6 +899,13 @@ end
  
 function IOTmod:Render()
   
+  --Check boss screen
+  if (Game():GetRoom():GetType() == RoomType.ROOM_BOSS and Game():GetRoom():GetFrameCount() == 0) then
+    allowrender = false
+  else
+    allowrender = true
+  end
+  
   if Game():IsPaused() ~= IOLink.Output.Param.pause then
     IOTmod:T_gamePaused(Game())
   end
@@ -908,7 +915,9 @@ function IOTmod:Render()
   --Isaac.DebugString(json.encode(IOLink.Input.Param))
   
   --Render twitch hearts
-  if (twitchHearts > 0 and Game():GetLevel():GetCurses () ~= LevelCurse.CURSE_OF_THE_UNKNOWN) then
+  if (twitchHearts > 0 and Game():GetLevel():GetCurses () ~= LevelCurse.CURSE_OF_THE_UNKNOWN and allowrender) then
+    
+    
     
     local twfull = twitchHearts/2
     local ishalf = (twitchHearts % 2 == 1)
@@ -923,9 +932,9 @@ function IOTmod:Render()
     
     for i=hearts+1, (hearts+twfull) do
       if (i < 7) then
-        TopVector = Vector((i-1)*12 + 50, 13)
+        TopVector = Vector((i-1)*12 + 48, 12)
       else
-        TopVector = Vector((i-7)*12 + 50, 23)
+        TopVector = Vector((i-7)*12 + 48, 22)
       end
         
       if (not ishalf or i < hearts+twfull-1) then
@@ -939,37 +948,37 @@ function IOTmod:Render()
   -- Render bits and events icons
   local bitsuishift = 0
   
-  if (TEventActive) then
+  if (TEventActive and allowrender) then
     SpriteEventActive:Update()
     SpriteEventActive:Render(Vector(136 + 16*bitsuishift, 13), Vector(0,0), Vector(0,0))
     bitsuishift = bitsuishift + 1
   end
   
-  if (bitsTime.gray.enable) then
+  if (bitsTime.gray.enable and allowrender) then
     SpriteGrayBitsActive:Update()
     SpriteGrayBitsActive:Render(Vector(136 + 16*bitsuishift, 13), Vector(0,0), Vector(0,0))
     bitsuishift = bitsuishift + 1
   end
   
-  if (bitsTime.purple.enable) then
+  if (bitsTime.purple.enable and allowrender) then
     SpritePurpleBitsActive:Update()
     SpritePurpleBitsActive:Render(Vector(136 + 16*bitsuishift, 13), Vector(0,0), Vector(0,0))
     bitsuishift = bitsuishift + 1
   end
   
-  if (bitsTime.green.enable) then
+  if (bitsTime.green.enable and allowrender) then
     SpriteGreenBitsActive:Update()
     SpriteGreenBitsActive:Render(Vector(136 + 16*bitsuishift, 13), Vector(0,0), Vector(0,0))
     bitsuishift = bitsuishift + 1
   end
   
-  if (bitsTime.blue.enable) then
+  if (bitsTime.blue.enable and allowrender) then
     SpriteBlueBitsActive:Update()
     SpriteBlueBitsActive:Render(Vector(136 + 16*bitsuishift, 13), Vector(0,0), Vector(0,0))
     bitsuishift = bitsuishift + 1
   end
   
-  if (bitsTime.red.enable) then
+  if (bitsTime.red.enable and allowrender) then
     SpriteRedBitsActive:Update()
     SpriteRedBitsActive:Render(Vector(136 + 16*bitsuishift, 13), Vector(0,0), Vector(0,0))
     bitsuishift = bitsuishift + 1
@@ -1018,7 +1027,9 @@ function IOTmod:Render()
       subs[k].color = ChatColors[math.random(0, #ChatColors-1)]
       subs[k].entity:SetColor(subs[k].color, 0, 0, false, false)
     end
-    Isaac.RenderText(subs[k].name, fpos.X-3 * #subs[k].name, fpos.Y-40, subs[k].color.R, subs[k].color.G, subs[k].color.B, 0.8)
+    if (allowrender) then
+      Isaac.RenderText(subs[k].name, fpos.X-3 * #subs[k].name, fpos.Y-40, subs[k].color.R, subs[k].color.G, subs[k].color.B, 0.8)
+    end
   end
     
 end
@@ -1300,10 +1311,10 @@ function IOTmod:TwitchRoomGen (room)
       
       Isaac.Spawn(5, 100, item, room:GetGridPosition(67), Vector(0,0), nil, 0)
       
-      g:Spawn(EntityType.ENTITY_PICKUP, math.random(1000, 1004), room:GetGridPosition(32), Vector(0,0), nil, 0, 0)
-      g:Spawn(EntityType.ENTITY_PICKUP, math.random(1000, 1004), room:GetGridPosition(42), Vector(0,0), nil, 0, 0)
-      g:Spawn(EntityType.ENTITY_PICKUP, math.random(1000, 1004), room:GetGridPosition(92), Vector(0,0), nil, 0, 0)
-      g:Spawn(EntityType.ENTITY_PICKUP, math.random(1000, 1004), room:GetGridPosition(102), Vector(0,0), nil, 0, 0)
+      g:Spawn(EntityType.ENTITY_PICKUP, math.random(1000, 1005), room:GetGridPosition(32), Vector(0,0), nil, 0, 0)
+      g:Spawn(EntityType.ENTITY_PICKUP, math.random(1000, 1005), room:GetGridPosition(42), Vector(0,0), nil, 0, 0)
+      g:Spawn(EntityType.ENTITY_PICKUP, math.random(1000, 1005), room:GetGridPosition(92), Vector(0,0), nil, 0, 0)
+      g:Spawn(EntityType.ENTITY_PICKUP, math.random(1000, 1005), room:GetGridPosition(102), Vector(0,0), nil, 0, 0)
       
     end
   end

@@ -12,7 +12,7 @@ namespace TwitchToIsaac
     {
         static WebClient client = new WebClient();
         static string url = "https://vfstudio.github.io/IsaacOnTwitch/updservice/";
-        static string currentVer = "1.3.0";
+        static string currentVer = "1.3.1";
 
         public static string checkUpd ()
         {

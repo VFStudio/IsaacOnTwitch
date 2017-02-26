@@ -58,11 +58,9 @@ D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\MaterialDesignThemes.Wpf.dll
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\Newtonsoft.Json.dll
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\TwitchLib.dll
-D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\WebSocket4Net.dll
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\MaterialDesignThemes.Wpf.pdb
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\MaterialDesignThemes.Wpf.xml
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\Newtonsoft.Json.xml
-D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\TwitchLib.xml
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\App.baml
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\MainWindow.baml
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitсhToIsaac.g.resources
@@ -70,3 +68,6 @@ D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitсhToIsaac.exe
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitсhToIsaac.pdb
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitchToIsaac.Properties.Resources.resources
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\websocket-sharp.dll
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\MaterialDesignColors.pdb
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\TwitchLib.pdb

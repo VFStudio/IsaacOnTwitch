@@ -13,6 +13,7 @@ using TwitсhToIsaac.Classes.VotingOptions;
 using TwitchLib.Events.Services.FollowerService;
 using TwitchLib.Services;
 using TwitchLib.Models.API;
+using TwitchLib.Models.API.Follow;
 
 namespace TwitсhToIsaac.Classes
 {
@@ -31,6 +32,7 @@ namespace TwitсhToIsaac.Classes
         static Queue<ActionSub> Subs = new Queue<ActionSub>();
         static Queue<ActionBits> Bits = new Queue<ActionBits>();
         static Queue<int> Interrupts = new Queue<int>();
+        static List<string> SubCache = new List<string>();
         
         static double lastInterruptHash = 0;
         static int nowInterrupt;
@@ -91,16 +93,30 @@ namespace TwitсhToIsaac.Classes
 
         private static void Twitch_OnReSubscriber(object sender, TwitchLib.Events.Client.OnReSubscriberArgs e)
         {
-            newsubs++;
-            ReSubscriber s = e.ReSubscriber;
-            Subs.Enqueue(new ActionSub(s.DisplayName, rnd.Next()));
+            if (!SpecialAppear.subs)
+                return;
+
+            if (!SubCache.Contains(e.ReSubscriber.DisplayName.ToLower()))
+            {
+                newsubs++;
+                ReSubscriber s = e.ReSubscriber;
+                Subs.Enqueue(new ActionSub(s.DisplayName, rnd.Next()));
+                SubCache.Add(e.ReSubscriber.DisplayName.ToLower());
+            }
         }
 
         private static void Twitch_OnNewSubscriber(object sender, TwitchLib.Events.Client.OnNewSubscriberArgs e)
         {
-            newsubs++;
-            NewSubscriber s = e.Subscriber;
-            Subs.Enqueue(new ActionSub(s.Name, rnd.Next()));
+            if (!SpecialAppear.subs)
+                return;
+
+            if (!SubCache.Contains(e.Subscriber.Name.ToLower()))
+            {
+                newsubs++;
+                NewSubscriber s = e.Subscriber;
+                Subs.Enqueue(new ActionSub(s.Name, rnd.Next()));
+                SubCache.Add(e.Subscriber.Name.ToLower());
+            }
         }
 
         private static void Twitch_OnMessageReceived(object sender, TwitchLib.Events.Client.OnMessageReceivedArgs e)
@@ -181,14 +197,19 @@ namespace TwitсhToIsaac.Classes
                 }
 
                 Twitch.JoinChannel(name);
-                if (FollowerScan != null)
+                try
+                {
+                    if (FollowerScan != null)
                     FollowerScan.StopService();
 
-                FollowerScan = new FollowerService(name, 30, 25, apikey);
-                FollowerScan.OnNewFollowersDetected += FollowerScan_OnNewFollowersDetected;
-                FollowerScan.OnServiceStarted += FollowerScan_OnServiceStarted;
-                FollowerScan.OnServiceStopped += FollowerScan_OnServiceStopped;
-                FollowerScan.StartService();
+                
+                    FollowerScan = new FollowerService(name, 30, 25, apikey);
+                    FollowerScan.OnNewFollowersDetected += FollowerScan_OnNewFollowersDetected;
+                    FollowerScan.OnServiceStarted += FollowerScan_OnServiceStarted;
+                    FollowerScan.OnServiceStopped += FollowerScan_OnServiceStopped;
+                    FollowerScan.StartService();
+                }
+                catch { ScreenStatus.addLog("Follower service not started", ScreenStatus.logType.Error); }
             }
         }
 
@@ -209,7 +230,11 @@ namespace TwitсhToIsaac.Classes
 
             foreach (Follower f in e.NewFollowers)
             {
-                Subs.Enqueue(new ActionSub(f.User.DisplayName, rnd.Next(), true));
+                if (!SubCache.Contains(f.User.DisplayName.ToLower()))
+                {
+                    Subs.Enqueue(new ActionSub(f.User.DisplayName, rnd.Next(), true));
+                    SubCache.Add(f.User.DisplayName.ToLower());
+                }
             }
         }
 
@@ -353,7 +378,7 @@ namespace TwitсhToIsaac.Classes
                 return;
             }
 
-            if (Subs.Count > 0 && (SpecialAppear.subs || SpecialAppear.followers))
+            if (Subs.Count > 0)
             {
                 Timers[TimerType.Vote].Stop();
                 Delays["Special"] = 3;
