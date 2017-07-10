@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,8 +10,7 @@ using TwitсhToIsaac.Classes.Events;
 using TwitсhToIsaac.Classes.VotingOptions;
 using TwitchLib.Events.Services.FollowerService;
 using TwitchLib.Services;
-using TwitchLib.Models.API;
-using TwitchLib.Models.API.Follow;
+using TwitchLib.Events.Client;
 
 namespace TwitсhToIsaac.Classes
 {
@@ -83,7 +80,6 @@ namespace TwitсhToIsaac.Classes
             VoteChances.Save();
             VotePool.Load();
             LoadGifts();
-            SoundManager.Init();
             ChatColors.Init();
 
             Twitch.Connect();
@@ -99,8 +95,7 @@ namespace TwitсhToIsaac.Classes
             if (!SubCache.Contains(e.ReSubscriber.DisplayName.ToLower()))
             {
                 newsubs++;
-                ReSubscriber s = e.ReSubscriber;
-                Subs.Enqueue(new ActionSub(s.DisplayName, rnd.Next()));
+                Subs.Enqueue(new ActionSub(e.ReSubscriber.DisplayName, rnd.Next()));
                 SubCache.Add(e.ReSubscriber.DisplayName.ToLower());
             }
         }
@@ -110,12 +105,11 @@ namespace TwitсhToIsaac.Classes
             if (!SpecialAppear.subs)
                 return;
 
-            if (!SubCache.Contains(e.Subscriber.Name.ToLower()))
+            if (!SubCache.Contains(e.Subscriber.DisplayName.ToLower()))
             {
                 newsubs++;
-                NewSubscriber s = e.Subscriber;
-                Subs.Enqueue(new ActionSub(s.Name, rnd.Next()));
-                SubCache.Add(e.Subscriber.Name.ToLower());
+                Subs.Enqueue(new ActionSub(e.Subscriber.DisplayName, rnd.Next()));
+                SubCache.Add(e.Subscriber.DisplayName.ToLower());
             }
         }
 
@@ -193,7 +187,7 @@ namespace TwitсhToIsaac.Classes
                 if (channel != "")
                 {
                     Twitch.LeaveChannel(channel);
-                    ScreenStatus.addLog("Exit from " + channel);
+                    ScreenStatus.AddLog("Exit from " + channel);
                 }
 
                 Twitch.JoinChannel(name);
@@ -203,24 +197,25 @@ namespace TwitсhToIsaac.Classes
                     FollowerScan.StopService();
 
                 
-                    FollowerScan = new FollowerService(name, 30, 25, apikey);
+                    FollowerScan = new FollowerService(30, 25, apikey);
                     FollowerScan.OnNewFollowersDetected += FollowerScan_OnNewFollowersDetected;
                     FollowerScan.OnServiceStarted += FollowerScan_OnServiceStarted;
                     FollowerScan.OnServiceStopped += FollowerScan_OnServiceStopped;
+                    FollowerScan.SetChannelByName(name);
                     FollowerScan.StartService();
                 }
-                catch { ScreenStatus.addLog("Follower service not started", ScreenStatus.logType.Error); }
+                catch { ScreenStatus.AddLog("Follower service not started", ScreenStatus.LogType.Error); }
             }
         }
 
         private static void FollowerScan_OnServiceStopped(object sender, OnServiceStoppedArgs e)
         {
-            ScreenStatus.addLog("Follower service stopped");
+            ScreenStatus.AddLog("Follower service stopped");
         }
 
         private static void FollowerScan_OnServiceStarted(object sender, OnServiceStartedArgs e)
         {
-            ScreenStatus.addLog("Follower service started", ScreenStatus.logType.Success);
+            ScreenStatus.AddLog("Follower service started", ScreenStatus.LogType.Success);
         }
 
         private static void FollowerScan_OnNewFollowersDetected(object sender, OnNewFollowersDetectedArgs e)
@@ -228,12 +223,12 @@ namespace TwitсhToIsaac.Classes
             if (!SpecialAppear.followers)
                 return;
 
-            foreach (Follower f in e.NewFollowers)
+            foreach (string f in e.NewFollowers)
             {
-                if (!SubCache.Contains(f.User.DisplayName.ToLower()))
+                if (!SubCache.Contains(f.ToLower()))
                 {
-                    Subs.Enqueue(new ActionSub(f.User.DisplayName, rnd.Next(), true));
-                    SubCache.Add(f.User.DisplayName.ToLower());
+                    Subs.Enqueue(new ActionSub(f, rnd.Next(), true));
+                    SubCache.Add(f.ToLower());
                 }
             }
         }
@@ -241,8 +236,8 @@ namespace TwitсhToIsaac.Classes
         public static void Start ()
         {
             ready = true;
-            ScreenStatus.addLog("--------Session start--------");
-            ScreenStatus.updateScreenStatus();
+            ScreenStatus.AddLog("--------Session start--------");
+            ScreenStatus.UpdateScreenStatus();
 
             Event = new ActionInfo("Voting will start soon");
 
@@ -293,7 +288,7 @@ namespace TwitсhToIsaac.Classes
             }
 
             Event = new ActionVote(text, secondtext, 0);
-            ScreenStatus.addLog("Vote start: " + text);
+            ScreenStatus.AddLog("Vote start: " + text);
             voteon = true;
         }
 
@@ -307,7 +302,7 @@ namespace TwitсhToIsaac.Classes
 
         private static void SpecialLoop(object sender, ElapsedEventArgs e)
         {
-            ScreenStatus.updateScreenStatus();
+            ScreenStatus.UpdateScreenStatus();
 
             if (Delays["Special"] > 0)
             {
@@ -318,7 +313,7 @@ namespace TwitсhToIsaac.Classes
             {
                 Timers[TimerType.Special].Stop();
                 Timers[TimerType.Vote].Start();
-                ScreenStatus.addLog(SpecialEvent.text);
+                ScreenStatus.AddLog(SpecialEvent.text);
             }
         }
 
@@ -339,14 +334,14 @@ namespace TwitсhToIsaac.Classes
             {
                 if (nowInterrupt == 0)
                 {
-                    ScreenStatus.addLog("Used [VOTE NAY]");
+                    ScreenStatus.AddLog("Used [VOTE NAY]");
                     IOLink.InputData = new ActionInfo("Vote will be skipped after " + Delays["Interrupt"] + "s");
                     NewVote();
                 }
 
                 if (nowInterrupt == 1)
                 {
-                    ScreenStatus.addLog("Used [VOTE YEA]");
+                    ScreenStatus.AddLog("Used [VOTE YEA]");
                     IOLink.InputData = new ActionInfo("Vote will be accepted after " + Delays["Interrupt"] + "s");
                     Delays["Vote"] = 0;
                 }
@@ -358,7 +353,7 @@ namespace TwitсhToIsaac.Classes
 
         private static void VoteLoop(object sender, ElapsedEventArgs e)
         {
-            ScreenStatus.updateScreenStatus();
+            ScreenStatus.UpdateScreenStatus();
 
             if (IOLink.OutputParam.pause)
                 return;
@@ -422,13 +417,12 @@ namespace TwitсhToIsaac.Classes
                 else
                     Event = new ActionGet(Result, rnd.NextDouble());
 
-                ScreenStatus.addLog("Vote over: " + Event.text);
+                ScreenStatus.AddLog("Vote over: " + Event.text);
 
                 //Set or reset vote modifier
                 if (Result.type == VoteType.Event)
                 {
                     VoteEvent Evote = (VoteEvent)Result;
-                    SoundManager.Play(Evote.sfx);
                     votemodifier = Evote.votemodifier;
                 }
                 else
@@ -460,10 +454,10 @@ namespace TwitсhToIsaac.Classes
 
         private static void Twitch_OnJoinedChannel(object sender, TwitchLib.Events.Client.OnJoinedChannelArgs e)
         {
-            ScreenStatus.addLog("Joined on " + e.Channel, ScreenStatus.logType.Success);
+            ScreenStatus.AddLog("Joined on " + e.Channel, ScreenStatus.LogType.Success);
             ScreenStatus.twitchChat = true;
             channel = e.Channel;
-            ScreenStatus.updateScreenStatus();
+            ScreenStatus.UpdateScreenStatus();
             if (Gifts.ContainsKey(e.Channel.ToLower()))
                 IOLink.InputParam.gift = Gifts[e.Channel.ToLower()];
             MainStatus.Dispatcher.Invoke(() =>
@@ -475,12 +469,12 @@ namespace TwitсhToIsaac.Classes
 
         private static void Twitch_OnConnectionError(object sender, TwitchLib.Events.Client.OnConnectionErrorArgs e)
         {
-            ScreenStatus.addLog("Error connecting to Twitch", ScreenStatus.logType.Error);
+            ScreenStatus.AddLog("Error connecting to Twitch", ScreenStatus.LogType.Error);
         }
 
         private static void Twitch_OnConnected(object sender, TwitchLib.Events.Client.OnConnectedArgs e)
         {
-            ScreenStatus.addLog("Connected to Twitch", ScreenStatus.logType.Success);
+            ScreenStatus.AddLog("Connected to Twitch", ScreenStatus.LogType.Success);
         }
 
         private static void LoadGifts ()
@@ -507,29 +501,31 @@ namespace TwitсhToIsaac.Classes
         public static Label Lruns;
 
         public static ListBox log;
-        public enum logType { Info, Error, Success }
+        public enum LogType { Info, Error, Success }
 
-        public static void addLog(string msg, logType t = logType.Info)
+        public static void AddLog(string msg, LogType t = LogType.Info)
         {
             log.Dispatcher.Invoke(() =>
             {
-                TextBlock tb = new TextBlock();
-                tb.Text = msg;
-                tb.TextWrapping = System.Windows.TextWrapping.WrapWithOverflow;
-                tb.Margin = new System.Windows.Thickness(0, 0, 0, 5);
-
-                Color c = new Color();
-                c.A = 255;
-
+                TextBlock tb = new TextBlock()
+                {
+                    Text = msg,
+                    TextWrapping = System.Windows.TextWrapping.WrapWithOverflow,
+                    Margin = new System.Windows.Thickness(0, 0, 0, 5)
+                };
+                Color c = new Color()
+                {
+                    A = 255
+                };
                 switch (t)
                 {
-                    case logType.Error:
+                    case LogType.Error:
                         c.R = 255;
                         c.G = 140;
                         c.B = 140;
                         break;
 
-                    case logType.Success:
+                    case LogType.Success:
                         c.R = 140;
                         c.G = 255;
                         c.B = 140;
@@ -551,7 +547,7 @@ namespace TwitсhToIsaac.Classes
             );
         }
 
-        public static void updateScreenStatus()
+        public static void UpdateScreenStatus()
         {
             log.Dispatcher.Invoke(() =>
             {

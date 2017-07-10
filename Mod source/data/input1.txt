@@ -1,1 +1,1 @@
-{"etype":0,"secondtext":"","emode":2,"text":"Run TwitchToIsaac for start!","hash":0.0}
+{"etype":7,"secondtext":"","eobj":"Rewind","happy":true,"emode":3,"text":"Repeat after me! (14s)","hash":0.7954442401}

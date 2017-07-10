@@ -51,10 +51,12 @@ namespace TwitсhToIsaac.Classes.Events
 
         static Color RGB (byte r, byte g, byte b)
         {
-            Color c = new Color();
-            c.R = r;
-            c.G = g;
-            c.B = b;
+            Color c = new Color()
+            {
+                R = r,
+                G = g,
+                B = b
+            };
             return c;
         }
     }

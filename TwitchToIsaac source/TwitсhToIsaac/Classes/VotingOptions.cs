@@ -338,8 +338,7 @@ namespace TwitсhToIsaac.Classes.VotingOptions
             Pockets.Add(new VotePocket("Spacebar", "Spacebar", "Your item is activated!", true));
             Pockets.Add(new VotePocket("Charge", "Charge item", "Your item is fully charged!", true));
             Pockets.Add(new VotePocket("Discharge", "Discharge item", "Your item is fully discharged!", false));
-
-            Events.Add(new VoteEvent("Slow", "Slow", "So slowly...", true));
+            
             Events.Add(new VoteEvent("Poop", "Poop", "Who will clean it?", false));
             Events.Add(new VoteEvent("Richy", "Richy", "Yeah, i am lucky!", true));
             Events.Add(new VoteEvent("Earthquake", "Earthquake", "Protect your head!", false));

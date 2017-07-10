@@ -10,7 +10,7 @@ namespace TwitсhToIsaac.Classes
 
     public class ProgramParam
     {
-        public int viewers { get; set; } = 0;
+        public int Viewers { get; set; } = 0;
         public TextParam textparam { get; set; } = new TextParam();
         public int subdel = 10 * 30 * 60;
         public string gift = null;

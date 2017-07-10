@@ -1,0 +1,208 @@
+<shaders>
+    <shader name="Blink">
+        <parameters>
+            <param name="Time" type="float"/>
+        </parameters>
+        <vertex><![CDATA[
+            attribute vec3 Position;                                        
+            attribute vec4 Color;                                           
+            attribute vec2 TexCoord;                                        
+            attribute vec4 RenderData;                                                                  
+            attribute float Scale;
+            attribute float Time;
+            varying vec4 Color0;                                            
+            varying vec2 TexCoord0;                                     
+            varying vec4 RenderDataOut; 
+            varying float ScaleOut;
+            varying float TimeOut;
+            uniform mat4 Transform;                                     
+            void main(void)                                             
+            {                                                               
+                RenderDataOut = RenderData;                             
+                ScaleOut = Scale;         // Passing data to fragment shader 
+                TimeOut = Time;           // Passing data to fragment shader
+                Color0 = Color;                                             
+                TexCoord0 = TexCoord;
+                gl_Position = Transform * vec4(Position.xyz, 1.0);          
+            }
+        ]]></vertex>
+        <fragment><![CDATA[
+            varying lowp vec4 Color0;                                       
+            varying mediump vec2 TexCoord0;                             
+            varying lowp vec4 RenderDataOut;
+            varying lowp float ScaleOut;            
+            varying mediump vec2 PlayerPosOut;
+            varying lowp float TimeOut; 
+            uniform sampler2D Texture0;                                         
+            void main(void)                                             
+            {                                                               
+                vec4 Color = Color0 * texture2D(Texture0, TexCoord0);       
+                Color.r *= TimeOut;
+                Color.g *= TimeOut;
+                Color.b *= TimeOut;
+                gl_FragColor = Color;
+            }
+        ]]></fragment>
+    </shader>
+	
+	<shader name="ScreenRotate">
+        <parameters>
+            <param name="Pos" type="float"/>
+        </parameters>
+        <vertex><![CDATA[
+            attribute vec3 Position;                                        
+            attribute vec4 Color;                                           
+            attribute vec2 TexCoord;                                        
+            attribute vec4 RenderData;                                                                  
+            attribute float Scale;
+            attribute float Pos;
+            varying vec4 Color0;                                            
+            varying vec2 TexCoord0;
+            varying float TimeOut;
+            uniform mat4 Transform;                                     
+            void main(void)                                  
+			{
+                Color0 = Color;
+				
+				if (Pos == 0) {
+					TexCoord0 = TexCoord;
+				}
+				else if (Pos == 1) {
+					TexCoord0 = vec2(RenderData.w/RenderData.z - TexCoord.x, TexCoord.y);
+				}
+				else if (Pos == 2) {
+					TexCoord0 = vec2(TexCoord.x, RenderData.y/RenderData.x - TexCoord.y);
+				}
+				else {
+					TexCoord0 = vec2(RenderData.w/RenderData.z - TexCoord.x, RenderData.y/RenderData.x - TexCoord.y);
+				}
+				
+                gl_Position = Transform * vec4(Position.x, Position.y, Position.z, 1.0);        
+				
+            }
+        ]]></vertex>
+        <fragment><![CDATA[
+            varying lowp vec4 Color0;                                       
+            varying mediump vec2 TexCoord0;
+            varying lowp float TimeOut; 
+            uniform sampler2D Texture0;                                         
+            void main(void)                                             
+            {                                                               
+                gl_FragColor = Color0 * texture2D(Texture0, TexCoord0);
+            }
+        ]]></fragment>
+    </shader>
+	
+	<shader name="VHS">
+        <parameters>
+			<param name="Enabled" type="float"/>
+			<param name="VHSPos" type="float"/>
+        </parameters>
+        <vertex><![CDATA[
+            attribute vec3 Position;                                        
+            attribute vec4 Color;                                           
+            attribute vec2 TexCoord;                                        
+            attribute vec4 RenderData;                                                                  
+            attribute float Scale;
+            attribute float VHSPos;
+			attribute float Enabled;
+            varying vec4 Color0;                                            
+            varying vec2 TexCoord0;
+            varying float VHSPosOut;
+			varying float EnabledOut;
+            uniform mat4 Transform;                                     
+            void main(void)                                  
+			{
+                Color0 = Color;
+				TexCoord0 = TexCoord;
+				VHSPosOut = VHSPos;
+				EnabledOut = Enabled;
+                gl_Position = Transform * vec4(Position.xyz, 1.0);        
+				
+            }
+        ]]></vertex>
+        <fragment><![CDATA[
+            varying lowp vec4 Color0;
+            varying mediump vec2 TexCoord0;
+            varying lowp float VHSPosOut; 
+			varying lowp float EnabledOut;
+            uniform sampler2D Texture0;   
+
+			float rand(vec2 co){
+				return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+			}
+			
+            void main(void)                                             
+            {
+				vec4 Color = Color0 * texture2D(Texture0, TexCoord0);
+				
+				if (EnabledOut > 0) {
+					float VHSPosWidth = rand(TexCoord0)/18;
+					if (TexCoord0.y > VHSPosOut && TexCoord0.y < VHSPosOut + VHSPosWidth) {
+						
+						float c = rand(vec2(TexCoord0.y, TexCoord0.y))+0.7;
+						Color.r *= c;
+						Color.g *= c;
+						Color.b *= c;
+					}
+				}
+                gl_FragColor = Color;
+            }
+			
+        ]]></fragment>
+    </shader>
+	
+	<shader name="ColorSides">
+        <parameters>
+			<param name="Enabled" type="float"/>
+			<param name="Intensity" type="float"/>
+			<param name="VColor" type="vec3"/>
+        </parameters>
+        <vertex><![CDATA[
+            attribute vec3 Position;                                        
+            attribute vec4 Color;                                           
+            attribute vec2 TexCoord;                                        
+            attribute vec4 RenderData;                                                                  
+            attribute float Scale;
+            attribute vec3 VColor;
+			attribute float Enabled;
+			attribute float Intensity;
+            varying vec4 Color0;		
+            varying vec2 TexCoord0;
+			varying vec3 VColorOut;
+			varying float EnabledOut;
+			varying float IntensityOut;
+            uniform mat4 Transform;                                     
+            void main(void)                                  
+			{
+                Color0 = Color;
+				TexCoord0 = TexCoord;
+				EnabledOut = Enabled;
+				VColorOut = VColor;
+				IntensityOut = Intensity;
+                gl_Position = Transform * vec4(Position.xyz, 1.0);        
+				
+            }
+        ]]></vertex>
+        <fragment><![CDATA[
+            varying lowp vec4 Color0;                                       
+            varying mediump vec2 TexCoord0;
+			varying lowp float EnabledOut;
+			varying lowp float IntensityOut;
+			varying lowp vec3 VColorOut;
+            uniform sampler2D Texture0;
+			
+            void main(void)                                             
+            {
+				vec4 Color = Color0 * texture2D(Texture0, TexCoord0);
+				
+				if (EnabledOut > 0) {
+					float resInt = 65-IntensityOut;
+					Color.rgb += VColorOut.rgb * ((1 - TexCoord0.x/2)/resInt + (TexCoord0.x/2)/resInt);
+				}
+                gl_FragColor = Color;
+            }
+			
+        ]]></fragment>
+    </shader>
+</shaders>

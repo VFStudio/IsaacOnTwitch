@@ -40,7 +40,7 @@ namespace TwitсhToIsaac.Classes
 
         static public void Start ()
         {
-            if (isCorrectPath())
+            if (IsCorrectPath())
             {
                 IsaacDataUpd = new Thread(UpdateOutputData);
                 ProgramDataUpd = new Thread(UpdateInputData);
@@ -63,7 +63,7 @@ namespace TwitсhToIsaac.Classes
             IORun = false;
         }
 
-        static public void acceptInputParam()
+        static public void AcceptInputParam()
         {
             programParamChanged = true;
         }
@@ -119,7 +119,7 @@ namespace TwitсhToIsaac.Classes
                 }
                 catch
                 {
-                    ScreenStatus.addLog("IO Read error: Thread #1", ScreenStatus.logType.Error);
+                    ScreenStatus.AddLog("IO Read error: Thread #1", ScreenStatus.LogType.Error);
                 }
 
                 Thread.Sleep(450);
@@ -139,7 +139,7 @@ namespace TwitсhToIsaac.Classes
                 }
                 catch
                 {
-                    ScreenStatus.addLog("IO Read error: Thread #2", ScreenStatus.logType.Error);
+                    ScreenStatus.AddLog("IO Read error: Thread #2", ScreenStatus.LogType.Error);
                 }
 
                 Thread.Sleep(2600);
@@ -163,7 +163,7 @@ namespace TwitсhToIsaac.Classes
                 }
                 catch
                 {
-                    ScreenStatus.addLog("IO Write error: Thread #1", ScreenStatus.logType.Error);
+                    ScreenStatus.AddLog("IO Write error: Thread #1", ScreenStatus.LogType.Error);
                 }
                 Thread.Sleep(465);
             }
@@ -185,13 +185,13 @@ namespace TwitсhToIsaac.Classes
                 }
                 catch
                 {
-                    ScreenStatus.addLog("IO Write error: Thread #2", ScreenStatus.logType.Error);
+                    ScreenStatus.AddLog("IO Write error: Thread #2", ScreenStatus.LogType.Error);
                 }
                 Thread.Sleep(2675);
             }
         }
 
-        public static bool isCorrectPath ()
+        public static bool IsCorrectPath ()
         {
             return File.Exists(inputdatapath) && File.Exists(inputparampath)
                 && File.Exists(outputdatapath) && File.Exists(outputparampath);

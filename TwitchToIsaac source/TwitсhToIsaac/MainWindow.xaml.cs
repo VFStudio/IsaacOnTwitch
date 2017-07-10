@@ -59,7 +59,7 @@ namespace TwithToIsaac
             ScreenStatus.Lruns = LMain_runcount;
             ScreenStatus.log = LBMain_log;
 
-            if (IOLink.isCorrectPath())
+            if (IOLink.IsCorrectPath())
             {
                 IOLink.Start();
                 Controller.Init(LMain_mainstatus, BMain_run);
@@ -362,16 +362,14 @@ namespace TwithToIsaac
             IOLink.InputParam.textparam.firstline.y = RenderSettings.FirstLine.y;
             IOLink.InputParam.textparam.secondline.x = RenderSettings.SecondLine.x;
             IOLink.InputParam.textparam.secondline.y = RenderSettings.SecondLine.y;
-            IOLink.acceptInputParam();
+            IOLink.AcceptInputParam();
         }
 
         private void BMod_save_Click(object sender, RoutedEventArgs e)
         {
             SettingsLoader.s.subdel = TMod_subdeltime.Text;
-            SettingsLoader.s.volume = SMod_volume.Value;
 
             IOLink.InputParam.subdel = int.Parse(TMod_subdeltime.Text) * 60 * 30;
-            SoundManager.SetVolume(SMod_volume.Value / 100);
         }
 
         private void BMain_run_Click(object sender, RoutedEventArgs e)
@@ -452,7 +450,6 @@ namespace TwithToIsaac
             TRender_secondY.Text = SettingsLoader.s.secondline.y;
 
             TMod_subdeltime.Text = SettingsLoader.s.subdel;
-            SMod_volume.Value = SettingsLoader.s.volume;
 
             BChances_save_Click(null, null);
             BRender_save_Click(null, null);

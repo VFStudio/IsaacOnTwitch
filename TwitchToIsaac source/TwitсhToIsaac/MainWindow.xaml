@@ -164,8 +164,6 @@
             <StackPanel VerticalAlignment="Top" Margin="0,10,0,0">
                 <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,10,0,5" >Subs disappear time (minutes)</TextBlock>
                 <TextBox x:Name="TMod_subdeltime" Style="{DynamicResource MaterialDesignTextBox}" Text="10" FontSize="13" HorizontalAlignment="Center" Width="65" PreviewTextInput="NumberValidationTextBox"/>
-                <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,15,0,5" >Events volume</TextBlock>
-                <Slider x:Name="SMod_volume" SmallChange="1" Height="24" Value="85" Minimum="1" Margin="30,0" Maximum="100" />
                 <Button x:Name="BMod_save" Content="Save" HorizontalAlignment="Center" Margin="253,10,242,0" Width="72" Click="BMod_save_Click"/>
                 <TextBlock FontSize="12" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="138,5,104,0" Width="325" ><Run Text="The settings take effect immediately, even during game"/></TextBlock>
             </StackPanel>

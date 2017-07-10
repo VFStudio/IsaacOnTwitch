@@ -72,12 +72,14 @@ local SpritePurpleBitsActive = Sprite()
 local SpriteGreenBitsActive = Sprite()
 local SpriteBlueBitsActive = Sprite()
 local SpriteRedBitsActive = Sprite()
+
 SpriteEventActive:Load("gfx/ui/mod.twitch_uieffects.anm2", true)
 SpriteGrayBitsActive:Load("gfx/ui/mod.twitch_uieffects.anm2", true)
 SpritePurpleBitsActive:Load("gfx/ui/mod.twitch_uieffects.anm2", true)
 SpriteGreenBitsActive:Load("gfx/ui/mod.twitch_uieffects.anm2", true)
 SpriteBlueBitsActive:Load("gfx/ui/mod.twitch_uieffects.anm2", true)
 SpriteRedBitsActive:Load("gfx/ui/mod.twitch_uieffects.anm2", true)
+
 SpriteEventActive:Play("Event", true)
 SpriteGrayBitsActive:Play("Gray", true)
 SpritePurpleBitsActive:Play("Purple", true)
@@ -86,6 +88,11 @@ SpriteBlueBitsActive:Play("Blue", true)
 SpriteRedBitsActive:Play("Red", true)
 
 --Entities
+local E_BitsA = Isaac.GetEntityVariantByName ("Bits A")
+local E_BitsB = Isaac.GetEntityVariantByName ("Bits B")
+local E_BitsC = Isaac.GetEntityVariantByName ("Bits C")
+local E_BitsD = Isaac.GetEntityVariantByName ("Bits D")
+local E_BitsE = Isaac.GetEntityVariantByName ("Bits E")
 local SpriteTwitchBlackHole = Isaac.GetEntityTypeByName ("Twitch Black Hole")
 
 --Data IO
@@ -176,6 +183,16 @@ local FI_stinky_have = false
 local FI_nightbot_have = false
 
 local TI_neonomi_active = false
+
+--Sounds
+local SND_bitsAppear = Isaac.GetSoundIdByName ("BitsAppear")
+local SND_bitsCollect = Isaac.GetSoundIdByName ("BitsCollect")
+local SND_superhotBreak = Isaac.GetSoundIdByName ("SuperhotBreak")
+local SND_rewind = Isaac.GetSoundIdByName ("Rewind")
+local SND_goodMusic = Isaac.GetSoundIdByName ("GoodMusic")
+local SND_ddosDialup = Isaac.GetSoundIdByName ("DdosDialup")
+local SND_attackOnTitan = Isaac.GetSoundIdByName ("AttackOnTitan")
+local SND_interstellar = Isaac.GetSoundIdByName ("Interstellar")
 
 --Challenges
 local CH_twitchPower = Isaac.GetChallengeIdByName("Twitch Power")
@@ -317,41 +334,7 @@ function IOTmod.funcs:givePocket (name)
 end
 
 function IOTmod.funcs:giveEvent (name)
-  local p = Isaac.GetPlayer(0);
-  local g = Game()
-  local r = g:GetRoom()
-  if name == "Slow" then r:SetBrokenWatchState(1)
-  elseif name == "Poop" then SpecialEvents:Poop()
-  elseif name == "Richy" then SpecialEvents:Richy()
-  elseif name == "Earthquake" then SpecialEvents:Earthquake()
-  elseif name == "Charm" then SpecialEvents:Charm()
-  elseif name == "Hell" then SpecialEvents:Hell()
-  elseif name == "Spiky" then SpecialEvents:Spiky()
-  elseif name == "Award" then SpecialEvents:Award()
-  elseif name == "AngelRage" then SpecialEvents:AngelRage()
-  elseif name == "DevilRage" then SpecialEvents:DevilRage()
-  elseif name == "RainbowRain" then SpecialEvents:RainbowRain()
-  elseif name == "CallToDark" then SpecialEvents:CallToDark()
-  elseif name == "RUN" then SpecialEvents:RUN()
-  elseif name == "FlashJump" then SpecialEvents:FlashJump()
-  elseif name == "EyesBleed" then SpecialEvents:EyesBleed()
-  elseif name == "StanleyParable" then SpecialEvents:StanleyParable()
-  elseif name == "Supernova" then SpecialEvents:Supernova()
-  elseif name == "GoodMusic" then SpecialEvents:GoodMusic()
-  elseif name == "Strabismus" then SpecialEvents:Strabismus()
-  elseif name == "Inverse" then SpecialEvents:Inverse()
-  elseif name == "Slip" then SpecialEvents:Slip()
-  elseif name == "NoDMG" then SpecialEvents:NoDMG()
-  elseif name == "Whirlwind" then SpecialEvents:Whirlwind()
-  elseif name == "DDoS" then SpecialEvents:DDoS()
-  elseif name == "Invisible" then SpecialEvents:Invisible()
-  elseif name == "Heal" then SpecialEvents:Heal()
-  elseif name == "Flashmob" then SpecialEvents:Flashmob()
-  elseif name == "AttackOnTitan" then SpecialEvents:AttackOnTitan()
-  elseif name == "Interstellar" then SpecialEvents:Interstellar()
-  elseif name == "BladeStorm" then SpecialEvents:BladeStorm()
-  elseif name == "Diarrhea" then SpecialEvents:Diarrhea()
-  elseif name == "Discharge" then p:DischargeActiveItem() end
+  SpecialEvents[name]()
 end
 
 ----------------------------Cache Update (works through ass)------------------------------
@@ -651,27 +634,27 @@ function IOTmod:postUpdate()
     if (entities[k].Type == EntityType.ENTITY_PICKUP) then
       
       if (p:HasTrinket(TI_smite) and v.Variant > 1000 and v.Variant <= 1005) then
-        if (v.Variant == 1001) then
+        if (v.Variant == E_BitsA) then
           for i=0, 2 do Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, LocustSubtypes.LOCUST_OF_DEATH, v.Position, Vector(0,0), p) end
           v:Remove()
         end
         
-        if (v.Variant == 1002) then
+        if (v.Variant == E_BitsB) then
           for i=0, 3 do Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, LocustSubtypes.LOCUST_OF_FAMINE, v.Position, Vector(0,0), p) end
           v:Remove()
         end
         
-        if (v.Variant == 1003) then
+        if (v.Variant == E_BitsC) then
           for i=0, 5 do Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, LocustSubtypes.LOCUST_OF_PESTILENCE, v.Position, Vector(0,0), p) end
           v:Remove()
         end
         
-        if (v.Variant == 1004) then
+        if (v.Variant == E_BitsD) then
           for i=0, 7 do Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, LocustSubtypes.LOCUST_OF_CONQUEST, v.Position, Vector(0,0), p) end
           v:Remove()
         end
         
-        if (v.Variant == 1005) then
+        if (v.Variant == E_BitsE) then
           for i=0, 10 do Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, LocustSubtypes.LOCUST_OF_WRATH, v.Position, Vector(0,0), p) end
           v:Remove()
         end
@@ -696,8 +679,8 @@ function IOTmod:postUpdate()
       end
       
       --Bits A
-      if (e.Variant == 1001 and not e:IsDead() and p.Position:Distance(e.Position) <= 26) then
-        s:Play (SoundEffect.SOUND_NICKELPICKUP, 1, 0, false, 1.1)
+      if (e.Variant == E_BitsA and not e:IsDead() and p.Position:Distance(e.Position) <= 26) then
+        s:Play (SND_bitsCollect, 2.5, 0, false, 1.1)
         e:GetSprite():Play("Collect", false)
         e:Die()
         
@@ -706,8 +689,8 @@ function IOTmod:postUpdate()
       end
       
       --Bits B
-      if (e.Variant == 1002 and not e:IsDead() and p.Position:Distance(e.Position) <= 26) then
-        s:Play (SoundEffect.SOUND_NICKELPICKUP, 1, 0, false, 1.3)
+      if (e.Variant == E_BitsB and not e:IsDead() and p.Position:Distance(e.Position) <= 26) then
+        s:Play (SND_bitsCollect, 2.5, 0, false, 1.3)
         e:GetSprite():Play("Collect", false)
         e:Die()
         
@@ -716,8 +699,8 @@ function IOTmod:postUpdate()
       end
       
       --Bits C
-      if (e.Variant == 1003 and not e:IsDead() and p.Position:Distance(e.Position) <= 26) then
-        s:Play (SoundEffect.SOUND_NICKELPICKUP, 1, 0, false, 1.45)
+      if (e.Variant == E_BitsC and not e:IsDead() and p.Position:Distance(e.Position) <= 26) then
+        s:Play (SND_bitsCollect, 2.5, 0, false, 1.45)
         e:GetSprite():Play("Collect", false)
         e:Die()
         
@@ -726,8 +709,8 @@ function IOTmod:postUpdate()
       end
       
       --Bits D
-      if (e.Variant == 1004 and not e:IsDead() and p.Position:Distance(e.Position) <= 26) then
-        s:Play (SoundEffect.SOUND_NICKELPICKUP, 1, 0, false, 1.55)
+      if (e.Variant == E_BitsD and not e:IsDead() and p.Position:Distance(e.Position) <= 26) then
+        s:Play (SND_bitsCollect, 2.5, 0, false, 1.55)
         e:GetSprite():Play("Collect", false)
         e:Die()
         
@@ -736,8 +719,8 @@ function IOTmod:postUpdate()
       end
       
       --Bits E
-      if (e.Variant == 1005 and not e:IsDead() and p.Position:Distance(e.Position) <= 26) then
-        s:Play (SoundEffect.SOUND_NICKELPICKUP, 1, 0, false, 1.65)
+      if (e.Variant == E_BitsE and not e:IsDead() and p.Position:Distance(e.Position) <= 26) then
+        s:Play (SND_bitsCollect, 2.5, 0, false, 1.65)
         e:GetSprite():Play("Collect", false)
         e:Die()
         
@@ -781,7 +764,7 @@ function IOTmod:postUpdate()
     if (IOLink.Input.Data.hash ~= lastBitsHash) then
       lastBitsHash = IOLink.Input.Data.hash
       for i = 1, IOLink.Input.Data.count do
-        Isaac.Spawn(EntityType.ENTITY_PICKUP, 1001 + IOLink.Input.Data.type, 0, r:FindFreePickupSpawnPosition(r:GetCenterPos(), 0, true), Vector(0,0), p)
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, E_BitsA + IOLink.Input.Data.type, 0, r:FindFreePickupSpawnPosition(r:GetCenterPos(), 0, true), Vector(0,0), p)
       end
       p:AnimateHappy()
     end
@@ -916,8 +899,6 @@ function IOTmod:Render()
   
   --Render twitch hearts
   if (twitchHearts > 0 and Game():GetLevel():GetCurses () ~= LevelCurse.CURSE_OF_THE_UNKNOWN and allowrender) then
-    
-    
     
     local twfull = twitchHearts/2
     local ishalf = (twitchHearts % 2 == 1)
@@ -1228,7 +1209,7 @@ function IOTmod:UpdateFamiliarStinkyCheese (familiar)
     local entities = Isaac.GetRoomEntities()
   
     for k, v in pairs(entities) do
-      if (entities[k]:IsVulnerableEnemy() and not entities[k]:HasEntityFlags(EntityFlag.FLAG_POISON)) then
+      if (entities[k]:IsActiveEnemy() and not entities[k]:HasEntityFlags(EntityFlag.FLAG_POISON)) then
         local distBetween = familiar.Position:Distance(entities[k].Position)
         if (not entities[k]:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) and not entities[k]:IsDead() and distBetween <= 64) then IOTmod:TriggerFamiliarStinkyCheese(familiar, entities[k]) end
       end
@@ -1339,7 +1320,7 @@ function IOTmod:AI_TTours_act()
   local game = Game()
   
 	for i = 1, #entities do
-		if entities[i]:IsVulnerableEnemy() then
+		if entities[i]:IsActiveEnemy() then
 			entities[i]:AddConfusion(EntityRef(player), 580, false)
       local ref = EntityRef(entities[i])
       game:SpawnParticles(ref.Position, EffectVariant.IMPACT, 2, math.random(), Color(1, 1, 1, 1, 50, 50, 50), math.random())
@@ -1379,7 +1360,6 @@ function IOTmod:AI_gowskull_act()
 end
 
 function IOTmod:AI_DEBUG_act()
-  SpecialEvents:Interstellar()
   
   local	player = Isaac.GetPlayer(0)
 	local	e = Isaac.GetRoomEntities()
@@ -1542,6 +1522,17 @@ end
 ----------------------------Others---------------------------------
 function IOTmod:_playSound(sound)
   SFXManager():Play(sound, 1, 0, false, 1)
+end
+
+function IOTmod:startChallengeTwitchPower()
+  local g = Game()
+  local r = g:GetRoom()
+  local p = Isaac.GetPlayer(0)
+  
+  p:RemoveCollectible(CollectibleType.COLLECTIBLE_HOLY_MANTLE)
+  twitchHearts = 12
+  p:AddCollectible(AI_twitchRaid, 6, false)
+  p:AddCollectible(FI_stinkyCheese, 0, false)
 end
 
 function IOTmod:startChallengeTwitchPower()
@@ -1724,6 +1715,19 @@ Rainbow = {
     Color(0.5,0,1,1,0,0,0)
 }
 
+Doors = {
+  RoomType.ROOM_DEFAULT,
+  RoomType.ROOM_SHOP,
+  RoomType.ROOM_TREASURE,
+  RoomType.ROOM_BOSS,
+  RoomType.ROOM_SECRET,
+  RoomType.ROOM_ARCADE,
+  RoomType.ROOM_CURSE,
+  RoomType.ROOM_SACRIFICE,
+  RoomType.ROOM_DEVIL,
+  RoomType.ROOM_ANGEL
+}
+
 ChatColors = {
   Color(1,0,0,1,0,0,0),
   Color(0,0,1,1,0,0,0),
@@ -1743,6 +1747,10 @@ ChatColors = {
 }
 
 ----------------------------Events------------------------------
+
+EV_shader_ScreenSide_enabled = 0;
+EV_shader_ScreenSide_color = {1,1,0};
+EV_shader_ScreenSide_intensity = 50;
 
 SpecialEvents = {}
 
@@ -1777,13 +1785,14 @@ end
 
 ------- Earthquake
 function SpecialEvents:Earthquake()
-  local g = Game()
-  local	entities = Isaac.GetRoomEntities()
-  local player = Isaac.GetPlayer(0)
-  local room = Game():GetRoom()
   
   function SE__update ()
-    g:ShakeScreen(140)
+    local g = Game()
+    local	entities = Isaac.GetRoomEntities()
+    local player = Isaac.GetPlayer(0)
+    local room = Game():GetRoom()
+    
+    g:ShakeScreen(100)
     for i = 0, room:GetGridSize()/2 do
       local ind = math.random(room:GetGridSize())
       local pos = room:GetGridPosition(ind)
@@ -1792,7 +1801,7 @@ function SpecialEvents:Earthquake()
     end
     
     for i = 1, #entities do
-      if entities[i]:IsVulnerableEnemy() then
+      if entities[i]:IsActiveEnemy() and math.random(1,3) == 2 then
         local ref = EntityRef(entities[i])
         g:SpawnParticles(ref.Position, EffectVariant.SHOCKWAVE_RANDOM, 1, math.random(), Color(1, 1, 1, 1, 50, 50, 50), math.random())
       end
@@ -1813,7 +1822,7 @@ function SpecialEvents:Charm()
   function SE__update ()
     local entities = Isaac.GetRoomEntities()
     for i = 1, #entities do
-      if entities[i]:IsVulnerableEnemy() then
+      if entities[i]:IsActiveEnemy() then
         entities[i]:AddCharmed(600)
       end
     end
@@ -1831,7 +1840,7 @@ function SpecialEvents:Hell()
   local player = Isaac.GetPlayer(0)
   local room = Game():GetRoom()
 	for i = 1, #entities do
-		if entities[i]:IsVulnerableEnemy( ) then
+		if entities[i]:IsActiveEnemy( ) then
 			entities[i]:AddBurn(EntityRef(player), 120, 0.05)
       entities[i]:AddFear(EntityRef(player), 400)
 		end
@@ -1874,44 +1883,54 @@ end
 
 ------- Angel Rage
 function SpecialEvents:AngelRage()
-  local g = Game()
-  local entities = Isaac.GetRoomEntities()
-  local player = Isaac.GetPlayer(0)
-  local room = Game():GetRoom()
   
-  for i = 1, #entities do
-		if entities[i]:IsVulnerableEnemy() then
-      local ref = EntityRef(entities[i])
-      g:SpawnParticles(ref.Position, EffectVariant.CRACK_THE_SKY, 4, math.random(), Color(1, 1, 1, 1, 50, 50, 50), math.random())
-      g:SpawnParticles(ref.Position, EffectVariant.BLUE_FLAME, 1, math.random(), Color(1, 1, 1, 1, 50, 50, 50), math.random())
-		end
-	end
+  function SE__update()
+    local g = Game()
+    local player = Isaac.GetPlayer(0)
+    local room = Game():GetRoom()
+    local entities = Isaac.GetRoomEntities()
+    for i = 1, #entities do
+      if entities[i]:IsActiveEnemy() and math.random(1,3) == 2 then
+        local ref = EntityRef(entities[i])
+        g:SpawnParticles(ref.Position, EffectVariant.CRACK_THE_SKY, 3, math.random(), Color(1, 1, 1, 1, 50, 50, 50), math.random())
+        g:SpawnParticles(ref.Position, EffectVariant.BLUE_FLAME, 1, math.random(), Color(1, 1, 1, 1, 50, 50, 50), math.random())
+      end
+    end
+      
+      IOTmod:_playSound(SoundEffect.SOUND_HOLY)
+      room:SetFloorColor(Color(1,1,1,1,150,150,150))
+      room:SetWallColor(Color(1,1,1,1,150,150,150))
+      g:Darken(-1, 40);
+      
+    end
     
-    IOTmod:_playSound(SoundEffect.SOUND_HOLY)
-    room:SetFloorColor(Color(1,1,1,1,150,150,150))
-    room:SetWallColor(Color(1,1,1,1,150,150,150))
-    g:Darken(-1, 40);
+    SE__update()
+    table.insert(TEventStorage, TEvent:new(5, false, true, SE__update, nil))
 end
 
 ------- Devil Rage (very originally)
 function SpecialEvents:DevilRage()
-  local g = Game()
-  local entities = Isaac.GetRoomEntities()
-  local player = Isaac.GetPlayer(0)
-  local room = Game():GetRoom()
   
-  for i = 1, #entities do
-		if entities[i]:IsVulnerableEnemy() then
-      local ref = EntityRef(entities[i])
-      g:SpawnParticles(ref.Position, EffectVariant.CRACK_THE_SKY, 6, math.random(), Color(1, 0, 0, 1, 50, 0, 0), math.random())
-      g:SpawnParticles(ref.Position, EffectVariant.BLUE_FLAME, 1, math.random(), Color(1, 0, 0, 1, 50, 0, 0), math.random())
-		end
-	end
+  function SE__update()
+    local g = Game()
+    local entities = Isaac.GetRoomEntities()
+    local player = Isaac.GetPlayer(0)
+    local room = Game():GetRoom()
     
-    IOTmod:_playSound(SoundEffect.SOUND_SATAN_APPEAR)
-    room:SetFloorColor(Color(0,0,0,1,-50,-50,-50))
-    room:SetWallColor(Color(0,0,0,1,-50,-50,-50))
-    g:Darken(1, 60);
+    for i = 1, math.random(3,7) do
+        local pos = room:GetRandomPosition(1)
+        g:SpawnParticles(pos, EffectVariant.CRACK_THE_SKY, 3, math.random(), Color(1, 0, 0, 1, 50, 0, 0), math.random())
+        g:SpawnParticles(pos, EffectVariant.LARGE_BLOOD_EXPLOSION, 1, math.random(), Color(1, 0, 0, 1, 50, 0, 0), math.random())
+    end
+      
+      IOTmod:_playSound(SoundEffect.SOUND_SATAN_APPEAR)
+      room:SetFloorColor(Color(0,0,0,1,-50,-50,-50))
+      room:SetWallColor(Color(0,0,0,1,-50,-50,-50))
+      g:Darken(1, 60);
+    end
+    
+    SE__update();
+    table.insert(TEventStorage, TEvent:new(5, false, true, SE__update, nil))
 end
 
 ------- Rainbow Rain
@@ -2007,7 +2026,7 @@ function SpecialEvents:Heal()
       local e = Isaac.GetRoomEntities()
     
       for k, v in pairs(e) do
-        if (v:IsVulnerableEnemy() and v.HitPoints < v.MaxHitPoints) then
+        if (v:IsActiveEnemy() and v.HitPoints < v.MaxHitPoints) then
           v:AddHealth(0.5)
           Game():SpawnParticles(Vector(v.Position.X + math.random()*20, v.Position.Y + math.random()*20), EffectVariant.ULTRA_GREED_BLING, 1, 0, Color(0.5,1,0,1,0,0,0), 0)
         end
@@ -2037,14 +2056,18 @@ end
 
 ------- AttackOnTitan
 function SpecialEvents:AttackOnTitan()
+  
+    local s = SFXManager()
+  
   function SE__update ()
     local e = Isaac.GetRoomEntities()
     local p = Isaac.GetPlayer(0)
   
     for k, v in pairs(e) do
-      if (v:IsVulnerableEnemy() and v:ToNPC().Scale ~= 2.5) then
+      if (v:IsActiveEnemy() and v:ToNPC().Scale ~= 2.5) then
         v:ToNPC().Scale = 2.5
-        if not v:ToNPC():IsChampion() then v:ToNPC():MakeChampion(math.random(1,10000)) end
+        v:ToNPC().MaxHitPoints = v:ToNPC().MaxHitPoints*3
+        v:ToNPC().HitPoints = v:ToNPC().HitPoints*3
       end
     end
   end
@@ -2053,11 +2076,13 @@ function SpecialEvents:AttackOnTitan()
     local e = Isaac.GetRoomEntities()
   
     for k, v in pairs(e) do
-      if (v:IsVulnerableEnemy() and v:ToNPC().Scale == 2.5) then
+      if (v:IsActiveEnemy() and v:ToNPC().Scale == 2.5) then
         v:ToNPC().Scale = 1
       end
     end
   end
+  
+  s:Play(SND_attackOnTitan, 1.2, 0, false, 1)
   
   table.insert(TEventStorage, TEvent:new(45*30, true, false, SE__update, SE_over))
 end
@@ -2082,17 +2107,24 @@ end
 ------- Blade storm
 function SpecialEvents:BladeStorm()
   function SE__update ()
+    
+    local p = Isaac.GetPlayer(0)
+    local e = Isaac.GetRoomEntities()
+    for k, v in pairs(e) do
+      if (v.Type == EntityType.ENTITY_EFFECT and v.Variant == EffectVariant.SPEAR_OF_DESTINY and p.Position:Distance(v.Position) < 30) then
+        p:TakeDamage(0.5, DamageFlag.DAMAGE_LASER, EntityRef(v), 30)
+      end
+    end
+    
     if (Game():GetFrameCount() % 8 ~= 0) then return end
     
     local r = Game():GetRoom()
     local min = r:GetTopLeftPos().X
     local max = r:GetBottomRightPos().X
     local height = r:GetTopLeftPos().Y - 50
-    local ef = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SPEAR_OF_DESTINY, 0, Vector(math.random(min, max), height), Vector(0, 20), p)
-    
+    local ef = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SPEAR_OF_DESTINY, 0, Vector(math.random(min, max), height), Vector(0, 12), p)
+      
     if (Game():GetFrameCount() % 30 ~= 0) then return end
-    
-    local e = Isaac.GetRoomEntities()
   
     for k, v in pairs(e) do
       if (v.Type == EntityType.ENTITY_EFFECT and v.Variant == EffectVariant.SPEAR_OF_DESTINY and v.Position.Y > r:GetBottomRightPos().Y + 50) then
@@ -2174,6 +2206,8 @@ end
 ------- DDoS
 function SpecialEvents:DDoS()
   
+  local s = SFXManager()
+  
   function SE__update ()
     if (Game():GetFrameCount() % 8 == 0) then
       local room = Game():GetRoom()
@@ -2183,11 +2217,14 @@ function SpecialEvents:DDoS()
     end
   end
   
+  s:Play(SND_ddosDialup, 1, 0, false, 1)
   table.insert(TEventStorage, TEvent:new(30*30, true, false, SE__update, nil))
 end
 
 ------- Interstellar
 function SpecialEvents:Interstellar()
+  
+  local s = SFXManager()
   
   function SE__update ()
     local room = Game():GetRoom()
@@ -2246,6 +2283,7 @@ function SpecialEvents:Interstellar()
     end
   end
   
+  s:Play(SND_interstellar, 1, 0, false, 1)
   table.insert(TEventStorage, TEvent:new(30*30, true, false, SE__update, SE__over))
   
   local e = Isaac.GetRoomEntities()
@@ -2282,15 +2320,17 @@ end
 function SpecialEvents:GoodMusic()
   local g = Game()
   local p = Isaac.GetPlayer(0)
+  local s = SFXManager()
   
   function SE__update ()
     local e = Isaac.GetRoomEntities()
     
     for k, v in pairs(e) do
-        e[k]:AddVelocity(Vector(math.random(-2,2), math.random(-2,2)))
+        e[k]:AddVelocity(Vector(math.random(-3,3), math.random(-3,3)))
     end
   end
   
+  s:Play(SND_goodMusic, 2, 0, false, 1)
   table.insert(TEventStorage, TEvent:new(14*30, true, false, SE__update, nil))
   
 end
@@ -2377,3 +2417,320 @@ function SpecialEvents:Whirlwind()
   
   table.insert(TEventStorage, TEvent:new(40*30, true, false, SE__update, nil))
 end
+
+------- Russian Hackers
+function SpecialEvents:RussianHackers()
+  
+  function SE__update ()
+    local frame = Game():GetFrameCount()
+    if (frame % 2 ~= 0) then return end
+    local p = Isaac.GetPlayer(0)
+    p:AddCoins(math.random(-1,1))
+    p:AddKeys(math.random(-1,1))
+    p:AddBombs(math.random(-1,1))
+  end
+  
+  table.insert(TEventStorage, TEvent:new(10*30, true, false, SE__update, nil))
+end
+
+------- Machine Gun
+function SpecialEvents:MachineGun()
+  
+  function SE__update ()
+    local p = Isaac.GetPlayer(0)
+    if (p:GetFireDirection() == Direction.NO_DIRECTION) then return end
+    
+    for i = 0, 3 do
+      local t = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, p.Position, Vector(p:GetShootingInput().X*15+math.random(-3,3), p:GetShootingInput().Y*15+math.random(-3,3)), p):ToTear()
+      t.CollisionDamage = 0.07
+      t.Scale = 0.2
+      t:ChangeVariant(TearVariant.METALLIC)
+      t.KnockbackMultiplier = 10
+    end
+  end
+  
+  table.insert(TEventStorage, TEvent:new(30*30, true, false, SE__update, nil))
+end
+
+------- Toxic
+function SpecialEvents:Toxic()
+  
+  function SE__update ()
+    local p = Isaac.GetPlayer(0)
+    local room = Game():GetRoom()
+    
+    local entities = Isaac.GetRoomEntities()
+    for i = 1, #entities do
+      if (entities[i]:IsActiveEnemy()) then
+        local ref = EntityRef(p)
+        entities[i]:AddPoison(ref, math.random(100,300), 0.25)
+      end
+    end
+    
+    p:SetColor(Rainbow[4], 0, 0, false, false)
+    
+    for i = 0, math.random(2,4) do
+      local pos = room:GetRandomPosition(2)
+      if (p.Position:Distance(pos) >= 65) then
+        Game():SpawnParticles(pos, EffectVariant.DARK_BALL_SMOKE_PARTICLE, 10, 0, Rainbow[4], 0)
+        Game():SpawnParticles(pos, EffectVariant.FART, 1, 0, Rainbow[4], 0)
+        Game():Spawn(Buddies[4], 0, pos, Vector(0,0), p, 0, 0)
+      end
+    end
+    
+    for i = 0, math.random(5,10) do
+      local pos = room:GetRandomPosition(2)
+      if (p.Position:Distance(pos) >= 65) then
+        Game():SpawnParticles(pos, EffectVariant.CREEP_GREEN, 1, 0, Rainbow[4], 0)
+      end
+    end
+    
+    room:SetWallColor(Color(0.5,1,0,1,50,100,-20))
+    room:SetFloorColor(Color(0.5,1,0,1,50,100,-20))
+  end
+  
+  SE__update()
+  table.insert(TEventStorage, TEvent:new(5, false, true, SE__update, nil))
+end
+
+------- Crazy Doors
+function SpecialEvents:CrazyDoors()
+  
+  function SE__update ()
+    
+    local frame = Game():GetFrameCount()
+    if (frame % 15 ~= 0) then return end
+    
+    local p = Isaac.GetPlayer(0)
+    local room = Game():GetRoom()
+    
+    for i = DoorSlot.LEFT0, DoorSlot.DOWN1 do
+      if (room:IsDoorSlotAllowed(i) and room:GetDoor(i) ~= nil) then
+        room:GetDoor(i):SetRoomTypes (room:GetType(), Doors[math.random(#Doors)])
+      end
+    end
+  end
+  
+  SE__update()
+  table.insert(TEventStorage, TEvent:new(40*30, true, false, SE__update, nil))
+end
+
+------- Rewind
+
+local EV_rewind = {}
+local EV_rewind_play = false
+
+function SpecialEvents:Rewind()
+  
+  function SE__update ()
+    
+    local p = Isaac.GetPlayer(0)
+    local room = Game():GetRoom()
+    local s = SFXManager()
+    
+    if (#EV_rewind < 15*30 and not EV_rewind_play) then
+      table.insert(EV_rewind, p.Velocity:__mul(-1))
+    elseif (not EV_rewind_play) then
+      EV_rewind_play = true
+      s:Play(SND_rewind, 1, 0, false, 1)
+    end
+    
+    if (#EV_rewind ~= 0 and EV_rewind_play) then
+      p.Velocity = table.remove(EV_rewind, #EV_rewind)
+    end
+  end
+  
+  function SE__over ()
+    EV_rewind = {}
+    EV_rewind_play = false
+  end
+  
+  table.insert(TEventStorage, TEvent:new(30*30, true, false, SE__update, SE__over))
+  
+end
+
+------- SUPERHOT
+function SpecialEvents:Superhot()
+  
+  function SE__update ()
+    
+    
+    local p = Isaac.GetPlayer(0)
+    local room = Game():GetRoom()
+    local entities = Isaac.GetRoomEntities()
+    
+    room:SetFloorColor(Color(1,1,1,1,150,150,150))
+    room:SetWallColor(Color(1,1,1,1,150,150,150))
+    
+    for i = 1, #entities do
+      if (entities[i]:IsActiveEnemy() and entities[i]:IsVulnerableEnemy()) then
+        if (math.abs(p.Velocity.X) < 0.2 and math.abs(p.Velocity.Y) < 0.2 and p:GetFireDirection() == Direction.NO_DIRECTION) then
+          entities[i]:AddFreeze(EntityRef(p), 1)
+          entities[i].Velocity = Vector(0,0)
+          if (not entities[i]:IsBoss() and entities[i].HitPoints < entities[i].MaxHitPoints) then
+            Game():SpawnParticles(entities[i].Position, EffectVariant.SPIKE, 20, math.random()*2, Rainbow[1], math.random()*5)
+            entities[i]:Die()
+            IOTmod:_playSound(SND_superhotBreak)
+          end
+        else
+          entities[i]:Update()
+        end
+        
+        entities[i]:SetColor(Rainbow[1], 0, 0, false, false)
+      end
+    end
+    
+  end
+  
+  function SE_over ()
+    local room = Game():GetRoom()
+    local entities = Isaac.GetRoomEntities()
+    
+    room:SetFloorColor(Color(1,1,1,1,0,0,0))
+    room:SetWallColor(Color(1,1,1,1,0,0,0))
+    
+    for i = 1, #entities do
+      if (entities[i]:IsActiveEnemy() and entities[i]:IsVulnerableEnemy()) then
+        entities[i]:SetColor(Color(1,1,1,1,0,0,0), 0, 0, false, false)
+      end
+    end
+  end
+  
+  SE__update()
+  table.insert(TEventStorage, TEvent:new(40*30, true, false, SE__update, SE__over))
+end
+
+------- SCP-173
+
+local EV_scp173_btime = 1
+local EV_scp173_cd = 75
+local EV_scp173_active = false
+
+function SpecialEvents:SCP173()
+  
+  function SE__update ()
+    
+    local p = Isaac.GetPlayer(0)
+    local entities = Isaac.GetRoomEntities()
+    
+    if (EV_scp173_cd > 0) then
+      EV_scp173_cd = EV_scp173_cd - 1
+      for i = 1, #entities do
+        if (entities[i]:IsActiveEnemy()) then
+          local ref = EntityRef(p)
+          entities[i]:AddFreeze(ref, 1)
+          entities[i].Velocity = Vector(0,0)
+        end
+      end
+    elseif (EV_scp173_btime > -1) then
+      EV_scp173_btime = EV_scp173_btime - 0.03
+      
+      if (math.abs(EV_scp173_btime) > 0.05) then
+        for i = 1, #entities do
+          if (entities[i]:IsActiveEnemy()) then
+            local ref = EntityRef(p)
+            entities[i]:AddFreeze(ref, 1)
+            entities[i].Velocity = Vector(0,0)
+          end
+        end
+      else
+          for i = 1, #entities do
+          if (entities[i]:IsActiveEnemy()) then
+            for a = 0, 30 do
+              entities[i]:Update()
+            end
+          end
+        end
+      end
+    else
+      for i = 1, #entities do
+        if (entities[i]:IsActiveEnemy()) then
+          local ref = EntityRef(p)
+          entities[i]:AddFreeze(ref, 1)
+          entities[i].Velocity = Vector(0,0)
+        end
+      end
+      EV_scp173_cd = 75
+      EV_scp173_btime = 1
+    end
+    
+  end
+  
+  function SE__over ()
+    
+    EV_scp173_btime = 1
+    EV_scp173_cd = 75
+    EV_scp173_active = false
+    
+  end
+  
+  EV_scp173_active = true
+  SE__update()
+  table.insert(TEventStorage, TEvent:new(30*30, true, false, SE__update, SE__over))
+end
+
+------- Point of view
+
+EV_PointOfView_Pos = 0
+
+function SpecialEvents:PointOfView()
+  
+  function SE__update ()
+    EV_PointOfView_Pos = math.random(1,3)
+  end
+  
+  function SE__over ()
+    EV_PointOfView_Pos = 0
+  end
+  
+  SE__update()
+  table.insert(TEventStorage, TEvent:new(8, false, true, SE__update, SE__over))
+end
+
+------- Radioactive
+local EV_radioactive_intensity = 0
+
+function SpecialEvents:Radioactive()
+  
+  function SE__update ()
+    
+    local p = Isaac.GetPlayer(0)
+    local s = SFXManager()
+  end
+  
+  function SE__over ()
+  end
+  
+  table.insert(TEventStorage, TEvent:new(30*30, true, false, SE__update, SE__over))
+  
+end
+
+function IOTmod:GetShaderParams(shaderName)
+  
+  if (shaderName == "Blink") then
+    local params
+    if (EV_scp173_active) then params = {Time = math.abs(EV_scp173_btime)} else params = {Time = 1} end
+    return params;
+  end
+  
+  if (shaderName == "ScreenRotate") then
+    local params
+    params = {Pos = EV_PointOfView_Pos}
+    return params;
+  end
+  
+  if (shaderName == "VHS") then
+    local params
+    params = {Enabled = 1, VHSPos = (Isaac.GetFrameCount()%150)/150}
+    if (EV_rewind_play) then params.Enabled = 1 else params.Enabled = 0 end
+    return params;
+  end
+  
+  if (shaderName == "ColorSides") then
+    local params
+    params = {Enabled = EV_shader_ScreenSide_enabled, Intensity = EV_shader_ScreenSide_intensity, VColor = EV_shader_ScreenSide_color}
+    return params;
+  end
+end
+
+IOTmod:AddCallback(ModCallbacks.MC_GET_SHADER_PARAMS, IOTmod.GetShaderParams)
