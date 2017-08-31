@@ -156,7 +156,7 @@ namespace TwitсhToIsaac.Classes.VotingOptions
         {
             this.name = name;
             this.displayName = name;
-            this.msg = "You get " + displayName;
+            this.msg = "You've got " + displayName;
             this.happy = true;
         }
     }
@@ -338,38 +338,79 @@ namespace TwitсhToIsaac.Classes.VotingOptions
             Pockets.Add(new VotePocket("Spacebar", "Spacebar", "Your item is activated!", true));
             Pockets.Add(new VotePocket("Charge", "Charge item", "Your item is fully charged!", true));
             Pockets.Add(new VotePocket("Discharge", "Discharge item", "Your item is fully discharged!", false));
-            
-            Events.Add(new VoteEvent("Poop", "Poop", "Who will clean it?", false));
-            Events.Add(new VoteEvent("Richy", "Richy", "Yeah, i am lucky!", true));
+
+            //Events < 1.3
+            Events.Add(new VoteEvent("Poop", "Poop", "Who's gonna clean it?", false));
+            Events.Add(new VoteEvent("Richy", "Richy", "Yeah, I am lucky!", true));
             Events.Add(new VoteEvent("Earthquake", "Earthquake", "Protect your head!", false));
             Events.Add(new VoteEvent("Charm", "Charm", "Love everywhere", true));
             Events.Add(new VoteEvent("Hell", "Hell", "Hot and bloody", false));
             Events.Add(new VoteEvent("Spiky", "Spiky", "Ouch!", false));
-            Events.Add(new VoteEvent("Award", "Award", "More awards for you", true));
+            Events.Add(new VoteEvent("Award", "Award", "More rewards for you", true));
             Events.Add(new VoteEvent("AngelRage", "Angel Rage", "Holy crap!", true));
             Events.Add(new VoteEvent("DevilRage", "Devil Rage", "What the hell?", true));
-            Events.Add(new VoteEvent("RainbowRain", "Rainbow Rain", "Unicorn start piss", true));
-            Events.Add(new VoteEvent("CallToDark", "Call To Dark", "An ancient evil has awakened", true));
+            Events.Add(new VoteEvent("RainbowRain", "Rainbow Rain", "Unicorn start piss", true)); //Да, знаю, что неправильно, но она стала мемом на одном из стримов, поэтому не менять
+            Events.Add(new VoteEvent("CallToDark", "Call To Dark", "An ancient evil has awoken", true));
             Events.Add(new VoteEvent("Invisible", "Invisible", "Find yourself", true));
-            Events.Add(new VoteEvent("RUN", "RUN", "Run, Forest, run!", false));
-            Events.Add(new VoteEvent("FlashJump", "Flash Jump", "Faster, than light", true));
-            Events.Add(new VoteEvent("EyesBleed", "Eyes Bleed", "What is happening?", false));
+            Events.Add(new VoteEvent("RUN", "RUN", "Run, Forrest, run!", false));
+            Events.Add(new VoteEvent("FlashJump", "Flash Jump", "Faster than light", true));
+            Events.Add(new VoteEvent("EyesBleed", "Eyes Bleed", "What's happening?", false));
             Events.Add(new VoteEvent("StanleyParable", "Stanley Parable", "Good job, Stanley!", true));
             if (rnd.NextDouble() >= 0.75) { Events.Add(new VoteEvent("Supernova", "Supernova", "DESTROY THE WORLD!", true)); }
             if (rnd.NextDouble() >= 0.2) { Events.Add(new VoteEvent("DDoS", "DDoS", "50 Gb/sec attack", false, 1)); }
-            Events.Add(new VoteEvent("NoDMG", "Where is my DMG", "Your game will collapse, but there's nothing in it", false));
-            Events.Add(new VoteEvent("Strabismus", "Strabismus", "Where are you looking?", false));
+            Events.Add(new VoteEvent("NoDMG", "Where is my DMG", "Your game will collapse but there's nothing in it", false));
+            Events.Add(new VoteEvent("Strabismus", "Strabismus", "Where are you looking at?", false));
             Events.Add(new VoteEvent("Inverse", "Inverse", "Just flip the gamepad", false));
             Events.Add(new VoteEvent("Slip", "Slip", "Caution! Wet floor", false));
             Events.Add(new VoteEvent("Whirlwind", "Whirlwind", "Spiral power", true));
-            Events.Add(new VoteEvent("RusHack", "Russian hackers", "I did not vote for it!", false, -1, VoteModifiers.H4CKED));
-            if (rnd.NextDouble() >= 0.4) { Events.Add(new VoteEvent("GoodMusic", "Good music", "YOUR EARS RAPED!!11!!1", false, 0)); }
+            Events.Add(new VoteEvent("RusHack", "Russian hackers", "I did not vote for this!", false, -1, VoteModifiers.H4CKED));
+            if (rnd.NextDouble() >= 0.4) { Events.Add(new VoteEvent("GoodMusic", "Good music", "YOUR EARS ARE BEING RAPED!!11!!1", false, 0)); }
             Events.Add(new VoteEvent("AttackOnTitan", "Attack on titan", "Your enemies have grown", false, 3));
             Events.Add(new VoteEvent("Interstellar", "Interstellar", "Gravity can cross the dimensions", false, 4));
             Events.Add(new VoteEvent("BladeStorm", "Blade storm", "All get stabbed!", true));
-            Events.Add(new VoteEvent("Diarrhea", "Diarrhea", "From what the soup was made?", true));
-            Events.Add(new VoteEvent("Heal", "Heal", "But we need KILL, not HEAL!", false));
+            Events.Add(new VoteEvent("Diarrhea", "Diarrhea", "What was the soup made from?", true));
+            Events.Add(new VoteEvent("Heal", "Heal", "But we need to KILL, not to HEAL!", false));
             Events.Add(new VoteEvent("Flashmob", "Flashmob", "Repeat after me!", true));
+
+            //Events 2.0
+            Events.Add(new VoteEvent("MachineGun", "Machine Gun", "Push your enemies", true));
+            Events.Add(new VoteEvent("Toxic", "Toxic", "Beware of toxicity", false));
+            Events.Add(new VoteEvent("CrazyDoors", "Crazy Doors", "Destination not clear", false));
+            Events.Add(new VoteEvent("Rewind", "Rewind", "One more time", false));
+            Events.Add(new VoteEvent("SuperHot", "Super Hot", "SUPER. HOT.", true));
+            Events.Add(new VoteEvent("SCP173", "SCP-173", "Don't blink!", false));
+            Events.Add(new VoteEvent("PointOfView", "Point Of View", "Change your point of view", false));
+            Events.Add(new VoteEvent("Radioactive", "Radioactive", "Mind the distance", false));
+            if (rnd.NextDouble() >= 0.90) { Events.Add(new VoteEvent("Rerun", "Rerun", "Start from scratch", true)); }
+            if (rnd.NextDouble() >= 0.90) { Events.Add(new VoteEvent("SwitchTheChannel", "Switch The Channel", "This show has become too boring", false)); }
+            Events.Add(new VoteEvent("FlyingBanana", "Flying Banana", "Plain bananas but better", true));
+            Events.Add(new VoteEvent("Pyrosis", "Pyrosis", "Change your diet", true));
+            Events.Add(new VoteEvent("Spiders", "Spiders", "Everybody loves spiders", true));
+            Events.Add(new VoteEvent("IpecacForAll", "Ipecac For All", "...but not for you", false));
+            Events.Add(new VoteEvent("Ghostbusters", "Ghostbusters", "Souls of the dead follow you", false));
+            Events.Add(new VoteEvent("WeHateYou", "We Hate You", "Everything hurts", false));
+            Events.Add(new VoteEvent("Telesteps", "Telesteps", "Mr. Shifty, is that you?", true));
+            Events.Add(new VoteEvent("Flash", "Flash", "Fastest kid alive", true));
+            Events.Add(new VoteEvent("ShadowClones", "Shadow Clones", "At least it's not Sakura..", false));
+            Events.Add(new VoteEvent("IsaacOfIsaac", "Isaac Of Isaac", "Isaac and his Isaac", false));
+            Events.Add(new VoteEvent("Spiderman", "Spiderman", "Web's too sticky", false));
+            Events.Add(new VoteEvent("StaticElectricity", "Static Electricity", "WARNING: High Voltage", false));
+            Events.Add(new VoteEvent("Bleeding", "Bleeding", "Let's make it hardcore", false));
+            Events.Add(new VoteEvent("ParasiticInfection", "Parasitic Infection", "Beautiful on the inside", false));
+            Events.Add(new VoteEvent("IAmLost", "I Am Lost", "You get hit, you die. Good luck.", false));
+            //Events.Add(new VoteEvent("Censored", "Censored", "Your parents wouldn't like it", false));
+            Events.Add(new VoteEvent("DeepDark", "DeepDark", "The dark absorbs everything", false));
+            Events.Add(new VoteEvent("BrokenLens", "Broken Lens", "Zoom's very unstable", false));
+            Events.Add(new VoteEvent("FloorIsLava", "Floor Is Lava", "Watch your steps!", false));
+            if (rnd.NextDouble() >= 0.90) { Events.Add(new VoteEvent("Reroll", "Reroll", "I hope your items were bad", true)); }
+            Events.Add(new VoteEvent("Matrix", "Matrix", "You are the chosen one, Isaac!", true));
+            Events.Add(new VoteEvent("Danger", "Danger", "The game was too easy", false));
+            Events.Add(new VoteEvent("TornPockets", "Torn Pockets", "Looks like you've lost everything", false));
+            Events.Add(new VoteEvent("Gravity", "Gravity", "Let's pile it up", false));
+            Events.Add(new VoteEvent("Allergia", "Allergia", "This basement's too dusty", true));
+            Events.Add(new VoteEvent("HeavyRain", "Heavy Rain", "Rainig cats & dogs", true));
+            Events.Add(new VoteEvent("MarbleBalls", "Marble Balls", "Pretty and useless", true));
+            Events.Add(new VoteEvent("QTE", "QTE", "Hurry! Push! The buttons!", true));
         }
 
         public static void LoadItemsAndTrinkets ()

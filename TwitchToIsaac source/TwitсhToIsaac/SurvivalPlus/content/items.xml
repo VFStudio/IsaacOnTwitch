@@ -1,0 +1,9 @@
+<items gfxroot="gfx/items/" version="1">
+  
+  <active maxcharges="0" description="New weapon!" gfx="Weapon_Pistol.png" name="Pistol" />
+    <active maxcharges="0" description="New weapon!" gfx="Weapon_Rifle.png" name="Rifle" isaacontwitch="false"/>
+  
+  <familiar description="Spam not allowed!" gfx="Collectibles_NightBot.png" name="Nightbot" />
+  
+  <active maxcharges="0" description="EEEEEEDMUUUUND!!!" gfx="Collectibles_Debug.png" name="DEBUG ITEM" />
+</items>

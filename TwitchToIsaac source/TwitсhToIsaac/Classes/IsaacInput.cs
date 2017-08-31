@@ -20,6 +20,7 @@ namespace TwitсhToIsaac.Classes
         {
             public Firstline firstline { get; set; } = new Firstline();
             public Secondline secondline { get; set; } = new Secondline();
+            public bool enabled = true;
 
             public class Firstline
             {

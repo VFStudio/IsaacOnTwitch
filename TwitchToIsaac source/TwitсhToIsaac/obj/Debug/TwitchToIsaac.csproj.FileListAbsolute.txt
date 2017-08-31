@@ -47,7 +47,6 @@ D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\TwithToIsaac.g.resource
 D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\TwithToIsaac.Properties.Resources.resources
 D:\Dev\FastSolution\TwitchToIsaac\TwithToIsaac\obj\Debug\TwitchToIsaac.csproj.GenerateResource.Cache
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\TwitсhToIsaac.exe.config
-D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitchToIsaac.csprojResolveAssemblyReference.cache
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\MainWindow.g.cs
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\App.g.cs
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitсhToIsaac_MarkupCompile.cache
@@ -71,3 +70,6 @@ D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\websocket-sharp.dll
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\MaterialDesignColors.pdb
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Debug\TwitchLib.xml
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\Overlay.g.cs
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\Overlay.baml
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Debug\TwitchToIsaac.csprojResolveAssemblyReference.cache

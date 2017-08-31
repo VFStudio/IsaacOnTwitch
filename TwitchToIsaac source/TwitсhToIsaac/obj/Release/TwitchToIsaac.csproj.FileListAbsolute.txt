@@ -8,7 +8,6 @@ D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Releas
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Release\MaterialDesignThemes.Wpf.pdb
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Release\MaterialDesignThemes.Wpf.xml
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Release\Newtonsoft.Json.xml
-D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Release\TwitchToIsaac.csprojResolveAssemblyReference.cache
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Release\MainWindow.g.cs
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Release\App.g.cs
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Release\TwitсhToIsaac_MarkupCompile.cache
@@ -22,4 +21,7 @@ D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Releas
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Release\TwitсhToIsaac.pdb
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Release\websocket-sharp.dll
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Release\MaterialDesignColors.pdb
-D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Release\TwitchLib.pdb
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Release\TwitchLib.xml
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Release\Overlay.g.cs
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Release\Overlay.baml
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Release\TwitchToIsaac.csprojResolveAssemblyReference.cache

@@ -33,6 +33,7 @@ namespace TwitchToIsaac
     {
         public Firstline firstline { get; set; } = new Firstline();
         public Secondline secondline { get; set; } = new Secondline();
+        public Overlay overlay { get; set; } = new Overlay();
         public string channel { get; set; } = "";
         public string timeforvote { get; set; } = "70";
         public string delayvote { get; set; } = "15";
@@ -59,6 +60,15 @@ namespace TwitchToIsaac
         {
             public string x { get; set; } = "16";
             public string y { get; set; } = "258";
+        }
+
+        public class Overlay
+        {
+            public double top { get; set; } = -1;
+            public double left { get; set; } = -1;
+            public double width { get; set; } = -1;
+            public double height { get; set; } = -1;
+            public double font { get; set; } = 38;
         }
 
     }

@@ -24,7 +24,7 @@ namespace TwitсhToIsaac.Classes
 
         static bool IORun = true;
 
-        //No more fuckn timers!
+        //No more fckn timers!
         //static System.Timers.Timer DataUpd = new System.Timers.Timer(333);
         //static System.Timers.Timer ParamUpd = new System.Timers.Timer(3000);
         

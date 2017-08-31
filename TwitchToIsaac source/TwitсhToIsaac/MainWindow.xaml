@@ -34,9 +34,10 @@
                     </ListView>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Right" Width="380">
-                    <StackPanel VerticalAlignment="Top" Height="100">
+                    <StackPanel VerticalAlignment="Top" Height="115">
                         <TextBlock x:Name="LMain_mainstatus" Style="{DynamicResource MaterialDesignTitleTextBlock}" FontSize="16" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" >Enter channel name (go to Channel tab)</TextBlock>
                         <Button x:Name="BMain_run" Content="Run!" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10,0,0" IsEnabled="False" Click="BMain_run_Click"/>
+                        <Button x:Name="BMain_overlay" Content="Show overlay" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10,0,0" IsEnabled="True" Click="BMain_overlay_Click"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Margin="10,10,10,0">
                         <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,0,0,10" >Status</TextBlock>
@@ -66,18 +67,25 @@
         <materialDesign:Card x:Name="Card_Channel" VerticalAlignment="Bottom" Margin="5,0,5,5" Height="381" Padding="10" Visibility="Hidden">
 
             <StackPanel VerticalAlignment="Top" Margin="0,10,0,0">
-                <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,0,0,5" >Channel</TextBlock>
-                <TextBox x:Name="TChannel_name" Style="{DynamicResource MaterialDesignTextBox}" materialDesign:HintAssist.Hint="Channel name" Margin="20,0,20,10" FontSize="13"/>
-                <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,10,0,5" >Time for vote (seconds)</TextBlock>
-                <TextBox x:Name="TChannel_votetime" Style="{DynamicResource MaterialDesignTextBox}" Text="70" materialDesign:HintAssist.Hint="Vote time" Margin="0,0,0,10" FontSize="13" HorizontalAlignment="Center" Width="120"/>
-                <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,10,0,5" >Delay between votes (seconds)</TextBlock>
-                <TextBox x:Name="TChannel_delaytime" Style="{DynamicResource MaterialDesignTextBox}" Text="15" materialDesign:HintAssist.Hint="Delay time" Margin="0,0,0,10" FontSize="13" HorizontalAlignment="Center" Width="120"/>
+                <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,0,0,5" >Channels</TextBlock>
+                <TextBox x:Name="TTwitchChannel_name" Style="{DynamicResource MaterialDesignTextBox}" materialDesign:HintAssist.Hint="Twitch channel" Margin="20,0,20,10" FontSize="13" BorderBrush="#899C78F0"/>
+                <TextBox x:Name="TYoutubeChannel_name" Style="{DynamicResource MaterialDesignTextBox}" materialDesign:HintAssist.Hint="Youtube stream url" Margin="20,0,20,10" FontSize="13" BorderBrush="#89FF6363"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Margin="0,0,20,0">
+                        <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,10,0,5" >Vote (sec)</TextBlock>
+                        <TextBox x:Name="TChannel_votetime" Style="{DynamicResource MaterialDesignTextBox}" Text="70" materialDesign:HintAssist.Hint="Vote time" Margin="0,0,0,10" FontSize="13" HorizontalAlignment="Center" Width="120"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,10,0,5" >Delay (sec)</TextBlock>
+                        <TextBox x:Name="TChannel_delaytime" Style="{DynamicResource MaterialDesignTextBox}" Text="15" materialDesign:HintAssist.Hint="Delay time" Margin="0,0,0,10" FontSize="13" HorizontalAlignment="Center" Width="120"/>
+                    </StackPanel>
+                </StackPanel>
                 <StackPanel HorizontalAlignment="Center">
                     <CheckBox x:Name="CChannel_subs"  Content="Subs appear in game" HorizontalAlignment="Left" IsChecked="True" Margin="0,10,0,2" FontSize="16"/>
                     <CheckBox x:Name="CChannel_followers"  Content="Followers appear in game" HorizontalAlignment="Left" IsChecked="false" Margin="0,5,0,2" FontSize="16"/>
                     <CheckBox x:Name="CChannel_bits"  Content="Bits appear in game" HorizontalAlignment="Left" IsChecked="True" Margin="0,5,0,2" FontSize="16"/>
                 </StackPanel>
-                <Button x:Name="BChannel_save" Content="Save" HorizontalAlignment="Center" Margin="253,10,242,0" Click="BChannel_save_Click" Width="72"/>
+                <Button x:Name="BChannel_save" Content="Connect" HorizontalAlignment="Center" Margin="253,10,222,0" Click="BChannel_save_Click" Width="92"/>
                 <TextBlock FontSize="12" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="137,5,136,0" ><Run Text="The settings take effect immediately, even during game"/></TextBlock>
             </StackPanel>
 
@@ -161,10 +169,14 @@
         <!--Mod Card-->
         <materialDesign:Card x:Name="Card_Mod" VerticalAlignment="Bottom" Margin="5,0,5,5" Height="381" Padding="10" Visibility="Hidden">
 
-            <StackPanel VerticalAlignment="Top" Margin="0,10,0,0">
-                <TextBlock FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,10,0,5" >Subs disappear time (minutes)</TextBlock>
+            <StackPanel Margin="0,10,0,0">
+                <TextBlock FontSize="18" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,0,0,5" >Subs disappear time (minutes)</TextBlock>
                 <TextBox x:Name="TMod_subdeltime" Style="{DynamicResource MaterialDesignTextBox}" Text="10" FontSize="13" HorizontalAlignment="Center" Width="65" PreviewTextInput="NumberValidationTextBox"/>
-                <Button x:Name="BMod_save" Content="Save" HorizontalAlignment="Center" Margin="253,10,242,0" Width="72" Click="BMod_save_Click"/>
+                <TextBlock FontSize="18" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,20,0,5" >Integration settings</TextBlock>
+                <CheckBox x:Name="CMod_integration"  Content="Add items from another mods" HorizontalAlignment="Center" IsChecked="True" Margin="0,0,0,2" FontSize="16" Click="CMod_integration_Click"/>
+                <TextBlock x:Name="TMod_activemods" FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,0,0,5" >Found mods: 0</TextBlock>
+                <Button x:Name="BMod_scan" Content="Rescan" HorizontalAlignment="Center" Width="79" Click="BMod_scan_Click" Margin="0"/>
+                <Button x:Name="BMod_save" Content="Save" HorizontalAlignment="Center" Margin="0,100,0,0" Width="72" Click="BMod_save_Click"/>
                 <TextBlock FontSize="12" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="138,5,104,0" Width="325" ><Run Text="The settings take effect immediately, even during game"/></TextBlock>
             </StackPanel>
 
@@ -174,7 +186,7 @@
         <materialDesign:Card x:Name="Card_About" VerticalAlignment="Bottom" Margin="5,0,5,5" Height="381" Padding="10" Visibility="Hidden">
 
             <StackPanel VerticalAlignment="Top" Margin="10">
-                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="18" VerticalAlignment="Top" Padding="0">Isaac On Twitch v1.3 - Hey Guys Update</TextBlock>
+                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="18" VerticalAlignment="Top" Padding="0">Isaac On Twitch v2.0 - Pog Champ Update</TextBlock>
 
                 <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="0" FontSize="16" VerticalAlignment="Top">Mod links</TextBlock>
                 <DockPanel Margin="0,5,0,0">
@@ -183,13 +195,19 @@
                     <Button x:Name="BLink_feedback" HorizontalAlignment="Left" Height="26" Margin="10,0,0,0" Click="BLink_feedback_Click">Feedback</Button>
                 </DockPanel>
                 <DockPanel Margin="0,15,0,0">
-                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="0" FontSize="16" VerticalAlignment="Top">Author:</TextBlock>
+                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="0" FontSize="16" VerticalAlignment="Top">Code:</TextBlock>
                     <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="20,0,0,0" FontSize="16" VerticalAlignment="Top">Evstafiev Yury</TextBlock>
                 </DockPanel>
                 <DockPanel Margin="0,5,0,0">
                     <Button x:Name="BLink_authorReddit" HorizontalAlignment="Left" Height="26" Click="BLink_authorReddit_Click">Reddit</Button>
                     <Button x:Name="BLink_authorVk" HorizontalAlignment="Left" Height="26" Margin="10,0,0,0" Click="BLink_authorVk_Click">Vk</Button>
-                    <Button x:Name="BLink_authorFacebook" HorizontalAlignment="Left" Height="26" Margin="10,0,0,0" Click="BLink_authorFacebook_Click">Facebook</Button>
+                </DockPanel>
+                <DockPanel Margin="0,15,0,0">
+                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="0" FontSize="16" VerticalAlignment="Top">Graphics:</TextBlock>
+                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="20,0,0,0" FontSize="16" VerticalAlignment="Top">Rogachev Dmitry</TextBlock>
+                </DockPanel>
+                <DockPanel Margin="0,5,0,0">
+                    <Button x:Name="BLink_artistVk" HorizontalAlignment="Left" Height="26" Margin="0,0,0,0" Click="BLink_artistVk_Click">Vk</Button>
                 </DockPanel>
             </StackPanel>
 

@@ -1,1 +1,1 @@
-{"interrupt":0,"interruptHash":0.57485961914063}
+{"interruptHash":0.72647094726563,"interrupt":1}

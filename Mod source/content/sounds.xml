@@ -11,6 +11,16 @@
 		<sample weight="1" path="events/superhot/break2.wav" />
 	</sound>
 	
+	<sound name="Sneeze">
+		<sample weight="1" path="events/allergia/sneeze1.wav" />
+		<sample weight="1" path="events/allergia/sneeze2.wav" />
+		<sample weight="1" path="events/allergia/sneeze3.wav" />
+	</sound>
+	
+	<sound name="Rain">
+		<sample weight="1" path="events/heavyrain/rain.wav" />
+	</sound>
+	
 	<sound name="Rewind">
 		<sample weight="1" path="events/rewind/rewind.wav" />
 	</sound>
@@ -29,5 +39,17 @@
 	
 	<sound name="Interstellar">
 		<sample weight="1" path="events/interstellar/interstellar.wav" />
+	</sound>
+	
+	<sound name="RerunCharging">
+		<sample weight="1" path="events/rerun/charging.wav" />
+	</sound>
+	
+	<sound name="QTEYes">
+		<sample weight="1" path="events/qte/yes.wav" />
+	</sound>
+	
+	<sound name="QTENo">
+		<sample weight="1" path="events/qte/no.wav" />
 	</sound>
 </sounds>

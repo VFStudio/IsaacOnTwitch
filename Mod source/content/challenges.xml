@@ -29,4 +29,6 @@
 -->
 <challenges version="1">
 	<challenge name="Twitch Power"  megasatan="true" endstage="12" roomfilter="4" canshoot="false" playertype="10" startingitems="238,239" difficulty="1"/>
+	<challenge name="Eternal Darkness"  endstage="7" difficulty="1"/>
+	<challenge name="Triple Rainbow"  megasatan="true" endstage="12" roomfilter="4" startingitems="330,6,513,191,418,238,239" difficulty="1"/>
 </challenges>

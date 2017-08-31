@@ -172,6 +172,8 @@
 			varying vec3 VColorOut;
 			varying float EnabledOut;
 			varying float IntensityOut;
+			varying vec4 RenderDataOut;
+			varying vec3 PositionOut;
             uniform mat4 Transform;                                     
             void main(void)                                  
 			{
@@ -180,6 +182,8 @@
 				EnabledOut = Enabled;
 				VColorOut = VColor;
 				IntensityOut = Intensity;
+				RenderDataOut = RenderData/2;
+				PositionOut = Position*2;
                 gl_Position = Transform * vec4(Position.xyz, 1.0);        
 				
             }
@@ -190,6 +194,8 @@
 			varying lowp float EnabledOut;
 			varying lowp float IntensityOut;
 			varying lowp vec3 VColorOut;
+			varying lowp vec4 RenderDataOut;
+			varying lowp vec3 PositionOut;
             uniform sampler2D Texture0;
 			
             void main(void)                                             
@@ -197,12 +203,182 @@
 				vec4 Color = Color0 * texture2D(Texture0, TexCoord0);
 				
 				if (EnabledOut > 0) {
-					float resInt = 65-IntensityOut;
-					Color.rgb += VColorOut.rgb * ((1 - TexCoord0.x/2)/resInt + (TexCoord0.x/2)/resInt);
+					Color.rgb += VColorOut * sqrt((RenderDataOut.x-PositionOut.x)*(RenderDataOut.x-PositionOut.x) + (RenderDataOut.y-PositionOut.y)*(RenderDataOut.y-PositionOut.y))/((1-IntensityOut)*10000);
 				}
                 gl_FragColor = Color;
             }
 			
         ]]></fragment>
     </shader>
+	
+	<shader name="Glitch">
+        <parameters>
+			<param name="Enabled" type="float"/>
+			<param name="GlitchPos" type="float"/>
+        </parameters>
+        <vertex><![CDATA[
+            attribute vec3 Position;                                        
+            attribute vec4 Color;                                           
+            attribute vec2 TexCoord;                                        
+            attribute vec4 RenderData;                                                                  
+            attribute float Scale;
+            attribute float GlitchPos;
+			attribute float Enabled;
+            varying vec4 Color0;                                            
+            varying vec2 TexCoord0;
+            varying float GlitchPosOut;
+			varying float EnabledOut;
+            uniform mat4 Transform;                                     
+            void main(void)                                  
+			{
+                Color0 = Color;
+				TexCoord0 = TexCoord;
+				GlitchPosOut = GlitchPos;
+				EnabledOut = Enabled;
+                gl_Position = Transform * vec4(Position.xyz, 1);        
+				
+            }
+        ]]></vertex>
+        <fragment><![CDATA[
+            varying lowp vec4 Color0;
+            varying mediump vec2 TexCoord0;
+            varying lowp float GlitchPosOut; 
+			varying lowp float EnabledOut;
+            uniform sampler2D Texture0;   
+
+			float rand(vec2 co){
+				return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+			}
+			
+            void main(void)                                             
+            {
+				vec4 Color = Color0 * texture2D(Texture0, TexCoord0);
+				
+				if (EnabledOut > 0) {
+					
+					float temp = rand(vec2(TexCoord0.x + GlitchPosOut, TexCoord0.y + GlitchPosOut));
+					
+					if (rand(vec2(TexCoord0.x + GlitchPosOut*2, TexCoord0.y + GlitchPosOut*2)) > 0.8) {
+						
+						if (temp > 0.2 && temp < 0.4) {
+							Color.r += rand(vec2(TexCoord0.x/5, TexCoord0.y/5));
+						}
+						
+						if (temp > 0.4 && temp < 0.6) {
+							Color.g += rand(vec2(TexCoord0.x/5, TexCoord0.y/5));
+						}
+						
+						if (temp > 0.6 && temp < 0.8) {
+							Color.b += rand(vec2(TexCoord0.x/5, TexCoord0.y/5));
+						}
+					}
+				}
+                gl_FragColor = Color;
+            }
+			
+        ]]></fragment>
+    </shader>
+	
+	<shader name="DeepDark">
+        <parameters>
+			<param name="Enabled" type="float"/>
+			<param name="PlayerPos" type="vec2"/>
+        </parameters>
+        <vertex><![CDATA[
+            attribute vec3 Position;                                        
+            attribute vec4 Color;                                           
+            attribute vec2 TexCoord;                                        
+            attribute vec4 RenderData;                                                                  
+            attribute float Scale;
+            attribute vec2 PlayerPos;
+			attribute float Enabled;
+            varying vec4 Color0;                                            
+            varying vec2 TexCoord0;
+            varying vec2 PlayerPosOut;
+			varying vec3 PositionOut;
+			varying float EnabledOut;
+            uniform mat4 Transform;                                     
+            void main(void)                                  
+			{
+                Color0 = Color;
+				TexCoord0 = TexCoord;
+				PlayerPosOut = PlayerPos;
+				EnabledOut = Enabled;
+				PositionOut = Position;
+                gl_Position = Transform * vec4(Position.xyz, 1);        
+				
+            }
+        ]]></vertex>
+        <fragment><![CDATA[
+            varying lowp vec4 Color0;
+            varying mediump vec2 TexCoord0;
+            varying lowp vec2 PlayerPosOut; 
+			varying lowp vec3 PositionOut;
+			varying lowp float EnabledOut;
+            uniform sampler2D Texture0;
+			
+            void main(void)                                             
+            {
+				vec4 Color = Color0 * texture2D(Texture0, TexCoord0);
+				
+				if (EnabledOut > 0) {
+				
+					Color.rgb -= sqrt((PlayerPosOut.x-PositionOut.x)*(PlayerPosOut.x-PositionOut.x) + (PlayerPosOut.y-PositionOut.y)*(PlayerPosOut.y-PositionOut.y))/250;
+				
+				}
+				
+                gl_FragColor = Color;
+            }
+			
+        ]]></fragment>
+    </shader>
+	
+	<shader name="Zoom">
+        <parameters>
+			<param name="Enabled" type="float"/>
+			<param name="PlayerPos" type="vec2"/>
+			<param name="Intensity" type="float"/>
+        </parameters>
+        <vertex><![CDATA[
+            attribute vec3 Position;                                        
+            attribute vec4 Color;                                           
+            attribute vec2 TexCoord;                                        
+            attribute vec4 RenderData;                                                                  
+            attribute float Scale;
+            attribute vec2 PlayerPos;
+			attribute float Enabled;
+			attribute float Intensity;
+            varying vec4 Color0;                                            
+            varying vec2 TexCoord0;
+            uniform mat4 Transform;                                     
+            void main(void)                                  
+			{
+                Color0 = Color;
+				TexCoord0 = TexCoord;
+				
+				if (Enabled > 0) {
+					Position.xy += (Position.xy - PlayerPos.xy)*(Intensity-0.2);
+					gl_Position = Transform * vec4(Position.xyz, Intensity);    
+				}
+				else {
+					gl_Position = Transform * vec4(Position.xyz, 1);
+				}
+				
+            }
+        ]]></vertex>
+        <fragment><![CDATA[
+            varying lowp vec4 Color0;
+            varying mediump vec2 TexCoord0;
+            uniform sampler2D Texture0;
+			
+            void main(void)                                             
+            {
+				vec4 Color = Color0 * texture2D(Texture0, TexCoord0);
+				
+                gl_FragColor = Color;
+            }
+			
+        ]]></fragment>
+    </shader>
+	
 </shaders>

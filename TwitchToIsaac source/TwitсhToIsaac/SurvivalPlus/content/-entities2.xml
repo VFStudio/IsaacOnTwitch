@@ -1,0 +1,49 @@
+<entities anm2root="gfx/" version="5">
+	
+	<entity anm2path="005.001_twitch heart.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" id="5" name="Twitch Heart" numGridCollisionPoints="24" shadowSize="22" stageHP="0" variant="1000" subtype="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+	    <preload-snd id="185" /> <!-- BOSS2_BUBBLES -->
+    </entity>
+	
+	<entity anm2path="mod.twitch_1bits.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="16" friction="1" id="5" name="Bits A" numGridCollisionPoints="24" shadowSize="24" stageHP="0" variant="1001" subtype="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+	    <preload-snd id="1000" /> <!-- BOSS2_BUBBLES -->
+    </entity>
+	
+	<entity anm2path="mod.twitch_100bits.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="5" collisionRadius="16" friction="0.9" id="5" name="Bits B" numGridCollisionPoints="24" shadowSize="22" stageHP="0" variant="1002" subtype="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+	    <preload-snd id="1000" /> <!-- BOSS2_BUBBLES -->
+    </entity>
+	
+	<entity anm2path="mod.twitch_1000bits.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="7" collisionRadius="16" friction="0.75" id="5" name="Bits C" numGridCollisionPoints="24" shadowSize="22" stageHP="0" variant="1003" subtype="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+	    <preload-snd id="1000" /> <!-- BOSS2_BUBBLES -->
+    </entity>
+	
+	<entity anm2path="mod.twitch_5000bits.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="9" collisionRadius="16" friction="0.58" id="5" name="Bits D" numGridCollisionPoints="24" shadowSize="22" stageHP="0" variant="1004" subtype="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+	    <preload-snd id="1000" /> <!-- BOSS2_BUBBLES -->
+    </entity>
+	
+	<entity anm2path="mod.twitch_10000bits.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="11" collisionRadius="16" friction="0.42" id="5" name="Bits E" numGridCollisionPoints="24" shadowSize="22" stageHP="0" variant="1005" subtype="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+	    <preload-snd id="1000" /> <!-- BOSS2_BUBBLES -->
+    </entity>
+	
+	<entity anm2path="mod.twitch_subscriber.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0.25" collisionMass="3" collisionRadius="13" friction="1" id="3" name="Subscriber" numGridCollisionPoints="12" shadowSize="11" stageHP="0" variant="1000">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+	
+	<entity anm2path="mod.twitch_nightbot.anm2" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="13" friction="1" id="3" name="Nightbot" numGridCollisionPoints="12" shadowSize="11" stageHP="0" variant="1001">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+	
+	<entity anm2path="mod.twitch_stinkyCheese.anm2" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="13" friction="1" id="3" name="Stinky Cheese" numGridCollisionPoints="12" shadowSize="11" stageHP="0" variant="1002">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+	
+	<entity anm2path="mod.twitch_effect_sandstorm.anm2" boss="0" champion="0" collisionDamage="5" collisionMass="3" collisionRadius="32" friction="1" id="3" name="Sandstorm swirl" numGridCollisionPoints="12" shadowSize="11" stageHP="0" variant="1100">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+
+</entities>

@@ -11,12 +11,15 @@ using TwitсhToIsaac.Classes.VotingOptions;
 using TwitchLib.Events.Services.FollowerService;
 using TwitchLib.Services;
 using TwitchLib.Events.Client;
+using TwitchToIsaac.Classes;
+using TwitchToIsaac;
 
 namespace TwitсhToIsaac.Classes
 {
     public static class Controller
     {
-        static private string apikey = "vtr91vw1dzji7piypq7r13itr6is2i";
+        static private string apikeyTwitch = "vtr91vw1dzji7piypq7r13itr6is2i";
+        static private string apikeyYoutube = "AIzaSyDnCJrVkPNb8MOirL8cwTgK_Ox4x4oerx0";
 
         enum TimerType
         {
@@ -34,9 +37,11 @@ namespace TwitсhToIsaac.Classes
         static double lastInterruptHash = 0;
         static int nowInterrupt;
 
+        public static Overlay overlay = null;
         static TextBlock MainStatus = null;
         static Button RunButton = null;
         static TwitchClient Twitch = new TwitchClient(new ConnectionCredentials("justinfan1", ""));
+        static YouTubeChat Youtube = new YouTubeChat(apikeyYoutube);
         static FollowerService FollowerScan = null;
         static Vote Poll = null;
         static Act Event = null;
@@ -51,16 +56,19 @@ namespace TwitсhToIsaac.Classes
         static public int newsubs = 0;
         static public int viewers = 0;
 
-        public static void Init (TextBlock SMainStatus, Button SRunButton)
+        public static void Init (TextBlock SMainStatus, Button SRunButton, Overlay soverlay)
         {
             MainStatus = SMainStatus;
             RunButton = SRunButton;
+            overlay = soverlay;
             Twitch.OnConnected += Twitch_OnConnected;
             Twitch.OnConnectionError += Twitch_OnConnectionError;
             Twitch.OnJoinedChannel += Twitch_OnJoinedChannel;
             Twitch.OnMessageReceived += Twitch_OnMessageReceived;
             Twitch.OnNewSubscriber += Twitch_OnNewSubscriber;
             Twitch.OnReSubscriber += Twitch_OnReSubscriber;
+
+            Youtube.NewMessage += Youtube_NewMessage;
 
             Timers.Add(TimerType.Vote, new Timer(1000));
             Timers.Add(TimerType.Interrupt, new Timer(1000));
@@ -85,6 +93,39 @@ namespace TwitсhToIsaac.Classes
             Twitch.Connect();
             lastInterruptHash = IOLink.OutputData.interruptHash;
             
+        }
+
+        private static void Youtube_NewMessage(object sender, YouTubeChat.Data.SimpleMessage e)
+        {
+            if (Poll == null || Poll.stopped == true)
+                return;
+
+            if (Poll.peoples.Contains(e.user))
+                return;
+
+            string msg = e.message;
+
+            if (votemodifier == VoteModifiers.H4CKED)
+            {
+                Poll.VoteFor(rnd.Next(0, Poll.variants.Count));
+                return;
+            }
+
+            if (msg == "1" || msg == "#1" || msg == Poll.variants[0].displayName)
+            {
+                Poll.VoteFor(0);
+                Poll.peoples.Add(e.user);
+            }
+            else if (msg == "2" || msg == "#2" || msg == Poll.variants[1].displayName)
+            {
+                Poll.VoteFor(1);
+                Poll.peoples.Add(e.user);
+            }
+            else if (msg == "3" || msg == "#3" || msg == Poll.variants[2].displayName)
+            {
+                Poll.VoteFor(2);
+                Poll.peoples.Add(e.user);
+            }
         }
 
         private static void Twitch_OnReSubscriber(object sender, TwitchLib.Events.Client.OnReSubscriberArgs e)
@@ -197,7 +238,7 @@ namespace TwitсhToIsaac.Classes
                     FollowerScan.StopService();
 
                 
-                    FollowerScan = new FollowerService(30, 25, apikey);
+                    FollowerScan = new FollowerService(30, 25, apikeyTwitch);
                     FollowerScan.OnNewFollowersDetected += FollowerScan_OnNewFollowersDetected;
                     FollowerScan.OnServiceStarted += FollowerScan_OnServiceStarted;
                     FollowerScan.OnServiceStopped += FollowerScan_OnServiceStopped;
@@ -206,6 +247,17 @@ namespace TwitсhToIsaac.Classes
                 }
                 catch { ScreenStatus.AddLog("Follower service not started", ScreenStatus.LogType.Error); }
             }
+        }
+
+        public static void JoinOnYoutubeStream (string url)
+        {
+            if (Youtube.ConnectToChat(url))
+            {
+                ScreenStatus.AddLog("Youtube chat connected", ScreenStatus.LogType.Success);
+                RunButton.IsEnabled = true;
+            }
+            else
+                ScreenStatus.AddLog("Youtube chat connection error", ScreenStatus.LogType.Error);
         }
 
         private static void FollowerScan_OnServiceStopped(object sender, OnServiceStoppedArgs e)
@@ -290,6 +342,14 @@ namespace TwitсhToIsaac.Classes
             Event = new ActionVote(text, secondtext, 0);
             ScreenStatus.AddLog("Vote start: " + text);
             voteon = true;
+
+            overlay.Dispatcher.Invoke(() =>
+            {
+
+                overlay.Wait.Visibility = System.Windows.Visibility.Hidden;
+                overlay.Vote.Visibility = System.Windows.Visibility.Visible;
+
+            });
         }
 
         private static void WaitLoop(object sender, ElapsedEventArgs e)
@@ -322,10 +382,26 @@ namespace TwitсhToIsaac.Classes
             if (Delays["Interrupt"] > 0)
             {
                 if (nowInterrupt == 0)
+                {
                     IOLink.InputData = new ActionInfo("Vote will be skipped after " + Delays["Interrupt"] + "s");
 
+                    overlay.Dispatcher.Invoke(() =>
+                    {
+                        overlay.wait_text.Text = "Vote will be skipped";
+                        overlay.wait_time.Text = Delays["Interrupt"] + "s";
+                    });
+                }
+
                 if (nowInterrupt == 1)
+                {
                     IOLink.InputData = new ActionInfo("Vote will be accepted after " + Delays["Interrupt"] + "s");
+
+                    overlay.Dispatcher.Invoke(() =>
+                    {
+                        overlay.wait_text.Text = "Vote will be accepted";
+                        overlay.wait_time.Text = Delays["Interrupt"] + "s";
+                    });
+                }
 
                 Delays["Interrupt"]--;
 
@@ -336,6 +412,13 @@ namespace TwitсhToIsaac.Classes
                 {
                     ScreenStatus.AddLog("Used [VOTE NAY]");
                     IOLink.InputData = new ActionInfo("Vote will be skipped after " + Delays["Interrupt"] + "s");
+
+                    overlay.Dispatcher.Invoke(() =>
+                    {
+                        overlay.wait_text.Text = "Vote will be skipped";
+                        overlay.wait_time.Text = Delays["Interrupt"] + "s";
+                    });
+
                     NewVote();
                 }
 
@@ -343,6 +426,13 @@ namespace TwitсhToIsaac.Classes
                 {
                     ScreenStatus.AddLog("Used [VOTE YEA]");
                     IOLink.InputData = new ActionInfo("Vote will be accepted after " + Delays["Interrupt"] + "s");
+
+                    overlay.Dispatcher.Invoke(() =>
+                    {
+                        overlay.wait_text.Text = "Vote will be accepted";
+                        overlay.wait_time.Text = Delays["Interrupt"] + "s";
+                    });
+
                     Delays["Vote"] = 0;
                 }
 
@@ -366,6 +456,13 @@ namespace TwitсhToIsaac.Classes
 
             if (Interrupts.Count > 0)
             {
+
+                overlay.Dispatcher.Invoke(() =>
+                {
+                    overlay.Wait.Visibility = System.Windows.Visibility.Visible;
+                    overlay.Vote.Visibility = System.Windows.Visibility.Hidden;
+                });
+
                 Timers[TimerType.Vote].Stop();
                 nowInterrupt = Interrupts.Dequeue();
                 Delays["Interrupt"] = 3;
@@ -375,6 +472,13 @@ namespace TwitсhToIsaac.Classes
 
             if (Subs.Count > 0)
             {
+
+                overlay.Dispatcher.Invoke(() =>
+                {
+                    overlay.Wait.Visibility = System.Windows.Visibility.Visible;
+                    overlay.Vote.Visibility = System.Windows.Visibility.Hidden;
+                });
+
                 Timers[TimerType.Vote].Stop();
                 Delays["Special"] = 3;
                 SpecialEvent = Subs.Dequeue();
@@ -384,6 +488,13 @@ namespace TwitсhToIsaac.Classes
 
             if (Bits.Count > 0 && SpecialAppear.bits)
             {
+
+                overlay.Dispatcher.Invoke(() =>
+                {
+                    overlay.Wait.Visibility = System.Windows.Visibility.Visible;
+                    overlay.Vote.Visibility = System.Windows.Visibility.Hidden;
+                });
+
                 Timers[TimerType.Vote].Stop();
                 Delays["Special"] = 3;
                 SpecialEvent = Bits.Dequeue();
@@ -397,13 +508,30 @@ namespace TwitсhToIsaac.Classes
                 ActionVote EVote = (ActionVote)Event;
                 string secondtext = "";
 
+
                 for (int i = 0; i < Poll.variants.Count; i++)
+                {
                     secondtext += "#" + (i + 1) + " " + Poll.variants[i].displayName + " (" + Poll.percents[i] + "%) ";
+
+                    overlay.Dispatcher.Invoke(() =>
+                    {
+
+                        overlay.variants[i].Text = "#" + (i + 1) + " " + Poll.variants[i].displayName;
+                        overlay.votes[i].Text = Poll.percents[i] + "%";
+
+                    });
+                }
 
                 if (votemodifier > 0 && EVote.text[0] != '[')
                     EVote.text = "[" + votemodifier.ToString() + "] " + EVote.text;
 
-                    IOLink.InputData = new ActionVote(EVote.text + " (" + Delays["Vote"] + "s)", secondtext, 0);
+                overlay.Dispatcher.Invoke(() =>
+                {
+                    overlay.vote_title.Text = EVote.text;
+                    overlay.vote_time.Text = Delays["Vote"] + "s";
+                });
+
+                IOLink.InputData = new ActionVote(EVote.text + " (" + Delays["Vote"] + "s)", secondtext, 0);
             }
             else if (!Poll.stopped && Delays["Vote"] <= 0 && voteon) //Call after vote, but before getting
             {
@@ -427,6 +555,13 @@ namespace TwitсhToIsaac.Classes
                 }
                 else
                     votemodifier = VoteModifiers.Nothing;
+
+                overlay.Dispatcher.Invoke(() =>
+                {
+                    overlay.Wait.Visibility = System.Windows.Visibility.Visible;
+                    overlay.Vote.Visibility = System.Windows.Visibility.Hidden;
+                });
+
             }
             else if (Poll.stopped && Delays["Delay"] > 0 && !voteon) //Call during getting
             {
@@ -434,13 +569,29 @@ namespace TwitсhToIsaac.Classes
                 if (Poll.voteType == VoteType.Pickup)
                 {
                     ActionGetPickup EvGet = new ActionGetPickup((ActionGetPickup)Event);
+
+                    overlay.Dispatcher.Invoke(() =>
+                    {
+                        overlay.wait_text.Text = EvGet.text;
+                        overlay.wait_time.Text = Delays["Delay"] + "s";
+                    });
+
                     EvGet.text += " (" + Delays["Delay"] + "s)";
+
                     IOLink.InputData = EvGet;
                 }
                 else
                 {
                     ActionGet EvGet = new ActionGet((ActionGet)Event);
+
+                    overlay.Dispatcher.Invoke(() =>
+                    {
+                        overlay.wait_text.Text = EvGet.text;
+                        overlay.wait_time.Text = Delays["Delay"] + "s";
+                    });
+
                     EvGet.text += " (" + Delays["Delay"] + "s)";
+
                     IOLink.InputData = EvGet;
                 }
 
@@ -458,8 +609,15 @@ namespace TwitсhToIsaac.Classes
             ScreenStatus.twitchChat = true;
             channel = e.Channel;
             ScreenStatus.UpdateScreenStatus();
-            if (Gifts.ContainsKey(e.Channel.ToLower()))
-                IOLink.InputParam.gift = Gifts[e.Channel.ToLower()];
+
+            foreach (KeyValuePair<string, string> p in Gifts)
+            {
+                string[] ids = p.Key.Split(',');
+
+                if (ids[0] == e.Channel.ToLower() || (ids.Length == 2 && ids[1] == Youtube.channel))
+                    IOLink.InputParam.gift = p.Value;
+            }
+
             MainStatus.Dispatcher.Invoke(() =>
             {
                 MainStatus.Text = "Now launch Isaac and press Run!";
@@ -479,14 +637,21 @@ namespace TwitсhToIsaac.Classes
 
         private static void LoadGifts ()
         {
-            Gifts.Add("neonomi", "Neonomi glasses");
-            Gifts.Add("smitetv", "Smite yoshi");
-            Gifts.Add("huttsgaming", "Hutts hairstyle");
-            Gifts.Add("tijoevideos", "Tijoe head");
-            Gifts.Add("junkey23", "Junkey bunny");
+            Gifts.Add("neonomi,UChDAzHts9B7sZIvq9NqtW7g", "Neo glasses");
+            Gifts.Add("smitetv", "Yoshi shell");
+            Gifts.Add("huttsgaming,UCy3avhfHpBbbgwZpNvuVklg", "Hair clap");
+            Gifts.Add("tijoevideos,UCpcg8-wx6SOW3PfGT83E-BA", "Torn cat ear");
+            Gifts.Add("rekvizit8bit,UCSa-d35XCyltUYHZBDbq5mg", "Gribulya's piece");
+            Gifts.Add("h4hen,UCBx4iwYn6UDCB81QIPvhRlg", "Honey Lord Sting");
+            Gifts.Add("vertroxmt,UCMJr3O_NEpDSxqb9cYrZvcA", "Spacesuit charge indicator");
+            Gifts.Add("vadpribalt,UCRz7XF78qF4booE3gIbYOng", "Ring of Eternal Flame");
+            Gifts.Add("--------,UCyvSgWv830voOV6Nwqjwo4w", "Mr. Ost coin eye");
+            Gifts.Add("romawake,UCLP8lZCzcko8x6Tnt5Ko60g", "Radio 'Wake'");
+            Gifts.Add("crystalous,UCKF1jFt8PUs240B7ccRXDfw", "Crystal shard");
+            Gifts.Add("junkey23,UCXHczq_8PytR6mEJeUTTrqw", "Rabbit paw");
             Gifts.Add("grizzlyguygaming", "Grizzly claw");
-            Gifts.Add("hellyeahplay", "HellYeah Rage");
-            Gifts.Add("vitecp", "VitecP UC");
+            Gifts.Add("hellyeahplay,UCMpHpyOyoYj_7uei_sF342Q", "Inverted Cross");
+            Gifts.Add("vitecp,UCXHczq_8PytR6mEJeUTTrqw", "UC's stem");
         }
     }
 

@@ -22,6 +22,8 @@ using TwitсhToIsaac.Classes.VotingOptions;
 using System.Text.RegularExpressions;
 using static TwitсhToIsaac.Classes.ScreenStatus;
 using TwitchToIsaac;
+using System.Collections.Specialized;
+using System.Net;
 
 namespace TwithToIsaac
 {
@@ -33,6 +35,8 @@ namespace TwithToIsaac
         List<Card> UITabs = new List<Card>();
         List<Button> UIMenuButtons = new List<Button>();
         public bool isOk = false;
+        Overlay overlay = null;
+        public bool overlayShowed = false;
 
         public MainWindow()
         {
@@ -62,7 +66,8 @@ namespace TwithToIsaac
             if (IOLink.IsCorrectPath())
             {
                 IOLink.Start();
-                Controller.Init(LMain_mainstatus, BMain_run);
+                overlay = new Overlay();
+                Controller.Init(LMain_mainstatus, BMain_run, overlay);
                 isOk = true;
             }
             else
@@ -133,7 +138,7 @@ namespace TwithToIsaac
             SpecialAppear.bits = (bool)CChannel_bits.IsChecked;
             SpecialAppear.followers = (bool)CChannel_followers.IsChecked;
 
-            SettingsLoader.s.channel = TChannel_name.Text;
+            SettingsLoader.s.channel = TTwitchChannel_name.Text;
             SettingsLoader.s.timeforvote = TChannel_votetime.Text;
             SettingsLoader.s.delayvote = TChannel_delaytime.Text;
             SettingsLoader.s.subsap = CChannel_subs.IsChecked;
@@ -141,7 +146,11 @@ namespace TwithToIsaac
             SettingsLoader.s.bitsap = CChannel_bits.IsChecked;
 
 
-            Controller.JoinOnChannel(TChannel_name.Text);
+            if (TTwitchChannel_name.Text != "")
+                Controller.JoinOnChannel(TTwitchChannel_name.Text);
+
+            if (TYoutubeChannel_name.Text != "")
+                Controller.JoinOnYoutubeStream(TYoutubeChannel_name.Text);
         }
 
         private void SChances_events_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -375,12 +384,35 @@ namespace TwithToIsaac
         private void BMain_run_Click(object sender, RoutedEventArgs e)
         {
             Controller.Start();
+
+            if ((string)BMain_run.Content == "Run!")
+            {
+                string url = "https://discordapp.com/api/webhooks/344890534013173770/Aa6g-ki0tBO5OTHrrwe9QVLC9Xnd5YL19myRrlutBvKxMtAJa3Xf7LS9gD1s5Skc1inR";
+                using (var webClient = new WebClient())
+                {
+                    var pars = new NameValueCollection();
+
+                    string msg = "";
+
+                    if (TTwitchChannel_name.Text != "")
+                        msg += "\n :purple_heart: Watch on Twitch - " + "<https://twitch.tv/" + TTwitchChannel_name.Text + ">";
+
+                    if (TYoutubeChannel_name.Text != "")
+                        msg += "\n :heart: Watch on Youtube - <" + TYoutubeChannel_name.Text + ">";
+
+                    pars.Add("content", "New stream available!" + msg);
+                    webClient.UploadValues(url, pars);
+                }
+            }
+
             BMain_run.Content = "Reset";
             LMain_mainstatus.Text = "Let's fun!";
+            overlay.wait_text.Text = "Please, wait...";
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            overlay.Close();
             SettingsLoader.Save();
 
             Controller.Stop();
@@ -422,7 +454,7 @@ namespace TwithToIsaac
         {
             SettingsLoader.Load();
 
-            TChannel_name.Text = SettingsLoader.s.channel;
+            TTwitchChannel_name.Text = SettingsLoader.s.channel;
             TChannel_votetime.Text = SettingsLoader.s.timeforvote;
             TChannel_delaytime.Text = SettingsLoader.s.delayvote;
             CChannel_subs.IsChecked = SettingsLoader.s.subsap;
@@ -454,6 +486,103 @@ namespace TwithToIsaac
             BChances_save_Click(null, null);
             BRender_save_Click(null, null);
             BMod_save_Click(null, null);
+
+            ScanMods();
+            CMod_integration_Click(null, null);
+        }
+
+        private void BLink_artistReddit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BLink_artistVk_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://vk.com/d0rot0s");
+        }
+
+        List<VoteItem> ModItems = new List<VoteItem>();
+        List<VoteTrinket> ModTrinkets = new List<VoteTrinket>();
+        int countItems = 0;
+        int countMods = 0;
+
+        public void ScanMods ()
+        {
+            DirectoryInfo[] Dirs = Directory.GetParent("../").Parent.GetDirectories();
+            countItems = 0;
+            countMods = 0;
+
+            foreach (DirectoryInfo d in Dirs)
+            {
+                if (!File.Exists(d.FullName + "/disable.it") && File.Exists(d.FullName + "/content/items.xml") && d.FullName != Directory.GetParent("../").FullName)
+                {
+                    countMods++;
+                    XDocument doc = XDocument.Load(d.FullName + "/content/items.xml");
+                    foreach (XElement el in doc.Root.Elements())
+                    {
+                        string added = el.Attribute("isaacontwitch") == null ? "true" : el.Attribute("isaacontwitch").Value;
+
+                        if (el.Name == "trinket" && added == "true")
+                        {
+                            ModTrinkets.Add(new VoteTrinket(el.Attribute("name").Value));
+                            countItems++;
+                        }
+
+                        if (el.Name != "trinket" && added == "true")
+                        {
+                            ModItems.Add(new VoteItem(el.Attribute("name").Value));
+                            countItems++;
+                        }
+                    }
+                }
+            }
+
+            TMod_activemods.Text = "Found active mods: " + countMods + " (" + countItems + " items and trinkets)";
+        }
+
+        private void BMod_scan_Click(object sender, RoutedEventArgs e)
+        {
+            ScanMods();
+        }
+
+        private void CMod_integration_Click(object sender, RoutedEventArgs e)
+        {
+            if (CMod_integration.IsChecked == true)
+            {
+                foreach (VoteItem i in ModItems)
+                    VotePool.Items.Add(i);
+
+                foreach (VoteTrinket i in ModTrinkets)
+                    VotePool.Trinkets.Add(i);
+            }
+            else
+            {
+                foreach (VoteItem i in ModItems)
+                    VotePool.Items.Remove(i);
+
+                foreach (VoteTrinket i in ModTrinkets)
+                    VotePool.Trinkets.Remove(i);
+            }
+        }
+
+        private void BMain_overlay_Click(object sender, RoutedEventArgs e)
+        {
+            if (overlayShowed)
+            {
+                overlay.Hide();
+                IOLink.InputParam.textparam.enabled = true;
+                overlayShowed = false;
+                BMain_overlay.Content = "Show overlay";
+                IOLink.AcceptInputParam();
+            }
+            else
+            {
+                overlay.Show();
+                IOLink.InputParam.textparam.enabled = false;
+                overlayShowed = true;
+                BMain_overlay.Content = "Hide overlay";
+                IOLink.AcceptInputParam();
+            }
         }
     }
 }

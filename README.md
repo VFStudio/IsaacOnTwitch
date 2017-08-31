@@ -6,6 +6,8 @@ This mod allows your viewers to take part in the game as well as adds new items 
 
 ### Features:
 
+![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/a.png)
+
 ![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/02.png)
 
 - Now your viewers are able to vote for items, pickups and **special events**.
@@ -40,6 +42,39 @@ This mod allows your viewers to take part in the game as well as adds new items 
 ![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/08.png)
 
 ### Changelog
+
+**31.08.2017 - 2.0 Pog Champ Update**
+
+- Added 40 new events    
+
+- Redesign of the old events
+
+- Enemies' allies are now stronger
+
+- Added two new challenges
+
+- Added new items
+
+- Added new trinkets, changed the effects of the old ones
+
+- Added YouTube chat support
+
+- Added alternative skins for subscribers
+
+- Changed UI
+
+- Changed the audio system of the events
+
+- Updated libraries of TwitchToIsaac
+
+- Added overlay as an alternative to in-game votes
+
+- All Twitch items are now available at the store in Greed mode
+
+- Added integration with other mods. If you want to exclude your mod's item from voting, add the 'isaacontwitch="false"' parameter to XML-tag
+
+Also, we've got a discord server - https://discord.gg/kYT3dwB All available streams related to the mod will appear in #whoisplaying channel.
+
 
 **26.02.2017 - 1.3.1**
 
@@ -82,6 +117,8 @@ This mod allows your viewers to take part in the game as well as adds new items 
 - Now you will be notified about updates
 
 ### Links
+[Download v2.0](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v2.0.zip)
+
 [Download v1.3.1](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.3.1.zip)
 
 [Download v1.3 Hey Guys Update](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.3.zip)
