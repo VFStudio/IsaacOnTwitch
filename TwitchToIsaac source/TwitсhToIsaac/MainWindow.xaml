@@ -84,6 +84,7 @@
                     <CheckBox x:Name="CChannel_subs"  Content="Subs appear in game" HorizontalAlignment="Left" IsChecked="True" Margin="0,10,0,2" FontSize="16"/>
                     <CheckBox x:Name="CChannel_followers"  Content="Followers appear in game" HorizontalAlignment="Left" IsChecked="false" Margin="0,5,0,2" FontSize="16"/>
                     <CheckBox x:Name="CChannel_bits"  Content="Bits appear in game" HorizontalAlignment="Left" IsChecked="True" Margin="0,5,0,2" FontSize="16"/>
+                    <CheckBox x:Name="CChannel_announce"  Content="Announce to Discord" HorizontalAlignment="Left" IsChecked="False" Margin="0,5,0,2" FontSize="16"/>
                 </StackPanel>
                 <Button x:Name="BChannel_save" Content="Connect" HorizontalAlignment="Center" Margin="253,10,222,0" Click="BChannel_save_Click" Width="92"/>
                 <TextBlock FontSize="12" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="137,5,136,0" ><Run Text="The settings take effect immediately, even during game"/></TextBlock>
@@ -176,8 +177,12 @@
                 <CheckBox x:Name="CMod_integration"  Content="Add items from another mods" HorizontalAlignment="Center" IsChecked="True" Margin="0,0,0,2" FontSize="16" Click="CMod_integration_Click"/>
                 <TextBlock x:Name="TMod_activemods" FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,0,0,5" >Found mods: 0</TextBlock>
                 <Button x:Name="BMod_scan" Content="Rescan" HorizontalAlignment="Center" Width="79" Click="BMod_scan_Click" Margin="0"/>
-                <Button x:Name="BMod_save" Content="Save" HorizontalAlignment="Center" Margin="0,100,0,0" Width="72" Click="BMod_save_Click"/>
+                <TextBlock FontSize="18" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,20,0,15" >Event Mode</TextBlock>
+                <Slider x:Name="SMod_eventmode" SmallChange="1" Minimum="1" Maximum="3" Value="2" Width="200" BorderThickness="0" ValueChanged="SMod_eventmode_ValueChanged"/>
+                <TextBlock x:Name="TMod_eventmode" FontSize="16" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,0,0,5" >Normal</TextBlock>
+                <Button x:Name="BMod_save" Content="Save" HorizontalAlignment="Center" Margin="0,10,0,0" Width="72" Click="BMod_save_Click"/>
                 <TextBlock FontSize="12" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="138,5,104,0" Width="325" ><Run Text="The settings take effect immediately, even during game"/></TextBlock>
+                
             </StackPanel>
 
         </materialDesign:Card>

@@ -385,7 +385,7 @@ namespace TwithToIsaac
         {
             Controller.Start();
 
-            if ((string)BMain_run.Content == "Run!")
+            if ((string)BMain_run.Content == "Run!" && (bool)CChannel_announce.IsChecked == true)
             {
                 string url = "https://discordapp.com/api/webhooks/344890534013173770/Aa6g-ki0tBO5OTHrrwe9QVLC9Xnd5YL19myRrlutBvKxMtAJa3Xf7LS9gD1s5Skc1inR";
                 using (var webClient = new WebClient())
@@ -583,6 +583,31 @@ namespace TwithToIsaac
                 BMain_overlay.Content = "Hide overlay";
                 IOLink.AcceptInputParam();
             }
+        }
+
+        private void SMod_eventmode_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            int res = Convert.ToInt32(SMod_eventmode.Value);
+
+            try
+            {
+                switch (res)
+                {
+                    case 1:
+                        TMod_eventmode.Text = "Easy";
+                        Controller.esm = Controller.EventSelectMode.Easy;
+                        break;
+                    case 2:
+                        TMod_eventmode.Text = "Normal";
+                        Controller.esm = Controller.EventSelectMode.Normal;
+                        break;
+                    case 3:
+                        TMod_eventmode.Text = "Crazy";
+                        Controller.esm = Controller.EventSelectMode.Nightmare;
+                        break;
+                }
+            }
+            catch { }
         }
     }
 }

@@ -918,6 +918,9 @@ function IOTmod:postUpdate()
       end
     end
     
+    local bossDelay = 0
+    if e:IsBoss() then bossDelay = 7 end
+    
     if (p:HasTrinket(TI_romawake) and e:IsActiveEnemy(true) and e:IsDead() and math.random(1,3) == 1) then
       
       local direct = math.random(0,360)
@@ -928,11 +931,12 @@ function IOTmod:postUpdate()
       
     end
     
-    if (p:HasTrinket(TI_hahen) and e:IsActiveEnemy(true) and e:IsDead() and not e:HasEntityFlags(EntityFlag.FLAG_FRIENDLY)) then
+    if (p:HasTrinket(TI_hahen) and e:IsActiveEnemy(true) and e:IsDead() and not e:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) and math.random(1,2 + bossDelay) == 1 and Isaac.CountEntities(nil, EntityType.ENTITY_DART_FLY, 0,  0) < 25) then
+      
       
       local fly = Isaac.Spawn(EntityType.ENTITY_DART_FLY, 0,  0, e.Position, Vector(0, 0), p)
-      fly:ToNPC().MaxHitPoints = p:ToPlayer().Damage * 2
-      fly:ToNPC().HitPoints = p:ToPlayer().Damage * 2
+      fly:ToNPC().MaxHitPoints = p:ToPlayer().Damage * 3
+      fly:ToNPC().HitPoints = p:ToPlayer().Damage * 3
       fly:AddCharmed(-1)
       fly:AddEntityFlags(EntityFlag.FLAG_FRIENDLY)
       
@@ -989,7 +993,7 @@ function IOTmod:postUpdate()
     end
     
     --If player pickup SSSsss
-    if (p:HasCollectible(PI_SSSsss) and e.Type > EntityType.ENTITY_PROJECTILE and e.Type < EntityType.ENTITY_EFFECT and e:IsDead ()) then
+    if (p:HasCollectible(PI_SSSsss) and e.Type > EntityType.ENTITY_PROJECTILE and e.Type < EntityType.ENTITY_EFFECT and e:IsDead () and math.random(1,1+bossDelay)) then
       Isaac.Explode(e.Position, e, 30.0)
     end
     
@@ -1216,8 +1220,8 @@ function IOTmod:PlayerTakeDamage(p, damageAmnt, damageFlag, damageSource, damage
   if (p:ToPlayer():HasTrinket(TI_hahen)) then
     local pos = Game():GetRoom():FindFreePickupSpawnPosition(Game():GetRoom():GetCenterPos(), 20, true)
     local fly = Isaac.Spawn(EntityType.ENTITY_DART_FLY, 0,  0, pos, Vector(0, 0), p)
-    fly:ToNPC().MaxHitPoints = p:ToPlayer().Damage * 4
-    fly:ToNPC().HitPoints = p:ToPlayer().Damage * 4
+    fly:ToNPC().MaxHitPoints = p:ToPlayer().Damage * 5
+    fly:ToNPC().HitPoints = p:ToPlayer().Damage * 5
   end
   
   if (p:ToPlayer():HasTrinket(TI_crystal) and math.random(1,3) == 1) then
@@ -1401,30 +1405,30 @@ function IOTmod:Render()
   
   --Render standart vote
   if (ev.emode == 1 and tp.enabled) then
-    Isaac.RenderScaledText(ev.text, tp.firstline.x, tp.firstline.y, 0.5, 0.5, 0, 0, 0, 1)
-    Isaac.RenderScaledText(ev.text, tp.firstline.x-1, tp.firstline.y-1, 0.5, 0.5, 1, 1, 1, 1)
+    Isaac.RenderScaledText(ev.text, tp.firstline.x, tp.firstline.y, 1, 1, 0, 0, 0, 1)
+    Isaac.RenderScaledText(ev.text, tp.firstline.x-1, tp.firstline.y-1, 1, 1, 1, 1, 1, 1)
     
-    Isaac.RenderScaledText(ev.secondtext, tp.secondline.x, tp.secondline.y, 0.5, 0.5, 1, 0, 0, 1)
-    Isaac.RenderScaledText(ev.secondtext, tp.secondline.x, tp.secondline.y, 0.5, 0.5, 1, 1, 0, 1)
+    Isaac.RenderScaledText(ev.secondtext, tp.secondline.x, tp.secondline.y, 1, 1, 1, 0, 0, 1)
+    Isaac.RenderScaledText(ev.secondtext, tp.secondline.x, tp.secondline.y, 1, 1, 1, 1, 0, 1)
   end
     
   --Render info
   if (ev.emode == 2 and tp.enabled) then
-      Isaac.RenderScaledText(ev.text, tp.firstline.x, tp.firstline.y, 0.5, 0.5, 0, 0, 0, 1)
-      Isaac.RenderScaledText(ev.text, tp.firstline.x-1, tp.firstline.y-1, 0.5, 0.5, 0, 1, 0, 1)
+      Isaac.RenderScaledText(ev.text, tp.firstline.x, tp.firstline.y, 1, 1, 0, 0, 0, 1)
+      Isaac.RenderScaledText(ev.text, tp.firstline.x-1, tp.firstline.y-1, 1, 1, 0, 1, 0, 1)
   end
     
   --Render event activation message
   if (ev.emode > 2 and tp.enabled) then
     if (blinkText > 0 and blinkDirect == true) then
-      Isaac.RenderScaledText(ev.text, tp.firstline.x, tp.firstline.y, 0.5, 0.5, 0, 0, 0, 1)
-      Isaac.RenderScaledText(ev.text, tp.firstline.x-1, tp.firstline.y-1, 0.5, 0.5, 1, 1, 0, 1)
+      Isaac.RenderScaledText(ev.text, tp.firstline.x, tp.firstline.y, 1, 1, 0, 0, 0, 1)
+      Isaac.RenderScaledText(ev.text, tp.firstline.x-1, tp.firstline.y-1, 1, 1, 1, 1, 0, 1)
       blinkText = blinkText-1;
     end
     
     if (blinkText > 0 and blinkDirect == false) then
-      Isaac.RenderScaledText(ev.text, tp.firstline.x, tp.firstline.y, 0.5, 0.5, 0, 0, 0, 1)
-      Isaac.RenderScaledText(ev.text, tp.firstline.x-1, tp.firstline.y-1, 0.5, 0.5, 1, 1, 1, 1)
+      Isaac.RenderScaledText(ev.text, tp.firstline.x, tp.firstline.y, 1, 1, 0, 0, 0, 1)
+      Isaac.RenderScaledText(ev.text, tp.firstline.x-1, tp.firstline.y-1, 1, 1, 1, 1, 1, 1)
       blinkText = blinkText-1;
     end
     
@@ -1442,7 +1446,7 @@ function IOTmod:Render()
       subs[k].entity:SetColor(subs[k].color, 0, 0, false, false)
     end
     if (allowrender) then
-      Isaac.RenderScaledText(subs[k].name, fpos.X-2 * #subs[k].name, fpos.Y-40, 0.4, 0.4, subs[k].color.R, subs[k].color.G, subs[k].color.B, 0.8)
+      Isaac.RenderScaledText(subs[k].name, fpos.X-3 * #subs[k].name, fpos.Y-40, 1, 1, subs[k].color.R, subs[k].color.G, subs[k].color.B, 0.8)
     end
   end
     
@@ -1472,9 +1476,15 @@ function IOTmod:T_RoomChanged(room)
     if (v.ontime == true and v.trc == true and v.ontrigger ~= nil ) then v.ontrigger() end
   end
   
+  --Relaunch WeHateYou delay
+  EV_wehateyou_delay = 30
+  
   --If QTE active, relaunch arrow cast
   if (EV_QTE_active) then
     EV_QTE_active = false
+    EV_QTE_time = 0
+    EV_QTE_direct = 0
+    EV_QTE_obj = nil
     EV_QTE_cd = false
   end
   
@@ -1536,6 +1546,14 @@ function IOTmod:T_RoomChanged(room)
   end
   
   if (p:ToPlayer():HasTrinket(TI_rekvi) and not room:IsClear()) then
+    
+    if (math.random(1,3) == 1) then
+      local pos = room:FindFreePickupSpawnPosition(room:GetCenterPos(), 20, true)
+      local unit = Isaac.Spawn(EntityType.ENTITY_MUSHROOM, 0,  0, pos, Vector(0, 0), player)
+      unit:AddCharmed(-1)
+      unit:AddEntityFlags(EntityFlag.FLAG_FRIENDLY)
+    end
+    
     for i = 1, room:GetGridSize() do
       if (room:GetGridEntity(i) == GridEntityType.GRID_ROCK and math.random(1,3) == 1) then
         local pos = room:GetGridPosition(i)
@@ -1544,12 +1562,6 @@ function IOTmod:T_RoomChanged(room)
       end
     end
     
-    if (math.random(1,4) == 1) then
-      local pos = room:FindFreePickupSpawnPosition(room:GetCenterPos(), 20, true)
-      local unit = Isaac.Spawn(EntityType.ENTITY_MUSHROOM, 0,  0, pos, Vector(0, 0), player)
-      unit:AddCharmed(-1)
-      unit:AddEntityFlags(EntityFlag.FLAG_FRIENDLY)
-    end
   end
   
   if (p:ToPlayer():HasTrinket(TI_vertox) and not room:IsClear()) then
@@ -1564,7 +1576,7 @@ function IOTmod:T_RoomChanged(room)
     end
   end
   
-  if (p:ToPlayer():HasTrinket(TI_vitecp) and not room:IsClear() and (math.random(1,5) == 1)) then
+  if (p:ToPlayer():HasTrinket(TI_vitecp) and not room:IsClear() and (math.random(1,4) == 1)) then
     local entities = Isaac.GetRoomEntities()
     for k, v in pairs(entities) do
       local col = nil
@@ -1918,6 +1930,7 @@ function IOTmod:relaunchGame (p)
       enable = false,
       frames = 0
     }
+    
   }
 
   p:AddCacheFlags(CacheFlag.CACHE_ALL)
@@ -1977,6 +1990,12 @@ function IOTmod:relaunchGame (p)
     p:AddTrinket(Isaac.GetTrinketIdByName(IOLink.Input.Param.gift))
   end
   
+  for k, v in pairs(TEventStorage) do
+    if (v.onover ~= nil) then v.onover() end
+  end
+  
+  TEventStorage = {}
+  
 end
 
 function IOTmod:ReloadTwitchRoomPool ()
@@ -1997,6 +2016,7 @@ function IOTmod:ReloadTwitchRoomPool ()
   table.insert(twitchRoomItemPool, AI_voteNay)
   table.insert(twitchRoomItemPool, FI_nightbot)
   table.insert(twitchRoomItemPool, FI_stinkyCheese)
+  table.insert(twitchRoomItemPool, PI_SSSsss)
 end
 
 function IOTmod:T_StageChanged(stage)
@@ -2787,7 +2807,7 @@ function SpecialEvents:Whirlwind()
 end
 
 ------- Russian Hackers
-function SpecialEvents:RussianHackers()
+function SpecialEvents:RusHack()
   
   function SE__update ()
     local frame = Game():GetFrameCount()
@@ -3297,7 +3317,11 @@ function SpecialEvents:Ghostbusters()
     local entities = Isaac.GetRoomEntities()
     
     for i = 1, #entities do
-      if (entities[i].Type ~= EntityType.ENTITY_THE_HAUNT and entities[i].Type > EntityType.ENTITY_PROJECTILE and entities[i].Type < EntityType.ENTITY_EFFECT and entities[i]:IsDead ()) then
+      
+      local bossDelay = 0
+      if entities[i]:IsBoss() then bossDelay = 7 end
+      
+      if (entities[i].Type ~= EntityType.ENTITY_THE_HAUNT and entities[i].Type > EntityType.ENTITY_PROJECTILE and entities[i].Type < EntityType.ENTITY_EFFECT and entities[i]:IsDead() and math.random(1,1+bossDelay)) then
         Game():Spawn(EntityType.ENTITY_THE_HAUNT, 10, entities[i].Position, Vector(0,0), entities[i], 0, 0)
       end
     end
@@ -3309,17 +3333,21 @@ function SpecialEvents:Ghostbusters()
 end
 
 ------- We hate you
+
+EV_wehateyou_delay = 30
+
 function SpecialEvents:WeHateYou()
   
   function SE__update ()
     
+    if (EV_wehateyou_delay > 0) then EV_wehateyou_delay = EV_wehateyou_delay - 1 return end
     
     local p = Isaac.GetPlayer(0)
     local room = Game():GetRoom()
     local entities = Isaac.GetRoomEntities()
     
     for i = 1, #entities do
-      if (entities[i].Type > 2 and entities[i].Type ~= 7 and entities[i].Type ~= 8 and entities[i].Type < 1000 and p.Position:Distance(entities[i].Position) < 20) then
+      if (entities[i].Type > 3 and entities[i].Type ~= 7 and entities[i].Type ~= 8 and entities[i].Type < 1000 and p.Position:Distance(entities[i].Position) < 20) then
         p:TakeDamage (0.5, DamageFlag.DAMAGE_FIRE, EntityRef(p), 30)
       end
     end
@@ -3327,7 +3355,7 @@ function SpecialEvents:WeHateYou()
   end
   
   SE__update()
-  table.insert(TEventStorage, TEvent:new(45*30, true, false, SE__update, nil))
+  table.insert(TEventStorage, TEvent:new(20*30, true, false, SE__update, nil))
 end
 
 ------- Telesteps
@@ -3471,7 +3499,7 @@ function SpecialEvents:IsaacOfIsaac()
     
     
     for i = 1, #entities do
-      if (entities[i].Type > 8 and entities[i].Type < 1000 and entities[i].FrameCount < 2 and entities[i].Type ~= 289 and entities[i].Type ~= 204 and entities[i].Type ~= 213 and not entities[i]:IsBoss()) then
+      if (entities[i].Type > 8 and entities[i].Type < 1000 and entities[i].FrameCount < 2 and entities[i].Type ~= 289 and entities[i].Type ~= 204 and entities[i].Type ~= 213 and not entities[i]:IsBoss() and entities[i].Type ~= EntityType.ENTITY_WIZOOB and entities[i].Type ~= EntityType.ENTITY_WIZOOB) then
         local sprite = entities[i]:GetSprite()
         sprite:Load("gfx/001.000_player.anm2", true)
         sprite:Play("Appear", true)
@@ -4048,9 +4076,9 @@ end
 ------- QTE
 
 EV_QTE_active = false
-local EV_QTE_time = 0
-local EV_QTE_direct = 0
-local EV_QTE_obj = nil
+EV_QTE_time = 0
+EV_QTE_direct = 0
+EV_QTE_obj = nil
 EV_QTE_cd = false
 
 function SpecialEvents:QTE()

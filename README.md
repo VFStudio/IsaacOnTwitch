@@ -28,7 +28,7 @@ This mod allows your viewers to take part in the game as well as adds new items 
 ### How to run:
 **WARNING! For correct work you need launch Isaac with `--luadebug` option!**
 
-- Download [last version](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.2.1.zip) and unzip it in your mod folder.
+- Download [last version](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v2.0.1.zip) and unzip it in your mod folder.
 - Run TwitchToIsaac.exe (Placed in %modfolder%/IsaacOnTwitch/TwitchToIsaac). It's required to create bridge between Isaac and Twitch.
 - Enter name of your channel and click to "Save".
 - Run Isaac (Don't forget, with `--luadebug`) and click "Run!" in program
@@ -42,6 +42,12 @@ This mod allows your viewers to take part in the game as well as adds new items 
 ![Image](https://vfstudio.github.io/IsaacOnTwitch/imgs/08.png)
 
 ### Changelog
+
+**02.09.2017 - 2.0.1**
+
+- Bug fixes
+
+- Rebalancing
 
 **31.08.2017 - 2.0 Pog Champ Update**
 
@@ -117,7 +123,9 @@ Also, we've got a discord server - https://discord.gg/kYT3dwB All available stre
 - Now you will be notified about updates
 
 ### Links
-[Download v2.0](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v2.0.zip)
+[Download v2.0.1](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v2.0.1.zip)
+
+[Download v2.0 Pog Champ Update](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v2.0.zip)
 
 [Download v1.3.1](https://vfstudio.github.io/IsaacOnTwitch/IsaacOnTwitch_v1.3.1.zip)
 

@@ -26,6 +26,11 @@ namespace TwitсhToIsaac.Classes
             Vote, Interrupt, Special, Wait
         }
 
+        public enum EventSelectMode
+        {
+            Easy, Normal, Nightmare
+        }
+
         static Dictionary<TimerType, Timer> Timers = new Dictionary<TimerType, Timer>();
         static Dictionary<string, int> Delays = new Dictionary<string, int>();
         static Dictionary<string, string> Gifts = new Dictionary<string, string>();
@@ -55,6 +60,7 @@ namespace TwitсhToIsaac.Classes
         static string channel = "";
         static public int newsubs = 0;
         static public int viewers = 0;
+        static public EventSelectMode esm = EventSelectMode.Normal;
 
         public static void Init (TextBlock SMainStatus, Button SRunButton, Overlay soverlay)
         {
@@ -102,6 +108,7 @@ namespace TwitсhToIsaac.Classes
 
             if (Poll.peoples.Contains(e.user))
                 return;
+            
 
             string msg = e.message;
 

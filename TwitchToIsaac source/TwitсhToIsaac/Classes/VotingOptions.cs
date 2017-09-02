@@ -304,6 +304,18 @@ namespace TwitсhToIsaac.Classes.VotingOptions
             LoadItemsAndTrinkets();
         }
 
+        public static double GetChance ()
+        {
+            if (Controller.esm == Controller.EventSelectMode.Nightmare)
+            {
+                return 1;
+            }
+            else
+            {
+                return rnd.NextDouble();
+            }
+        }
+
         public static void Restore ()
         {
             Events.Clear();
@@ -356,15 +368,15 @@ namespace TwitсhToIsaac.Classes.VotingOptions
             Events.Add(new VoteEvent("FlashJump", "Flash Jump", "Faster than light", true));
             Events.Add(new VoteEvent("EyesBleed", "Eyes Bleed", "What's happening?", false));
             Events.Add(new VoteEvent("StanleyParable", "Stanley Parable", "Good job, Stanley!", true));
-            if (rnd.NextDouble() >= 0.75) { Events.Add(new VoteEvent("Supernova", "Supernova", "DESTROY THE WORLD!", true)); }
-            if (rnd.NextDouble() >= 0.2) { Events.Add(new VoteEvent("DDoS", "DDoS", "50 Gb/sec attack", false, 1)); }
+            if (GetChance() >= 0.75 || Controller.esm != Controller.EventSelectMode.Easy) { Events.Add(new VoteEvent("Supernova", "Supernova", "DESTROY THE WORLD!", true)); }
+            if (GetChance() >= 0.2 || Controller.esm != Controller.EventSelectMode.Easy) { Events.Add(new VoteEvent("DDoS", "DDoS", "50 Gb/sec attack", false, 1)); }
             Events.Add(new VoteEvent("NoDMG", "Where is my DMG", "Your game will collapse but there's nothing in it", false));
             Events.Add(new VoteEvent("Strabismus", "Strabismus", "Where are you looking at?", false));
             Events.Add(new VoteEvent("Inverse", "Inverse", "Just flip the gamepad", false));
             Events.Add(new VoteEvent("Slip", "Slip", "Caution! Wet floor", false));
             Events.Add(new VoteEvent("Whirlwind", "Whirlwind", "Spiral power", true));
             Events.Add(new VoteEvent("RusHack", "Russian hackers", "I did not vote for this!", false, -1, VoteModifiers.H4CKED));
-            if (rnd.NextDouble() >= 0.4) { Events.Add(new VoteEvent("GoodMusic", "Good music", "YOUR EARS ARE BEING RAPED!!11!!1", false, 0)); }
+            if (GetChance() >= 0.4) { Events.Add(new VoteEvent("GoodMusic", "Good music", "YOUR EARS ARE BEING RAPED!!11!!1", false, 0)); }
             Events.Add(new VoteEvent("AttackOnTitan", "Attack on titan", "Your enemies have grown", false, 3));
             Events.Add(new VoteEvent("Interstellar", "Interstellar", "Gravity can cross the dimensions", false, 4));
             Events.Add(new VoteEvent("BladeStorm", "Blade storm", "All get stabbed!", true));
@@ -381,8 +393,8 @@ namespace TwitсhToIsaac.Classes.VotingOptions
             Events.Add(new VoteEvent("SCP173", "SCP-173", "Don't blink!", false));
             Events.Add(new VoteEvent("PointOfView", "Point Of View", "Change your point of view", false));
             Events.Add(new VoteEvent("Radioactive", "Radioactive", "Mind the distance", false));
-            if (rnd.NextDouble() >= 0.90) { Events.Add(new VoteEvent("Rerun", "Rerun", "Start from scratch", true)); }
-            if (rnd.NextDouble() >= 0.90) { Events.Add(new VoteEvent("SwitchTheChannel", "Switch The Channel", "This show has become too boring", false)); }
+            if (GetChance() >= 0.90) { Events.Add(new VoteEvent("Rerun", "Rerun", "Start from scratch", true)); }
+            if (GetChance() >= 0.90 || Controller.esm != Controller.EventSelectMode.Easy) { Events.Add(new VoteEvent("SwitchTheChannel", "Switch The Channel", "This show has become too boring", false)); }
             Events.Add(new VoteEvent("FlyingBanana", "Flying Banana", "Plain bananas but better", true));
             Events.Add(new VoteEvent("Pyrosis", "Pyrosis", "Change your diet", true));
             Events.Add(new VoteEvent("Spiders", "Spiders", "Everybody loves spiders", true));
@@ -397,12 +409,12 @@ namespace TwitсhToIsaac.Classes.VotingOptions
             Events.Add(new VoteEvent("StaticElectricity", "Static Electricity", "WARNING: High Voltage", false));
             Events.Add(new VoteEvent("Bleeding", "Bleeding", "Let's make it hardcore", false));
             Events.Add(new VoteEvent("ParasiticInfection", "Parasitic Infection", "Beautiful on the inside", false));
-            Events.Add(new VoteEvent("IAmLost", "I Am Lost", "You get hit, you die. Good luck.", false));
+            if (GetChance() >= 0.70 || Controller.esm != Controller.EventSelectMode.Easy) { Events.Add(new VoteEvent("IAmLost", "I Am Lost", "You get hit, you die. Good luck.", false)); }
             //Events.Add(new VoteEvent("Censored", "Censored", "Your parents wouldn't like it", false));
             Events.Add(new VoteEvent("DeepDark", "DeepDark", "The dark absorbs everything", false));
             Events.Add(new VoteEvent("BrokenLens", "Broken Lens", "Zoom's very unstable", false));
             Events.Add(new VoteEvent("FloorIsLava", "Floor Is Lava", "Watch your steps!", false));
-            if (rnd.NextDouble() >= 0.90) { Events.Add(new VoteEvent("Reroll", "Reroll", "I hope your items were bad", true)); }
+            if (GetChance() >= 0.90 || Controller.esm != Controller.EventSelectMode.Easy) { Events.Add(new VoteEvent("Reroll", "Reroll", "I hope your items were bad", true)); }
             Events.Add(new VoteEvent("Matrix", "Matrix", "You are the chosen one, Isaac!", true));
             Events.Add(new VoteEvent("Danger", "Danger", "The game was too easy", false));
             Events.Add(new VoteEvent("TornPockets", "Torn Pockets", "Looks like you've lost everything", false));

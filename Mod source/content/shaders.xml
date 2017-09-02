@@ -296,6 +296,7 @@
             varying vec2 TexCoord0;
             varying vec2 PlayerPosOut;
 			varying vec3 PositionOut;
+			varying vec4 RenderDataOut;
 			varying float EnabledOut;
             uniform mat4 Transform;                                     
             void main(void)                                  
@@ -305,6 +306,7 @@
 				PlayerPosOut = PlayerPos;
 				EnabledOut = Enabled;
 				PositionOut = Position;
+				RenderDataOut = RenderData;
                 gl_Position = Transform * vec4(Position.xyz, 1);        
 				
             }
@@ -312,6 +314,7 @@
         <fragment><![CDATA[
             varying lowp vec4 Color0;
             varying mediump vec2 TexCoord0;
+			varying lowp vec4 RenderDataOut;
             varying lowp vec2 PlayerPosOut; 
 			varying lowp vec3 PositionOut;
 			varying lowp float EnabledOut;
@@ -323,7 +326,7 @@
 				
 				if (EnabledOut > 0) {
 				
-					Color.rgb -= sqrt((PlayerPosOut.x-PositionOut.x)*(PlayerPosOut.x-PositionOut.x) + (PlayerPosOut.y-PositionOut.y)*(PlayerPosOut.y-PositionOut.y))/250;
+					Color.rgb -= sqrt((PlayerPosOut.x-PositionOut.x)*(PlayerPosOut.x-PositionOut.x) + (PlayerPosOut.y-PositionOut.y)*(PlayerPosOut.y-PositionOut.y))/((RenderDataOut.x * RenderDataOut.y)/4000);
 				
 				}
 				
