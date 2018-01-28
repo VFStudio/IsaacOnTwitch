@@ -21,7 +21,9 @@ D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Releas
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Release\TwitсhToIsaac.pdb
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Release\websocket-sharp.dll
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Release\MaterialDesignColors.pdb
-D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Release\TwitchLib.xml
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Release\Overlay.g.cs
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Release\Overlay.baml
 D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Release\TwitchToIsaac.csprojResolveAssemblyReference.cache
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Release\SuperSocket.ClientEngine.dll
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\bin\Release\WebSocket4Net.dll
+D:\Dev\FastSolution\IsaacOnTwitch\TwitchToIsaac source\TwitсhToIsaac\obj\Release\TwitchToIsaac.csproj.CoreCompileInputs.cache

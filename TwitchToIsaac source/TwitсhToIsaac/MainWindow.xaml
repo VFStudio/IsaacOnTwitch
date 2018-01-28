@@ -160,9 +160,8 @@
                     <TextBox x:Name="TRender_secondY" Style="{DynamicResource MaterialDesignTextBox}" Text="256" FontSize="13" HorizontalAlignment="Left" Width="65" PreviewTextInput="NumberValidationTextBox" TextChanged="TRender_second_TextChanged"/>
                     <Button x:Name="BRender_resetSecondLine" Content="Reset" HorizontalAlignment="Center" Height="24" Margin="25,0,0,0" Width="70" Click="BRender_resetSecondLine_Click"/>
                 </DockPanel>
-
-                <Button x:Name="BRender_save" Content="Save" HorizontalAlignment="Center" Margin="0,28,0,0" Click="BRender_save_Click"/>
-                <TextBlock FontSize="12" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,5,0,0" >The settings take effect immediately, even during game</TextBlock>
+                <CheckBox x:Name="BRender_shaders" Content="Disable shaders" HorizontalAlignment="Center" Margin="4,8,0,0" VerticalAlignment="Top" ToolTip="Check it, if you see blackscreen"/>
+                <Button x:Name="BRender_save" Content="Save" HorizontalAlignment="Center" Margin="0,16,0,0" Click="BRender_save_Click"/>
             </StackPanel>
 
         </materialDesign:Card>
@@ -191,7 +190,7 @@
         <materialDesign:Card x:Name="Card_About" VerticalAlignment="Bottom" Margin="5,0,5,5" Height="381" Padding="10" Visibility="Hidden">
 
             <StackPanel VerticalAlignment="Top" Margin="10">
-                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="18" VerticalAlignment="Top" Padding="0">Isaac On Twitch v2.0 - Pog Champ Update</TextBlock>
+                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="18" VerticalAlignment="Top" Padding="0">Isaac On Twitch v2.1 - Final Fix Update</TextBlock>
 
                 <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="0" FontSize="16" VerticalAlignment="Top">Mod links</TextBlock>
                 <DockPanel Margin="0,5,0,0">

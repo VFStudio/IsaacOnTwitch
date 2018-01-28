@@ -13,6 +13,7 @@ using TwitchLib.Services;
 using TwitchLib.Events.Client;
 using TwitchToIsaac.Classes;
 using TwitchToIsaac;
+using TwitchLib.Interfaces;
 
 namespace TwitсhToIsaac.Classes
 {
@@ -38,6 +39,7 @@ namespace TwitсhToIsaac.Classes
         static Queue<ActionBits> Bits = new Queue<ActionBits>();
         static Queue<int> Interrupts = new Queue<int>();
         static List<string> SubCache = new List<string>();
+        static TwitchAPI tapi = new TwitchAPI("vtr91vw1dzji7piypq7r13itr6is2i");
         
         static double lastInterruptHash = 0;
         static int nowInterrupt;
@@ -245,7 +247,7 @@ namespace TwitсhToIsaac.Classes
                     FollowerScan.StopService();
 
                 
-                    FollowerScan = new FollowerService(30, 25, apikeyTwitch);
+                    FollowerScan = new FollowerService(tapi, 30, 25, apikeyTwitch);
                     FollowerScan.OnNewFollowersDetected += FollowerScan_OnNewFollowersDetected;
                     FollowerScan.OnServiceStarted += FollowerScan_OnServiceStarted;
                     FollowerScan.OnServiceStopped += FollowerScan_OnServiceStopped;
@@ -282,12 +284,12 @@ namespace TwitсhToIsaac.Classes
             if (!SpecialAppear.followers)
                 return;
 
-            foreach (string f in e.NewFollowers)
+            foreach (IFollow f in e.NewFollowers)
             {
-                if (!SubCache.Contains(f.ToLower()))
+                if (!SubCache.Contains(f.User.DisplayName.ToLower()))
                 {
-                    Subs.Enqueue(new ActionSub(f, rnd.Next(), true));
-                    SubCache.Add(f.ToLower());
+                    Subs.Enqueue(new ActionSub(f.User.DisplayName, rnd.Next(), true));
+                    SubCache.Add(f.User.DisplayName.ToLower());
                 }
             }
         }
@@ -659,6 +661,7 @@ namespace TwitсhToIsaac.Classes
             Gifts.Add("grizzlyguygaming", "Grizzly claw");
             Gifts.Add("hellyeahplay,UCMpHpyOyoYj_7uei_sF342Q", "Inverted Cross");
             Gifts.Add("vitecp,UCXHczq_8PytR6mEJeUTTrqw", "UC's stem");
+            Gifts.Add("melharucos", "Spider eye");
         }
     }
 

@@ -1,4 +1,3 @@
--- Before you start reading the source code, I want to say - i really hate this API. It's absolutely shit. Documentation? No, fuck you! Stability? Fuck out! JUST NORMAL WORK? No, take this over9000 bugs and fuck off! It's most ugly thing, with that I had to work. Good job, Isaac DevTeam. Thank you from community.
 
 local IOTmod = RegisterMod("IsaacOnTwitch", 1);
 local require = require;
@@ -188,6 +187,7 @@ local TI_junkey = Isaac.GetTrinketIdByName ("Rabbit paw")
 local TI_grizzly = Isaac.GetTrinketIdByName ("Grizzly claw")
 local TI_hellyeah = Isaac.GetTrinketIdByName ("Inverted Cross")
 local TI_vitecp = Isaac.GetTrinketIdByName ("UC's stem")
+local TI_melharucos = Isaac.GetTrinketIdByName ("Spider eye")
 
 local PI_kappa_num = 0
 local PI_goldenKappa_num = 0
@@ -1545,6 +1545,19 @@ function IOTmod:T_RoomChanged(room)
     end
   end
   
+    --If player hold Melharucos
+  if (p:ToPlayer():HasTrinket(TI_melharucos)) then
+    local entities = Isaac.GetRoomEntities()
+    for k, v in pairs(entities) do
+      if (v:IsActiveEnemy(false) and math.random(1,8) == 1) then
+        local ref = EntityRef(p)
+        entities[i]:AddPoison(ref, math.random(100,300), 0.25)
+      end
+    end
+    
+    p:AddBlueSpider(p.Position)
+  end
+  
   if (p:ToPlayer():HasTrinket(TI_rekvi) and not room:IsClear()) then
     
     if (math.random(1,3) == 1) then
@@ -1886,15 +1899,6 @@ function IOTmod:relaunchGame (p)
   
   twitchHearts = 0
   
-  statStorage = {
-    speed = 0,
-    range = 0,
-    tears = 0,
-    tearspeed = 0,
-    damage = 0,
-    luck = 0
-  }
-  
   nowEvent = {
     active = false,
     ontime = false,
@@ -1932,9 +1936,6 @@ function IOTmod:relaunchGame (p)
     }
     
   }
-
-  p:AddCacheFlags(CacheFlag.CACHE_ALL)
-  p:EvaluateItems()
   
   twitchRoomIndex = -999
   if (math.random() < 0.15) then twitchRoomGenOnStage = true end
@@ -1993,6 +1994,18 @@ function IOTmod:relaunchGame (p)
   for k, v in pairs(TEventStorage) do
     if (v.onover ~= nil) then v.onover() end
   end
+  
+  statStorage = {
+    speed = 0,
+    range = 0,
+    tears = 0,
+    tearspeed = 0,
+    damage = 0,
+    luck = 0
+  }
+  
+  p:AddCacheFlags(CacheFlag.CACHE_ALL)
+  p:EvaluateItems()
   
   TEventStorage = {}
   
@@ -3531,6 +3544,7 @@ function SpecialEvents:Spiderman()
         local laser = EntityLaser.ShootAngle(2, p.Position, entities[i].Position:__sub(p.Position):GetAngleDegrees(), 1, Vector(0,0), p)
         laser.MaxDistance = entities[i].Position:Distance(p.Position)
         laser:SetColor(Color(1,1,1,1,255,255,255), 0, 0, false, false)
+        return;
       end
     end
     
@@ -3553,7 +3567,7 @@ function SpecialEvents:StaticElectricity()
     entity1 = entities[math.random(1, #entities)]
     entity2 = entities[math.random(1, #entities)]
     
-    if (math.random(1,30) ~= 5 or entity1.Type == EntityType.ENTITY_PLAYER or entity2.Type == EntityType.ENTITY_PLAYER) then return end
+    if (math.random(1,20) ~= 5 or entity1.Type == EntityType.ENTITY_PLAYER or entity2.Type == EntityType.ENTITY_PLAYER) then return end
     
     local laser = EntityLaser.ShootAngle(2, entity1.Position, entity2.Position:__sub(entity1.Position):GetAngleDegrees(), 5, Vector(0,0), nil)
     laser.MaxDistance = entity2.Position:Distance(entity1.Position)
@@ -4178,12 +4192,13 @@ function IOTmod:GetShaderParams(shaderName)
   
   if (shaderName == "Blink") then
     local params
-    if (EV_scp173_active) then params = {Time = math.abs(EV_scp173_btime)} else params = {Time = 1} end
+    if (EV_scp173_active ~= nil and EV_scp173_active) then params = {Time = math.abs(EV_scp173_btime)} else params = {Time = 1} end
     return params;
   end
   
   if (shaderName == "ScreenRotate") then
     local params
+    if (EV_PointOfView_Pos == nil) then EV_PointOfView_Pos = 0 end
     params = {Pos = EV_PointOfView_Pos}
     return params;
   end
@@ -4191,18 +4206,31 @@ function IOTmod:GetShaderParams(shaderName)
   if (shaderName == "VHS") then
     local params
     params = {Enabled = 1, VHSPos = (Isaac.GetFrameCount()%150)/150}
-    if (EV_rewind_play) then params.Enabled = 1 else params.Enabled = 0 end
+    if (EV_rewind_play ~= nil and EV_rewind_play) then params.Enabled = 1 else params.Enabled = 0 end
     return params;
   end
   
   if (shaderName == "ColorSides") then
     local params
+    
+    if (EV_shader_ScreenSide_enabled == nil) then
+        EV_shader_ScreenSide_enabled = 0
+        EV_shader_ScreenSide_intensity = 0
+        EV_shader_ScreenSide_color = 0
+      end
+    
     params = {Enabled = EV_shader_ScreenSide_enabled, Intensity = EV_shader_ScreenSide_intensity, VColor = EV_shader_ScreenSide_color}
     return params;
   end
   
   if (shaderName == "Glitch") then
     local params
+    
+    if (EV_ddos_enabled == nil) then
+        EV_ddos_enabled = 0
+        EV_ddos_time = 0
+      end
+    
     params = {Enabled = EV_ddos_enabled, GlitchPos = EV_ddos_time}
     
     return params;
@@ -4211,6 +4239,11 @@ function IOTmod:GetShaderParams(shaderName)
   if (shaderName == "DeepDark") then
     local params
     local pos = Isaac.WorldToScreen(Isaac.GetPlayer(0).Position)
+    
+    if (EV_deepdark_enabled == nil) then
+        EV_deepdark_enabled = 0
+      end
+    
     params = {Enabled = EV_deepdark_enabled, PlayerPos = { pos.X, pos.Y }}
     
     return params;
@@ -4219,6 +4252,12 @@ function IOTmod:GetShaderParams(shaderName)
   if (shaderName == "Zoom") then
     local params
     local pos = Isaac.WorldToScreen(Isaac.GetPlayer(0).Position)
+    
+    if (EV_brokenlens_enabled == nil) then
+        EV_brokenlens_enabled = 0
+        EV_brokenlens_intensity = 0
+      end
+    
     params = {Enabled = EV_brokenlens_enabled, PlayerPos = { pos.X, pos.Y }, Intensity = math.abs(EV_brokenlens_intensity)}
     
     return params;

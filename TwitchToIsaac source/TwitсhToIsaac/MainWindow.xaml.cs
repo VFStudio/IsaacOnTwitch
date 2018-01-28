@@ -85,7 +85,12 @@ namespace TwithToIsaac
             if (s != null)
                 MessageBox.Show("New version available - " + s + "! Go to tab 'About' and download it!", "New version");
 
-            
+
+            if (File.Exists("../content/shaders.xml"))
+                BRender_shaders.IsChecked = false;
+            else
+                BRender_shaders.IsChecked = true;
+
         }
 
         private void ChangeTabButton_click(object sender, RoutedEventArgs e)
@@ -356,6 +361,17 @@ namespace TwithToIsaac
 
         private void BRender_save_Click(object sender, RoutedEventArgs e)
         {
+
+            if (BRender_shaders.IsChecked == true && File.Exists("../content/shaders.xml"))
+            {
+                File.Move("../content/shaders.xml", "../content/disabled.shaders.xml.disabled");
+            }
+
+            if (BRender_shaders.IsChecked == false && File.Exists("../content/disabled.shaders.xml.disabled"))
+            {
+                File.Move("../content/disabled.shaders.xml.disabled", "../content/shaders.xml");
+            }
+
             SettingsLoader.s.firstline.x = TRender_firstX.Text;
             SettingsLoader.s.firstline.y = TRender_firstY.Text;
             SettingsLoader.s.secondline.x = TRender_secondX.Text;

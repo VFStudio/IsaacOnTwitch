@@ -13,7 +13,7 @@
   
   <active maxcharges="6" description="Fire in the hole!" gfx="Collectibles_TwitchRaid.png" name="Twitch Raid" />
   <active maxcharges="1" description="Take a pic" gfx="Collectibles_TTours.png" name="TTours" />
-  <active maxcharges="3" description="Decline it" gfx="Collectibles_VoteNay.png" name="Vote Nay" />
+  <active maxcharges="12" description="Decline it" gfx="Collectibles_VoteNay.png" name="Vote Nay" />
   <active maxcharges="6" description="Accept it" gfx="Collectibles_VoteYea.png" name="Vote Yea" />
   <active maxcharges="6" description="Bring the apocalypse!" gfx="Collectibles_GOWSkull.png" name="GOW Skull" />
   
@@ -36,6 +36,7 @@
   <trinket description="What's up?" gfx="Trinket_twitch_Grizzly.png" name="Grizzly claw" /> <!-- GrizzlyGuy -->
   <trinket description="Chat's making me burn" gfx="Trinket_twitch_HellYeah.png" name="Inverted Cross" /> <!-- HellYeah -->
   <trinket description="His eyes are filled with madness" gfx="Trinket_twitch_Vitecp.png" name="UC's stem" /> <!-- VitecP -->
+  <trinket description="Minecraft - it's my life, bitch. MINECRAAAFT!!!!!" gfx="Trinket_twitch_Melharucos.png" name="Spider eye" /> <!-- VitecP -->
   
   <active maxcharges="0" description="EEEEEEDMUUUUND!!!" gfx="Collectibles_Debug.png" name="DEBUG ITEM" isaacontwitch="false"/>
 </items>
